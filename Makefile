@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vjovanov <vjovanov@student.s19.be>         +#+  +:+       +#+         #
+#    By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/02 17:27:09 by vjovanov          #+#    #+#              #
-#    Updated: 2018/11/02 17:27:11 by vjovanov         ###   ########.fr        #
+#    Updated: 2018/11/10 15:20:04 by vjovanov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,8 @@ OBJ= $(subst .c,.o,$(SRCS))
 INC_DIR= includes/
 
 LIBFT_SRCS= ft_memdel.c
-LIBFT_SRCS_DIR= $(addprefix libft/srcs/, $(LIBFT_SRCS))
 LIBFT_OBJ=$(subst .c,.o, $(LIBFT_SRCS))
+LIBFT_OBJ_DIR=$(addprefix libft/, $(LIBFT_OBJ))
 
 GCC= gcc
 WFLAGS= -Wall -Werror -Wextra
@@ -29,14 +29,17 @@ WFLAGS= -Wall -Werror -Wextra
 all: $(NAME)
 
 $(NAME):
-	@$(GCC) $(WFLAGS) -c $(SRCS_DIR) $(LIBFT_SRCS_DIR) -I $(INC_DIR)
-	@ar rc $(LIB_NAME) $(OBJ) $(LIBFT_OBJ)
+	@make -C libft/ re
+	@$(GCC) $(WFLAGS) -c $(SRCS_DIR) -I $(INC_DIR)
+	@ar rc $(LIB_NAME) $(OBJ) $(LIBFT_OBJ_DIR)
 	@ranlib $(LIB_NAME)
 
 clean:
-	@rm -Rf $(OBJ) $(LIBFT_OBJ)
+	@make -C libft/ clean
+	@rm -Rf $(OBJ) $(LIBFT_OBJ_DIR)
 
-fclean: clean	
+fclean: clean
+	@make -C libft/ fclean	
 	@rm -Rf $(LIB_NAME)
 
 re: fclean all
