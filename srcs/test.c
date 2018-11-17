@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
+/*   By: bjovanov <bjovanov@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 22:42:37 by bjovanov          #+#    #+#             */
-/*   Updated: 2018/11/17 12:57:27 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/11/17 23:24:04 by bjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int		ft_printf(const char *format, ...)
 
 int		main(void)
 {
-	long long int a = 50;
-	printf("%*.*lld\n",65, 45, a);
+	printf("% +-45.33d\n", 14);
 	return (0);
 }

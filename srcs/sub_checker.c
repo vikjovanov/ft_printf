@@ -3,32 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   sub_checker.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
+/*   By: bjovanov <bjovanov@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 21:00:53 by vjovanov          #+#    #+#             */
-/*   Updated: 2018/11/17 21:10:18 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/11/17 22:45:15 by bjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	flag_cmp(const char *sub, int i)
+static int	flag_o_cmp(int *comp, const t_config *id)
 {
-	int		comp[2];
-	int		ret;
-	int		j;
-
-	j = -1;
-	ft_intset(comp, 2, 0);
-	if ((ret = is_flag(&(sub[0]))) > 0)
+	while (get_flags()[comp[2]][0] != id->accepted_flags[comp[0]][0])
+		comp[2]++;
+	while (get_flags()[comp[3]][0] != id->accepted_flags[comp[1]][0])
+		comp[3]++;
+	printf("comp 2 : %d\n", comp[2]);
+	printf("comp 3 : %d\n", comp[3]);
+	if (comp[2] > comp[3])
 	{
-		while (sub[0] != get_identifiers()[i].accepted_flags[++j][0])
-			comp[0] = j;
-		j = -1;
-		while (sub[ret] != get_identifiers()[i].accepted_flags[++j][0])
-			comp[1] = j;
-		if (comp[0] > comp[1])
-			return (0);
+		printf("Erreur\n");
+		return (0);
+	}
+	return (1);
+}
+
+static int	flag_cmp(const char *sub, const t_config *id)
+{
+	int		comp[4];
+	int		ret;
+
+	ft_intset(comp, 4, 0);
+	if ((ret = is_flag(&(sub[0]))) > 0 &&
+		is_acceptable_flag(id->identifier, sub[0]) &&
+		is_acceptable_flag(id->identifier, sub[ret]))
+	{
+		printf("AA\n");
+		while (sub[0] != id->accepted_flags[comp[0]][0])
+			comp[0]++;
+		while (sub[ret] != id->accepted_flags[comp[1]][0])
+			comp[1]++;
+		if ((id->accepted_flags[comp[0]][0] == ' ' && id->accepted_flags[comp[1]][0] == '#')
+		|| (id->accepted_flags[comp[1]][0] == ' ' && id->accepted_flags[comp[0]][0] == '#'))
+			return (1);
+		printf("comp 0 : %d\n", comp[0]);
+	printf("comp 1 : %d\n", comp[1]);
+		return (flag_o_cmp(comp, id));
 	}
 	return (1);
 }
@@ -46,7 +66,7 @@ static int	check_flag_order(const char *sub, int nb_flag)
 		i++;
 	while (nb_flag - 1 > 0)
 	{
-		if (!(flag_cmp(&(sub[ret]), i)))
+		if (!(flag_cmp(&(sub[ret]), get_identifiers() + i)))
 			return (0);
 		nb_flag--;
 		ret = is_flag(&(sub[ret]));
@@ -79,6 +99,7 @@ static int	check_sub_order(const char *sub)
 			return (0);
 		i += ret;
 	}
+	printf("Nb flag: %d\n", flag);
 	return ((flag > 1) ? check_flag_order(sub, flag) : 1);
 }
 
