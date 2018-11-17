@@ -6,7 +6,7 @@
 /*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 13:47:31 by vjovanov          #+#    #+#             */
-/*   Updated: 2018/11/17 18:46:07 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/11/17 19:24:14 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,8 @@ char		*fill_flags(char *s_fmt, va_list ap, int ret)
 
 	star = 0;
 	res = NULL;
-	printf("BB\n");
 	if (!(is_acceptable_flag(s_fmt[(int)ft_strlen(s_fmt) - 1], s_fmt[0])))
 		return (NULL);
-	printf("AA\n");
 	if (s_fmt[ret - 1] == '*')
 	{
 		star = (int)va_arg(ap, int);

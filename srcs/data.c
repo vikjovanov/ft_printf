@@ -6,7 +6,7 @@
 /*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 22:05:40 by bjovanov          #+#    #+#             */
-/*   Updated: 2018/11/17 18:32:03 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/11/17 19:23:12 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,30 +68,37 @@ static int		fill_data_extend(t_data *data, va_list ap, int i)
 	return (ret);
 }
 
+/*
+** i[0] = i
+** i[1] = j
+** i[2] = k
+** i[3] = ret
+*/
+
 void			fill_data(t_data *data, va_list ap)
 {
-	int i;
-	int j;
-	int k;
-	int ret;
-	char *tmp;
+	int		i[4];
+	char	*tmp;
 
-	i = 1;
-	j = 0;
-	k = 0;
-	ret = 0;
+	ft_intset(i, 4, 0);
+	i[0] = 1;
 	tmp = NULL;
-	while (data->s_fmt[i])
+	while (data->s_fmt[i[0]])
 	{
-		if ((ret = is_flag((const char*)&(data->s_fmt[i]))) > 0 &&
-			(tmp = fill_flags(&(data->s_fmt[i]), ap ,ret)) != NULL)
-			data->flags[j++] = tmp;
-		else if ((ret = is_conversion_flag((const char*)&(data->s_fmt[i]))) > 0 &&
-			(tmp = fill_conv_flags(&(data->s_fmt[i]), ret)) != NULL)
-			data->conversion_flags[k++] = tmp;
-		else 
-			ret = fill_data_extend(data, ap, i);
-		i += ret;
+		if ((i[3] = is_flag((const char*)&(data->s_fmt[i[0]]))) > 0)
+		{
+			if ((tmp = fill_flags(&(data->s_fmt[i[0]]), ap ,i[3])) != NULL)
+				data->flags[i[1]++] = tmp;
+		}
+		else if ((i[3] = is_conversion_flag(
+			(const char*)&(data->s_fmt[i[0]]))) > 0)
+		{
+			if ((tmp = fill_conv_flags(&(data->s_fmt[i[0]]), i[3])) != NULL)
+				data->conversion_flags[i[2]++] = tmp;
+		}
+		else
+			i[3] = fill_data_extend(data, ap, i[0]);
+		i[0] += i[3];
 	}
 	tmp = NULL;
 }

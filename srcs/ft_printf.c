@@ -6,7 +6,7 @@
 /*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/02 18:11:46 by vjovanov          #+#    #+#             */
-/*   Updated: 2018/11/17 18:45:37 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/11/17 21:01:17 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,51 +36,6 @@
 ** steps[2] = precision
 ** steps[3] = conversion_flags
 */
-
-static int	check_sub_order(const char *sub)
-{
-	int steps[4];
-	int i;
-	int ret;
-
-	ret = 0;
-	i = 0;
-	ft_intset(steps, 4, 0);
-	while (sub[i] && !is_identifier(sub[i]))
-	{
-		if (steps[0] != 1 && (ret = is_flag(&(sub[i]))) > 0)
-			ret = ret;
-		else if (steps[1] != 1 && (ret = is_min_field_width(&(sub[i]))) > 0)
-			ft_intset(steps, 2, 1);
-		else if (steps[2] != 1 && (ret = is_precision(&(sub[i]))) > 0)
-			ft_intset(steps, 3, 1);
-		else if (steps[3] != 1 && (ret = is_conversion_flag(&(sub[i]))) > 0)
-			ft_intset(steps, 4, 1);
-		else
-			return (0);
-		i += ret;
-	}
-	return (1);
-}
-
-static int	check_sub(const char *sub)
-{
-	int i;
-	int ret;
-
-	i = 0;
-	ret = 0;
-	while(sub[i] && !is_identifier(sub[i]))
-	{
-		if ((ret = is_flag(&(sub[i]))) == 0 &&
-			(ret = is_conversion_flag(&(sub[i]))) == 0 &&
-			(ret = is_precision(&(sub[i]))) == -1 &&
-			(ret = is_min_field_width(&(sub[i]))) == 0)
-			return (0);
-		i += ret;
-	}
-	return (check_sub_order(sub));
-}
 
 static void	formatting(const char *format, t_data *data, va_list ap)
 {
@@ -122,6 +77,7 @@ int			ft_printf(const char *format, ...)
 
 		i++;
 	}
+	printf("======\n");
 	printf("sub_format : %s\n", data.s_fmt);
 	printf("identifier : %c\n", data.identifier);
 	
@@ -139,6 +95,8 @@ int			ft_printf(const char *format, ...)
 	
 	printf("precision : %s\n", data.precision);
 	printf("min_field_width : %s\n", data.min_field_width);
+	//printf("value : %d\n", *((int*)data.value));
+	printf("=======\n");
 	va_end(ap);
 
 	return 0;

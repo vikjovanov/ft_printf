@@ -6,7 +6,7 @@
 #    By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/02 17:27:09 by vjovanov          #+#    #+#              #
-#    Updated: 2018/11/17 18:55:07 by vjovanov         ###   ########.fr        #
+#    Updated: 2018/11/17 21:08:05 by vjovanov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ LIB_NAME= libftprintf.a
 
 # SOURCE FILES
 
-SRCS= ft_printf.c fill_data.c data.c config_checker.c config.c
+SRCS= ft_printf.c fill_data.c data.c config_checker.c config.c sub_checker.c
 SRCS_DIR= $(addprefix srcs/, $(SRCS))
 
 #OBJ
@@ -41,7 +41,7 @@ OBJ_CONVERT = $(subst .c,.o, $(SRCS_CONVERT))
 LIBFT_SRCS= ft_intset.c ft_strsub.c ft_strjoin.c ft_isdigit.c \
 			ft_strlen.c ft_strncmp.c ft_strnequ.c ft_itoa.c \
 			ft_strnew.c ft_memset.c ft_strdup.c ft_memalloc.c ft_strdel.c \
-			ft_memdel.c
+			ft_memdel.c ft_array_length.c
 LIBFT_SRCS_DIR=$(addprefix libft/srcs/, $(LIBFT_SRCS))
 
 #OBJ
@@ -51,6 +51,7 @@ LIBFT_OBJ_DIR=$(addprefix libft/, $(LIBFT_OBJ))
 #####
 
 INC_DIR= includes/
+INC_DIR_LIBFT= libft/includes
 
 GCC= gcc
 WFLAGS= -Wall -Werror -Wextra
@@ -59,7 +60,7 @@ all: $(NAME)
 
 $(NAME):
 	@make --no-print-directory -C libft/ re
-	@$(GCC) $(WFLAGS) -c $(SRCS_DIR) $(SRCS_CONVERT_DIR) $(LIBFT_SRCS_DIR) -I $(INC_DIR)
+	@$(GCC) $(WFLAGS) -c $(SRCS_DIR) $(SRCS_CONVERT_DIR) $(LIBFT_SRCS_DIR) -I $(INC_DIR) -I $(INC_DIR_LIBFT)
 	@ar rc $(LIB_NAME) $(OBJ) $(LIBFT_OBJ_DIR) $(OBJ_CONVERT)
 	@ranlib $(LIB_NAME)
 

@@ -2,6 +2,6 @@
 
 int		main()
 {
-	ft_printf("%#s", 45);
+	ft_printf("%032#d", 54);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 15:20:07 by vjovanov          #+#    #+#             */
-/*   Updated: 2018/11/17 18:48:18 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/11/17 21:10:54 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,8 @@ int		is_acceptable_flag(char identifier, char flag)
 	i = 0;
 	while (g_identifiers[i].identifier != identifier)
 		i++;
-	printf("CC\n");
 	j = 0;
-	while (j < NB_FLAGS)
+	while (j < ft_array_length((void**)g_identifiers[i].accepted_flags))
 	{
 		if (g_identifiers[i].accepted_flags[j][0] == flag)
 			return (1);
@@ -80,7 +79,8 @@ int		is_acceptable_conv_flag(char identifier, char *flag, int len)
 	i = 0;
 	while (g_identifiers[i].identifier != identifier)
 		i++;
-	while (j < NB_CONVERSION_FLAGS)
+	while (j < ft_array_length(
+		(void**)g_identifiers[i].accepted_conversion_flag))
 	{
 		if (ft_strnequ(g_identifiers[i].accepted_conversion_flag[j],
 			flag, len))
