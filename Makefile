@@ -6,7 +6,7 @@
 #    By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/02 17:27:09 by vjovanov          #+#    #+#              #
-#    Updated: 2018/11/17 17:37:27 by vjovanov         ###   ########.fr        #
+#    Updated: 2018/11/17 18:55:07 by vjovanov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,7 @@ $(NAME):
 
 clean:
 	@make --no-print-directory -C libft/ clean
-	@rm -Rf $(OBJ) $(LIBFT_OBJ_DIR) $(OBJ_CONVERT)
+	@rm -Rf $(OBJ) $(LIBFT_OBJ) $(OBJ_CONVERT)
 
 fclean: clean
 	@make --no-print-directory -C libft/ fclean	
