@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   config.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjovanov <bjovanov@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 15:20:07 by vjovanov          #+#    #+#             */
-/*   Updated: 2018/11/17 00:10:25 by bjovanov         ###   ########.fr       */
+/*   Updated: 2018/11/17 11:57:14 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,19 @@ const char			*g_flags = {
 };
 
 const char			*g_conversion_flags = {
-	"hh", "h", "l", "ll", "L"
+	"hh", "h", "ll", "l", "L"
 };
 
 const t_config		g_identifiers[NB_IDENTIFIERS] = {
 	{'c', {"#", "0", "+", "-", " "}, {}, &convert_char, "char"},
 	{'s', {"#", "0", "+", "-", " "}, {}, &convert_string, "string"},
 	{'p', {"#", "0", "+", "-", " "}, {}, &convert_pointer, "void*"},
-	{'d', {"#", "0", "+", "-", " "}, {"hh", "h", "l", "ll"}, &convert_int, "int"},
-	{'i', {"#", "0", "+", "-", " "}, {"hh", "h", "l", "ll"}, &convert_int, "int"},
-	{'o', {"#", "0", "+", "-", " "}, {"hh", "h", "l", "ll"}, &convert_octal, "unsigned int"},
-	{'u', {"#", "0", "+", "-", " "}, {"hh", "h", "l", "ll"}, &convert_unsigned, "unsigned int"},
-	{'x', {"#", "0", "+", "-", " "}, {"hh", "h", "l", "ll"}, &convert_hexa, "unsigned int"},
-	{'X', {"#", "0", "+", "-", " "}, {"hh", "h", "l", "ll"}, &convert_hexa_upper, "unsigned int"},
+	{'d', {"#", "0", "+", "-", " "}, {"hh", "h", "ll", "l"}, &convert_int, "int"},
+	{'i', {"#", "0", "+", "-", " "}, {"hh", "h", "ll", "l"}, &convert_int, "int"},
+	{'o', {"#", "0", "+", "-", " "}, {"hh", "h", "ll", "l"}, &convert_octal, "unsigned int"},
+	{'u', {"#", "0", "+", "-", " "}, {"hh", "h", "ll", "l"}, &convert_unsigned, "unsigned int"},
+	{'x', {"#", "0", "+", "-", " "}, {"hh", "h", "ll", "l"}, &convert_hexa, "unsigned int"},
+	{'X', {"#", "0", "+", "-", " "}, {"hh", "h", "ll", "l"}, &convert_hexa_upper, "unsigned int"},
 	{'f', {"#", "0", "+", "-", " "}, {"l", "L"}, &convert_double, "double"},
 };
 
@@ -62,7 +62,9 @@ int		is_flag(char *c)
 	j = 0;
 	if (*c == '0' || *c == '-')
 	{
-		while(ft_isdigit(c[j + 1]) && *c != '\0')
+		if (c[j + 1] == '*')
+			return (2);
+		while((ft_isdigit(c[j + 1]) && *c != '\0'))
 			j++;
 		return (j + 1);
 	}
@@ -98,6 +100,8 @@ int		is_precision(char *c)
 	nb_digits = 0;
 	if (*c == '.')
 	{
+		if (*(c + 1) == '*')
+			return (2);
 		while (ft_isdigit(*(c + 1)))
 			nb_digits++;
 		return (nb_digits);
@@ -110,6 +114,8 @@ int		is_min_field_width(char *c)
 	int i;
 
 	i = 0;
+	if (*c == '*')
+		return (1);
 	while (ft_isdigit(*c) && *c != '\0')
 		i++;
 	return (i);
