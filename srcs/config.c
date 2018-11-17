@@ -6,7 +6,7 @@
 /*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 15:20:07 by vjovanov          #+#    #+#             */
-/*   Updated: 2018/11/17 11:57:14 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/11/17 18:48:18 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@
 **  pointer to the conversion function, value_type}
 */
 
-const char			*g_flags = {
+const char			*g_flags[NB_FLAGS] = {
 	"#", "0", "+", "-", " "
 };
 
-const char			*g_conversion_flags = {
+const char			*g_conversion_flags[NB_CONVERSION_FLAGS] = {
 	"hh", "h", "ll", "l", "L"
 };
 
 const t_config		g_identifiers[NB_IDENTIFIERS] = {
 	{'c', {"#", "0", "+", "-", " "}, {}, &convert_char, "char"},
-	{'s', {"#", "0", "+", "-", " "}, {}, &convert_string, "string"},
+	{'s', {"0", "+", "-", " "}, {}, &convert_string, "string"},
 	{'p', {"#", "0", "+", "-", " "}, {}, &convert_pointer, "void*"},
 	{'d', {"#", "0", "+", "-", " "}, {"hh", "h", "ll", "l"}, &convert_int, "int"},
 	{'i', {"#", "0", "+", "-", " "}, {"hh", "h", "ll", "l"}, &convert_int, "int"},
@@ -38,85 +38,54 @@ const t_config		g_identifiers[NB_IDENTIFIERS] = {
 	{'f', {"#", "0", "+", "-", " "}, {"l", "L"}, &convert_double, "double"},
 };
 
-
-int		is_identifier(char c)
+const char **get_flags()
 {
-	int i;
-
-	i = 0;
-	while (i < NB_IDENTIFIERS)
-	{
-		if (g_identifiers[i].identifier == c)
-			return (1);
-		i++;
-	}
-	return (0);
+	return (g_flags);
 }
 
-int		is_flag(char *c)
+const char **get_conversion_flags()
+{
+	return (g_conversion_flags);
+}
+
+const t_config *get_identifiers()
+{
+	return (g_identifiers);
+}
+
+int		is_acceptable_flag(char identifier, char flag)
 {
 	int i;
 	int j;
 
 	i = 0;
+	while (g_identifiers[i].identifier != identifier)
+		i++;
+	printf("CC\n");
 	j = 0;
-	if (*c == '0' || *c == '-')
+	while (j < NB_FLAGS)
 	{
-		if (c[j + 1] == '*')
-			return (2);
-		while((ft_isdigit(c[j + 1]) && *c != '\0'))
-			j++;
-		return (j + 1);
-	}
-	while (i < NB_FLAGS)
-	{
-		if (*c == g_flag[i])
+		if (g_identifiers[i].accepted_flags[j][0] == flag)
 			return (1);
-		i++;
+		j++;
 	}
 	return (0);
 }
 
-int		is_conversion_flag(char *c)
+int		is_acceptable_conv_flag(char identifier, char *flag, int len)
 {
 	int i;
-	size_t length;
+	int j;
 
 	i = 0;
-	while (i < NB_CONVERSION_FLAGS)
-	{
-		length = ft_strlen(g_conversion_flags[i]);
-		if (ft_strncmp(c, g_conversion_flags[i], length) == 0)
-			return ((int)length);
+	while (g_identifiers[i].identifier != identifier)
 		i++;
+	while (j < NB_CONVERSION_FLAGS)
+	{
+		if (ft_strnequ(g_identifiers[i].accepted_conversion_flag[j],
+			flag, len))
+			return (1);
+		j++;
 	}
 	return (0);
-}
-
-int		is_precision(char *c)
-{
-	int nb_digits;
-
-	nb_digits = 0;
-	if (*c == '.')
-	{
-		if (*(c + 1) == '*')
-			return (2);
-		while (ft_isdigit(*(c + 1)))
-			nb_digits++;
-		return (nb_digits);
-	}
-	return (-1);
-}
-
-int		is_min_field_width(char *c)
-{
-	int i;
-
-	i = 0;
-	if (*c == '*')
-		return (1);
-	while (ft_isdigit(*c) && *c != '\0')
-		i++;
-	return (i);
 }
