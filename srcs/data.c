@@ -6,7 +6,7 @@
 /*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 22:05:40 by bjovanov          #+#    #+#             */
-/*   Updated: 2018/11/17 19:23:12 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/11/18 12:54:14 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void			set_data(t_data *data)
 		ft_strdel(&(data->min_field_width));
 		ft_strdel(&(data->s_fmt));
 		ft_strdel(&(data->value_format));
-		ft_memdel(&(data->value));
+		//ft_memdel(&(data->value));
 	}
 	else
 		set_data_to_null(data, &first);
@@ -100,5 +100,6 @@ void			fill_data(t_data *data, va_list ap)
 			i[3] = fill_data_extend(data, ap, i[0]);
 		i[0] += i[3];
 	}
+	caster(data, ap);
 	tmp = NULL;
 }

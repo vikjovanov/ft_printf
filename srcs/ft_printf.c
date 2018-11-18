@@ -6,7 +6,7 @@
 /*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/02 18:11:46 by vjovanov          #+#    #+#             */
-/*   Updated: 2018/11/17 21:01:17 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/11/18 12:15:35 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int			ft_printf(const char *format, ...)
 
 		i++;
 	}
+	printf("\n");
 	printf("======\n");
 	printf("sub_format : %s\n", data.s_fmt);
 	printf("identifier : %c\n", data.identifier);
@@ -97,6 +98,8 @@ int			ft_printf(const char *format, ...)
 	printf("min_field_width : %s\n", data.min_field_width);
 	//printf("value : %d\n", *((int*)data.value));
 	printf("=======\n");
+	printf("\n");
+	
 	va_end(ap);
 
 	return 0;
