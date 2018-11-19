@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-char	*convert_unsigned(t_data *data)
+char	*convert_unsigned(t_data *data, unsigned long long value)
 {
 	return (data->s_fmt);
 }

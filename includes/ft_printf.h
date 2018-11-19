@@ -29,7 +29,7 @@ typedef struct 	s_data
 	char 		*precision;
 	char		*min_field_width;
 	char		*value_format;	
-	void		*value;
+	char		*value;
 	char		*s_fmt;
 }				t_data;
 
@@ -61,6 +61,10 @@ const char		**get_flags();
 const char		**get_conversion_flags();
 void			set_data(t_data *data);
 int				check_sub(const char *sub);
+void			set_int(t_data *data, va_list ap);
+void			set_unsigned_int(t_data *data, va_list ap);
+void			set_char(t_data *data, va_list ap);
+void			set_double(t_data *data, va_list ap);
 
 char			*convert_char(t_data *data);
 char			*convert_double(t_data *data);

@@ -77,6 +77,7 @@ int		is_acceptable_conv_flag(char identifier, char *flag, int len)
 	int j;
 
 	i = 0;
+	j = 0;
 	while (g_identifiers[i].identifier != identifier)
 		i++;
 	while (j < ft_array_length(

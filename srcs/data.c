@@ -100,6 +100,6 @@ void			fill_data(t_data *data, va_list ap)
 			i[3] = fill_data_extend(data, ap, i[0]);
 		i[0] += i[3];
 	}
-	caster(data, ap);
+	dispatcher(data, ap);
 	tmp = NULL;
 }
