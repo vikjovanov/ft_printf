@@ -1,7 +1,6 @@
 #include <stdio.h>
-#include <string.h>
-#include "includes/ft_printf.h"
-#include "float.h"
+#include "ft_printf.h"
+#include <limits.h>
 /*
 void		lel(long long a)
 {
@@ -58,13 +57,13 @@ int		main(void)
 	printf("%.5000f\n", FLT_MAX);
 	if (FLT_MIN == 0.000000000000000000000000000000000000011754943508222875079687365372222456778186655567720875215087517062784172594547271728515625)
 		printf("ok\n");*/
-	double  n = 3.54;
+	/*double  n = 3.54;
 	int		a = 3;
 
 	printf("%f\n", n - a);
 	n -= a;
 	n *= 10;
-	printf("%f\n", n);
+	printf("%f\n", n);*/
 	/*
 	double	n2;
 
@@ -82,5 +81,38 @@ int		main(void)
 		nb++;
 	}
 	printf("nb + 1 = %d\n", nb + 1);*/
+	/*
+	printf("ft_print_value\n");
+	printf("=============\n");
+	ft_printf("%.120f\n", 3.64454154154272424);
+	printf("=============\n");
+	printf("printf_value: %.120f\n", 3.64454154154272424);
+	*/
+	//int a = 5;
 
+	//ft_printf("%-p\n", &a);
+	/*printf("ret: %-20d\n", 98);
+	printf("ret: %-20f\n", 98.00);
+	printf("ret: %-20p\n", "Salut");
+	printf("ret: %-20x\n", 98);
+	printf("ret: %-20o\n", 98);
+	printf("ret: %025f\n", 98.95);
+	printf("ret: %025o\n", 98);
+	printf("x: %#025x\n", 98);
+	printf("X: %x\n", 98);
+	printf("ret: %025d\n", 98);
+	printf("ret: %025p\n", "Salut");
+	printf("prec: %.3d\n", 95);
+	printf("prec: %026.26d\n", 95);
+*/
+//	ft_printf("%-9s\n", "Salut");
+	/*while (i++ > INT_MAX)
+	{
+		printf("printf %-*s\n", i, "Salut");
+		printf("NB %-*s\n", i, "Salut");
+	}
+	*/
+	ft_printf("% 5d\n", -4545);
+	printf("value_printf: % 5d\n", 4545);
+	return (0);
 }

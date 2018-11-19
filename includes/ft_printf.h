@@ -6,7 +6,7 @@
 /*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/10 15:21:51 by vjovanov          #+#    #+#             */
-/*   Updated: 2018/11/19 13:57:24 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/11/19 22:52:59 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdio.h> // A SUPPRIMER
 # include "../libft/includes/libft.h"
 
+# define MAX_FIELD_WIDTH 2147483614
 # define NB_CONVERSION_FLAGS 5
 # define NB_FLAGS 5
 # define NB_IDENTIFIERS 10
@@ -38,7 +39,7 @@ typedef struct 	s_config
 	char		identifier;
 	char		*accepted_flags[NB_FLAGS];
 	char		*accepted_conversion_flag[NB_CONVERSION_FLAGS];
-	char		*(*f)(t_data*);
+	int			(*f)(t_data*);
 	char		*value_type;
 }				t_config;
 
@@ -47,8 +48,8 @@ char			*fill_conv_flags(char *s_fmt, int ret);
 char			*fill_precision(char *s_fmt, va_list ap, int ret);
 char			*fill_field_width(char *s_fmt, va_list ap, int ret);
 char			*fill_flags(char *s_fmt, va_list ap, int ret);
-void			fill_data(t_data *data, va_list ap);
-char			fill_id(char *s_fmt, t_data *data, va_list ap);
+int				fill_data(t_data *data, va_list ap);
+char			fill_id(char *s_fmt);
 int				is_acceptable_flag(char identifier, char flag);
 int				is_acceptable_conv_flag(char identifier, char *flag, int len);
 int				is_identifier(const char c);
@@ -59,22 +60,30 @@ int				is_min_field_width(const char *c);
 const t_config	*get_identifiers();
 const char		**get_flags();
 const char		**get_conversion_flags();
+int				has_flag(char *flag, char **flags);
 void			set_data(t_data *data);
 void			free_data(t_data *data);
 int				check_sub(const char *sub);
+int				dispatcher(t_data *data, va_list ap);
 void			set_int(t_data *data, va_list ap);
 void			set_unsigned_int(t_data *data, va_list ap);
 void			set_char(t_data *data, va_list ap);
 void			set_double(t_data *data, va_list ap);
 
-char			*convert_char(t_data *data);
-char			*convert_double(t_data *data);
-char			*convert_hexa(t_data *data);
-char			*convert_hexa_upper(t_data *data);
-char			*convert_int(t_data *data);
-char			*convert_octal(t_data *data);
-char			*convert_pointer(t_data *data);
-char			*convert_string(t_data *data);
-char			*convert_unsigned(t_data *data);
+
+int				convert_char(t_data *data);
+int				convert_double(t_data *data);
+int				convert_hexa(t_data *data);
+int				convert_hexa_upper(t_data *data);
+int				convert_int(t_data *data);
+int				convert_octal(t_data *data);
+int				convert_pointer(t_data *data);
+int				convert_string(t_data *data);
+int				convert_unsigned(t_data *data);
+
+int				generic_minus_flag(t_data *data, int flag_id);
+int				generic_plus_flag(t_data *data, int flag_id);
+int				generic_zero_flag(t_data *data, int flag_id);
+int				generic_space_flag(t_data *data, int flag_id);
 
 #endif

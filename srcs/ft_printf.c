@@ -6,7 +6,7 @@
 /*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/02 18:11:46 by vjovanov          #+#    #+#             */
-/*   Updated: 2018/11/19 14:02:33 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/11/19 20:27:30 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int			ft_printf(const char *format, ...)
 		{
 			if (!(formatting(&(format[i]), &data, ap)))
 			{
+				printf("FORMATTING NULL\n");
 				free_data(&data);
 				return (-1);
 			}
@@ -104,10 +105,9 @@ int			ft_printf(const char *format, ...)
 	
 	printf("precision : %s\n", data.precision);
 	printf("min_field_width : %s\n", data.min_field_width);
-	//printf("value : %d\n", *((int*)data.value));
+	printf("value : %s\n", data.value);
 	printf("=======\n");
-	printf("\n");
-	
+	printf("value_format: %s\n", data.value_format);	
 	va_end(ap);
 
 	return 0;

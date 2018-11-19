@@ -6,13 +6,14 @@
 /*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 16:18:56 by vjovanov          #+#    #+#             */
-/*   Updated: 2018/11/17 16:26:39 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/11/19 15:24:33 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*convert_char(t_data *data)
+int		convert_char(t_data *data)
 {
-	return (data->s_fmt);
+	printf("char function call");
+	return (1);
 }

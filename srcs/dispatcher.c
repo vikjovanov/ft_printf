@@ -6,11 +6,11 @@
 /*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 23:02:41 by vjovanov          #+#    #+#             */
-/*   Updated: 2018/11/19 13:49:54 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/11/19 18:30:38 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_print.h"
+#include "ft_printf.h"
 
 int		dispatcher(t_data *data, va_list ap)
 {
@@ -25,14 +25,16 @@ int		dispatcher(t_data *data, va_list ap)
 		set_unsigned_int(data, ap);
 	else if (ft_strequ(get_identifiers()[i].value_type, "char"))
 		set_char(data, ap);
-	else if (ft_strequ(get_identifiers()[i].value_type, "char*"))
+	else if (ft_strequ(get_identifiers()[i].value_type, "string"))
 		data->value = va_arg(ap, char*);
 	else if (ft_strequ(get_identifiers()[i].value_type, "void*"))
-		data->value = va_arg(ap, void*);
+		data->value = ft_ulltoa((unsigned long long)va_arg(
+			ap, unsigned long long));
 	else if (ft_strequ(get_identifiers()[i].value_type, "double"))
 		set_double(data, ap);
-	if (data.value == NULL)
+	if (data->value == NULL)
 		return (0);
-	get_identifiers()[i].f(data);
+	if (!(get_identifiers()[i].f(data)))
+		return (0);
 	return (1);	
 }

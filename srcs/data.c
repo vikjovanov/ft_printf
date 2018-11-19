@@ -6,7 +6,7 @@
 /*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 22:05:40 by bjovanov          #+#    #+#             */
-/*   Updated: 2018/11/19 14:01:21 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/11/19 16:33:03 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void		set_data(t_data *data)
 	data->min_field_width = NULL;
 	data->s_fmt = NULL;
 	data->value_format = NULL;
+	data->value = NULL;
 }
 
 void			free_data(t_data *data)
@@ -44,6 +45,7 @@ void			free_data(t_data *data)
 	ft_strdel(&(data->min_field_width));
 	ft_strdel(&(data->s_fmt));
 	ft_strdel(&(data->value_format));
+	ft_strdel(&(data->value));
 }
 
 static int		fill_data_extend(t_data *data, va_list ap, int i)
@@ -57,7 +59,7 @@ static int		fill_data_extend(t_data *data, va_list ap, int i)
 		data->min_field_width = fill_field_width(
 			&(data->s_fmt[i]), ap ,ret);
 	else if ((ret = is_identifier(data->s_fmt[i])) > 0)
-		data->identifier = fill_id(&(data->s_fmt[i]), data, ap);
+		data->identifier = fill_id(&(data->s_fmt[i]));
 	return (ret);
 }
 

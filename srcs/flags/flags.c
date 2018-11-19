@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   convert_octal.c                                    :+:      :+:    :+:   */
+/*   flags.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/17 16:19:18 by vjovanov          #+#    #+#             */
-/*   Updated: 2018/11/19 18:21:09 by vjovanov         ###   ########.fr       */
+/*   Created: 2018/11/19 15:28:14 by vjovanov          #+#    #+#             */
+/*   Updated: 2018/11/19 19:24:34 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		convert_octal(t_data *data)
+int		has_flag(char *flag, char **flags)
 {
-	// On fait la conversion
+	int i;
 
-	printf("octal function call");
-	return (1);
+	i = 0;
+	while (flags[i])
+	{
+		if (flags[i][0] == flag[0])
+			return (i);
+		i++;
+	}
+	return (-1);
 }
+

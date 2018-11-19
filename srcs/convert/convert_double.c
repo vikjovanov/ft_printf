@@ -6,13 +6,14 @@
 /*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 16:19:46 by vjovanov          #+#    #+#             */
-/*   Updated: 2018/11/17 16:26:45 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/11/19 15:24:29 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*convert_double(t_data *data)
+int		convert_double(t_data *data)
 {
-	return (data->s_fmt);
+	printf("double function call");	
+	return (1);
 }

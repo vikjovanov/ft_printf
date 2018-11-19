@@ -6,13 +6,14 @@
 /*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 16:19:32 by vjovanov          #+#    #+#             */
-/*   Updated: 2018/11/17 16:26:52 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/11/19 15:24:47 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*convert_hexa(t_data *data)
+int		convert_hexa(t_data *data)
 {
-	return (data->s_fmt);
+	printf("hexa function call");
+	return (1);
 }

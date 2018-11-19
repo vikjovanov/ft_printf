@@ -6,7 +6,7 @@
 /*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 13:47:31 by vjovanov          #+#    #+#             */
-/*   Updated: 2018/11/18 14:00:36 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/11/19 19:20:04 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char		*fill_flags(char *s_fmt, va_list ap, int ret)
 	return (res);
 }
 
-char		fill_id(char *s_fmt, t_data *data, va_list ap)
+char		fill_id(char *s_fmt)
 {
 	char id;
 
