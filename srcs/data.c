@@ -6,18 +6,18 @@
 /*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 22:05:40 by bjovanov          #+#    #+#             */
-/*   Updated: 2018/11/18 12:54:14 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/11/19 14:01:21 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void		set_data_to_null(t_data *data, int *first)
+void		set_data(t_data *data)
 {
 	int i;
 
 	i = -1;
-	*first = 0;
+	data->identifier = 0;
 	while (++i < NB_FLAGS + 1)
 		data->flags[i] = NULL;
 	i = -1;
@@ -29,28 +29,21 @@ static void		set_data_to_null(t_data *data, int *first)
 	data->value_format = NULL;
 }
 
-void			set_data(t_data *data)
+void			free_data(t_data *data)
 {
 	int i;
-	static int first = 1;
 
 	i = -1;
 	data->identifier = 0;
-	if (!first)
-	{
-		while (++i < NB_FLAGS + 1)
-			ft_strdel(&(data->flags[i]));
-		i = -1;
-		while (++i < NB_CONVERSION_FLAGS + 1)
-			ft_strdel(&(data->conversion_flags[i]));
-		ft_strdel(&(data->precision));
-		ft_strdel(&(data->min_field_width));
-		ft_strdel(&(data->s_fmt));
-		ft_strdel(&(data->value_format));
-		//ft_memdel(&(data->value));
-	}
-	else
-		set_data_to_null(data, &first);
+	while (++i < NB_FLAGS + 1)
+		ft_strdel(&(data->flags[i]));
+	i = -1;
+	while (++i < NB_CONVERSION_FLAGS + 1)
+		ft_strdel(&(data->conversion_flags[i]));
+	ft_strdel(&(data->precision));
+	ft_strdel(&(data->min_field_width));
+	ft_strdel(&(data->s_fmt));
+	ft_strdel(&(data->value_format));
 }
 
 static int		fill_data_extend(t_data *data, va_list ap, int i)
@@ -75,7 +68,7 @@ static int		fill_data_extend(t_data *data, va_list ap, int i)
 ** i[3] = ret
 */
 
-void			fill_data(t_data *data, va_list ap)
+int				fill_data(t_data *data, va_list ap)
 {
 	int		i[4];
 	char	*tmp;
@@ -100,6 +93,8 @@ void			fill_data(t_data *data, va_list ap)
 			i[3] = fill_data_extend(data, ap, i[0]);
 		i[0] += i[3];
 	}
-	dispatcher(data, ap);
 	tmp = NULL;
+	if (!(dispatcher(data, ap)))
+		return (0);
+	return (1);
 }

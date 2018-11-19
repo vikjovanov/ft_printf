@@ -6,7 +6,7 @@
 /*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/10 15:21:51 by vjovanov          #+#    #+#             */
-/*   Updated: 2018/11/18 13:55:23 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/11/19 13:57:24 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ const t_config	*get_identifiers();
 const char		**get_flags();
 const char		**get_conversion_flags();
 void			set_data(t_data *data);
+void			free_data(t_data *data);
 int				check_sub(const char *sub);
 void			set_int(t_data *data, va_list ap);
 void			set_unsigned_int(t_data *data, va_list ap);

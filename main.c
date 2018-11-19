@@ -58,8 +58,14 @@ int		main(void)
 	printf("%.5000f\n", FLT_MAX);
 	if (FLT_MIN == 0.000000000000000000000000000000000000011754943508222875079687365372222456778186655567720875215087517062784172594547271728515625)
 		printf("ok\n");*/
-	
 	double  n = 3.54;
+	int		a = 3;
+
+	printf("%f\n", n - a);
+	n -= a;
+	n *= 10;
+	printf("%f\n", n);
+	/*
 	double	n2;
 
 	n2 = n;
@@ -75,5 +81,6 @@ int		main(void)
 		n /= 10;
 		nb++;
 	}
-	printf("nb + 1 = %d\n", nb + 1);
+	printf("nb + 1 = %d\n", nb + 1);*/
+
 }

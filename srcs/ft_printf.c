@@ -6,7 +6,7 @@
 /*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/02 18:11:46 by vjovanov          #+#    #+#             */
-/*   Updated: 2018/11/18 12:15:35 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/11/19 14:02:33 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 ** steps[3] = conversion_flags
 */
 
-static void	formatting(const char *format, t_data *data, va_list ap)
+static int	formatting(const char *format, t_data *data, va_list ap)
 {
 	int i;
 	char *sub;
@@ -47,15 +47,18 @@ static void	formatting(const char *format, t_data *data, va_list ap)
 		i++;
 	if ((sub = ft_strsub(format, 1, i)) == NULL ||
 		(data->s_fmt = ft_strjoin("%", sub)) == NULL)
-		exit(EXIT_FAILURE);	
+		return (0);	
 	if(format[i] != '\0' && check_sub((const char*)sub))
-		fill_data(data, ap);
+	{
+		if (!(fill_data(data, ap)))
+			return (0);
+	}
 	else
 	{
 		printf("VALEUR NON FORMATE\n");
 		data->value_format = data->s_fmt;
 	}
-
+	return (1);
 }
 
 int			ft_printf(const char *format, ...)
@@ -65,16 +68,21 @@ int			ft_printf(const char *format, ...)
 	int		i;
 
 	i = 0;
+	set_data(&data);
 	va_start(ap, format);
 	while (format[i])
 	{
-		set_data(&data);
 		if (format[i] == '%')
 		{
-			formatting(&(format[i]), &data, ap);
-			break;
+			if (!(formatting(&(format[i]), &data, ap)))
+			{
+				free_data(&data);
+				return (-1);
+			}
+			break ;
 		}
 
+		free_data(&data);
 		i++;
 	}
 	printf("\n");

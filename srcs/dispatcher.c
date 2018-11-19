@@ -3,22 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   dispatcher.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vjovanov <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 23:02:41 by vjovanov          #+#    #+#             */
-/*   Updated: 2018/11/18 23:02:42 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/11/19 13:49:54 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_print.h"
-int
-unsigned int
-char
-char*
-void*
-double
 
-void	dispatcher(t_data *data, va_list ap)
+int		dispatcher(t_data *data, va_list ap)
 {
 	int i;
 
@@ -37,5 +31,8 @@ void	dispatcher(t_data *data, va_list ap)
 		data->value = va_arg(ap, void*);
 	else if (ft_strequ(get_identifiers()[i].value_type, "double"))
 		set_double(data, ap);
-	get_identifiers()[i].f(data);	
+	if (data.value == NULL)
+		return (0);
+	get_identifiers()[i].f(data);
+	return (1);	
 }

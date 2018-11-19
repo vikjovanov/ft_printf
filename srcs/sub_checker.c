@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sub_checker.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjovanov <bjovanov@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 21:00:53 by vjovanov          #+#    #+#             */
-/*   Updated: 2018/11/17 22:45:15 by bjovanov         ###   ########.fr       */
+/*   Updated: 2018/11/19 13:59:55 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,8 @@ static int	flag_o_cmp(int *comp, const t_config *id)
 		comp[2]++;
 	while (get_flags()[comp[3]][0] != id->accepted_flags[comp[1]][0])
 		comp[3]++;
-	printf("comp 2 : %d\n", comp[2]);
-	printf("comp 3 : %d\n", comp[3]);
 	if (comp[2] > comp[3])
-	{
-		printf("Erreur\n");
 		return (0);
-	}
 	return (1);
 }
 
@@ -38,7 +33,6 @@ static int	flag_cmp(const char *sub, const t_config *id)
 		is_acceptable_flag(id->identifier, sub[0]) &&
 		is_acceptable_flag(id->identifier, sub[ret]))
 	{
-		printf("AA\n");
 		while (sub[0] != id->accepted_flags[comp[0]][0])
 			comp[0]++;
 		while (sub[ret] != id->accepted_flags[comp[1]][0])
@@ -46,8 +40,6 @@ static int	flag_cmp(const char *sub, const t_config *id)
 		if ((id->accepted_flags[comp[0]][0] == ' ' && id->accepted_flags[comp[1]][0] == '#')
 		|| (id->accepted_flags[comp[1]][0] == ' ' && id->accepted_flags[comp[0]][0] == '#'))
 			return (1);
-		printf("comp 0 : %d\n", comp[0]);
-	printf("comp 1 : %d\n", comp[1]);
 		return (flag_o_cmp(comp, id));
 	}
 	return (1);
