@@ -6,7 +6,7 @@
 /*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/10 15:21:51 by vjovanov          #+#    #+#             */
-/*   Updated: 2018/11/19 22:52:59 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/11/20 23:59:43 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,7 @@ int				generic_space_flag(t_data *data, int flag_id);
 int 			min_field_width(t_data *data);
 
 int				octal_hashtag_flag(t_data *data, int flag_id);
+int				hexa_hashtag_flag(t_data *data, int flag_id);
+int				hexa_zero_flag(t_data *data, int flag_id);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 15:20:07 by vjovanov          #+#    #+#             */
-/*   Updated: 2018/11/19 20:59:03 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/11/20 23:45:36 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ const t_config		g_identifiers[NB_IDENTIFIERS] = {
 	{'p', {"-"}, {}, &convert_pointer, "void*"}, //
 	{'d', {" ", "+", "-", "0"}, {"hh", "h", "ll", "l"}, &convert_int, "int"}, //
 	{'i', {" ", "+", "-", "0"}, {"hh", "h", "ll", "l"}, &convert_int, "int"}, //
-	{'o', {"#", "-", "0"}, {"hh", "h", "ll", "l"}, &convert_octal, "unsigned int"},
-	{'u', {"-", "0"}, {"hh", "h", "ll", "l"}, &convert_unsigned, "unsigned int"},
+	{'o', {"#", "-", "0"}, {"hh", "h", "ll", "l"}, &convert_octal, "unsigned int"}, //
+	{'u', {"-", "0"}, {"hh", "h", "ll", "l"}, &convert_unsigned, "unsigned int"}, //
 	{'x', {"#", "-", "0"}, {"hh", "h", "ll", "l"}, &convert_hexa, "unsigned int"},
 	{'X', {"#", "-", "0"}, {"hh", "h", "ll", "l"}, &convert_hexa_upper, "unsigned int"},
 	{'f', {" ", "#", "+", "-", "0"}, {"l", "L"}, &convert_double, "double"},

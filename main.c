@@ -113,7 +113,9 @@ int		main(void)
 	}
 	*/
 	char a = 'c';
-	ft_printf("%o\n", 64);
-	printf("value_printf: %o\n", 64);
+	ft_printf("%x\n", -64);
+	printf("value_printf: %x\n", -64);
+
+	printf("value_printf: %-8.12o\n", 64);
 	return (0);
 }

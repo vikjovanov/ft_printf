@@ -6,7 +6,7 @@
 /*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 16:18:29 by vjovanov          #+#    #+#             */
-/*   Updated: 2018/11/19 20:24:48 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/11/20 23:19:42 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,26 @@ static int	flags(t_data *data)
 
 static int	precision(t_data *data)
 {
-	int length;
-	int	precision;
-	char *tmp;
+	int		precision;
+	char	*tmp;
+	int		id;
+	int		length;
 
 	precision = ft_atoi(data->precision);
-	length = (precision < (int)ft_strlen(data->value_format)) ?
-		precision : (int)ft_strlen(data->value_format);
-	tmp = ft_strnew(length);
-	ft_strncpy(tmp, data->value_format, length);
+	if (precision >= (int)ft_strlen(data->value))
+		return (1);
+	if ((id = has_flag("-", data->flags)) >= 0 && precision < ft_atoi(&(data->flags[id][1])))
+	{
+		tmp = ft_strnew(ft_atoi(&(data->flags[id][1])));
+		length = ft_atoi(&(data->flags[id][1]));
+	}
+	else
+	{
+		tmp = ft_strnew(precision);
+		length = precision;
+	}
+	ft_memset(tmp, ' ', length);
+	ft_strncpy(tmp, data->value, precision);
 	free(data->value_format);
 	data->value_format = tmp;
 	return (1);

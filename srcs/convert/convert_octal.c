@@ -6,14 +6,47 @@
 /*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 16:19:18 by vjovanov          #+#    #+#             */
-/*   Updated: 2018/11/19 18:21:09 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/11/20 23:38:19 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+static int	set_precision_len(int precision, char *tmp)
+{
+	if (precision <= ft_strclen(tmp, ' '))
+		return (-1);
+	else
+	{
+		if (precision >= ft_strlen(tmp))
+			return (precision);
+		else
+			return ((int)ft_strlen(tmp));
+	}
+	return (0);
+}
+
 static int	precision(t_data *data)
 {
+	char *tmp;
+	int precision;
+	int length;
+
+	if (ft_atoi(data->precision) > MAX_FIELD_WIDTH)
+		return (0);
+	tmp = data->value_format;
+	precision = ft_atoi(data->precision);
+	if ((length = set_precision_len(precision, tmp)) < 0)
+		return (1);
+	if (!(data->value_format = ft_strnew(length)))
+		return (0);
+	ft_memset(data->value_format, '0', (size_t)length);
+	if (length == precision)
+		ft_memcpy(&(data->value_format[precision - ft_strclen(tmp, ' ')]),
+			tmp, ft_strclen(tmp, ' '));
+	else if (length == ft_strlen(tmp))
+		ft_memcpy(&(data->value_format[precision - ft_strclen(tmp, ' ')]),
+			tmp, (length - precision) + ft_strclen(tmp, ' '));
 	return (1);
 }
 
@@ -29,6 +62,10 @@ static int	flags(t_data *data)
 			return (0);
 	if ((id = has_flag("0", data->flags)) >= 0 && data->precision == NULL)
 		if (!(generic_zero_flag(data, id)))
+			return (0);
+	// ??? POURQUOI PAS??? SI AUCUN MOYEN DE LE CASSER
+	if ((id = has_flag("0", data->flags)) >= 0 && data->precision != NULL)
+		if (!(data->min_field_width = ft_strdup(&(data->flags[id][1]))))
 			return (0);
 	return (1);
 }

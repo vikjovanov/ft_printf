@@ -6,7 +6,7 @@
 #    By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/02 17:27:09 by vjovanov          #+#    #+#              #
-#    Updated: 2018/11/19 20:21:42 by vjovanov         ###   ########.fr        #
+#    Updated: 2018/11/21 00:10:19 by vjovanov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,8 @@ OBJ_CONVERT = $(subst .c,.o, $(SRCS_CONVERT))
 
 # SOURCES FLAGS FUNCTION
 
-SRCS_FLAGS = flags.c generic_flags.c min_field_width.c octal_flags.c
+SRCS_FLAGS = flags.c generic_flags.c min_field_width.c octal_flags.c \
+			 hexa_flags.c
 
 SRCS_FLAGS_DIR= $(addprefix srcs/flags/, $(SRCS_FLAGS))
 
@@ -57,7 +58,8 @@ LIBFT_SRCS= ft_intset.c ft_strsub.c ft_strjoin.c ft_isdigit.c \
 			ft_ltoa.c ft_lltoa.c ft_ustoa.c ft_uctoa.c ft_ultoa.c ft_ulltoa.c \
 			ft_uitoa.c ft_dtoa.c ft_ldtoa.c ft_strcmp.c ft_atoi.c ft_isalpha.c \
 			ft_isdigit.c ft_islower.c ft_isupper.c ft_isspace.c ft_memcpy.c \
-			ft_strncpy.c ft_ulltoa_base.c ft_atoull.c
+			ft_strncpy.c ft_ulltoa_base.c ft_atoull.c ft_strclen.c \
+			ft_strtoupper.c ft_toupper.c
 LIBFT_SRCS_DIR=$(addprefix libft/srcs/, $(LIBFT_SRCS))
 
 #OBJ
