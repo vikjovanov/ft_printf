@@ -26,11 +26,11 @@ const char			*g_conversion_flags[NB_CONVERSION_FLAGS] = {
 };
 
 const t_config		g_identifiers[NB_IDENTIFIERS] = {
-	{'c', {"-"}, {}, &convert_char, "char"},
-	{'s', {"-"}, {}, &convert_string, "string"},
-	{'p', {" ", "+", "-"}, {}, &convert_pointer, "void*"},
-	{'d', {" ", "+", "-", "0"}, {"hh", "h", "ll", "l"}, &convert_int, "int"},
-	{'i', {" ", "+", "-", "0"}, {"hh", "h", "ll", "l"}, &convert_int, "int"},
+	{'c', {"-"}, {}, &convert_char, "char"}, //
+	{'s', {"-"}, {}, &convert_string, "string"}, //
+	{'p', {"-"}, {}, &convert_pointer, "void*"}, //
+	{'d', {" ", "+", "-", "0"}, {"hh", "h", "ll", "l"}, &convert_int, "int"}, //
+	{'i', {" ", "+", "-", "0"}, {"hh", "h", "ll", "l"}, &convert_int, "int"}, //
 	{'o', {"#", "-", "0"}, {"hh", "h", "ll", "l"}, &convert_octal, "unsigned int"},
 	{'u', {"-", "0"}, {"hh", "h", "ll", "l"}, &convert_unsigned, "unsigned int"},
 	{'x', {"#", "-", "0"}, {"hh", "h", "ll", "l"}, &convert_hexa, "unsigned int"},

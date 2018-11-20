@@ -12,8 +12,26 @@
 
 #include "ft_printf.h"
 
+static int	flags(t_data *data)
+{
+	int id;
+
+	if ((id = has_flag("-", data->flags)) >= 0)
+		if (!(generic_minus_flag(data, id)))
+			return (0);
+	return (1);
+}
+
 int		convert_pointer(t_data *data)
 {
-	printf("pointer function call");
+	char *nb;
+
+	nb = ft_ulltoa_base(ft_atoull(data->value), 16);
+	data->value_format = ft_strjoin("0x", nb);
+	if (!(flags(data)))
+		return (0);
+	if (data->min_field_width != NULL)
+		if (!(min_field_width(data)))
+			return (0);
 	return (1);
 }

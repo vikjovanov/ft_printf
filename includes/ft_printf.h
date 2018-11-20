@@ -85,5 +85,8 @@ int				generic_minus_flag(t_data *data, int flag_id);
 int				generic_plus_flag(t_data *data, int flag_id);
 int				generic_zero_flag(t_data *data, int flag_id);
 int				generic_space_flag(t_data *data, int flag_id);
+int 			min_field_width(t_data *data);
+
+int				octal_hashtag_flag(t_data *data, int flag_id);
 
 #endif

@@ -36,10 +36,10 @@ void			free_data(t_data *data)
 
 	i = -1;
 	data->identifier = 0;
-	while (++i < NB_FLAGS + 1)
+	while (++i < ft_array_length((void**)data->flags))
 		ft_strdel(&(data->flags[i]));
 	i = -1;
-	while (++i < NB_CONVERSION_FLAGS + 1)
+	while (++i < ft_array_length((void**)data->conversion_flags))
 		ft_strdel(&(data->conversion_flags[i]));
 	ft_strdel(&(data->precision));
 	ft_strdel(&(data->min_field_width));

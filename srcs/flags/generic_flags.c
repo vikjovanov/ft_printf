@@ -29,10 +29,9 @@ int		generic_minus_flag(t_data *data, int flag_id)
 	if ((data->value_format = (char*)malloc(sizeof(char)
 		* (length + 1))) == NULL)
 		return (0);
-	tmp[length] = '\0';
+	data->value_format[length] = '\0';
 	ft_memset(data->value_format, 32, (size_t)length);
 	ft_memcpy(data->value_format, tmp, ft_strlen(tmp));
-	ft_strdel(&tmp);
 	return (1);
 }
 

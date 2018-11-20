@@ -82,8 +82,6 @@ int			ft_printf(const char *format, ...)
 			}
 			break ;
 		}
-
-		free_data(&data);
 		i++;
 	}
 	printf("\n");

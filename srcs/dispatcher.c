@@ -26,7 +26,7 @@ int		dispatcher(t_data *data, va_list ap)
 	else if (ft_strequ(get_identifiers()[i].value_type, "char"))
 		set_char(data, ap);
 	else if (ft_strequ(get_identifiers()[i].value_type, "string"))
-		data->value = va_arg(ap, char*);
+		data->value = ft_strdup(va_arg(ap, char*));
 	else if (ft_strequ(get_identifiers()[i].value_type, "void*"))
 		data->value = ft_ulltoa((unsigned long long)va_arg(
 			ap, unsigned long long));

@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   convert_hexa.c                                     :+:      :+:    :+:   */
+/*   octal_flags.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
+/*   By: vjovanov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/17 16:19:32 by vjovanov          #+#    #+#             */
-/*   Updated: 2018/11/19 15:24:47 by vjovanov         ###   ########.fr       */
+/*   Created: 2018/11/20 17:51:50 by vjovanov          #+#    #+#             */
+/*   Updated: 2018/11/20 17:51:51 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		convert_hexa(t_data *data)
+int		octal_hashtag_flag(t_data *data, int flag_id)
 {
-	unsigned long long number;
+	char *tmp;
 
-	number = ft_atoull("-5");
+	tmp = NULL;
+	if ((tmp = ft_strjoin("0", data->value_format)) == NULL)
+		return (0);
+	ft_strdel(&(data->value_format));
+	data->value_format = tmp;
 	return (1);
 }

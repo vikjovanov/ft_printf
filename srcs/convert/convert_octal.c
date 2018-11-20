@@ -12,10 +12,41 @@
 
 #include "ft_printf.h"
 
+static int	precision(t_data *data)
+{
+	return (1);
+}
+
+static int	flags(t_data *data)
+{
+	int id;
+
+	if ((id = has_flag("#", data->flags)) >= 0)
+		if (!(octal_hashtag_flag(data, id)))
+			return (0);
+	if ((id = has_flag("-", data->flags)) >= 0)
+		if (!(generic_minus_flag(data, id)))
+			return (0);
+	if ((id = has_flag("0", data->flags)) >= 0 && data->precision == NULL)
+		if (!(generic_zero_flag(data, id)))
+			return (0);
+	return (1);
+}
+
+
 int		convert_octal(t_data *data)
 {
-	// On fait la conversion
+	char *nb;
 
-	printf("octal function call");
+	nb = ft_ulltoa_base(ft_atoull(data->value), 8);
+	data->value_format = nb;
+	if (!(flags(data)))
+		return (0);
+	if (data->precision != NULL)
+		if (!(precision(data)))
+			return (0);
+	if (data->min_field_width != NULL)
+		if (!(min_field_width(data)))
+			return (0);
 	return (1);
 }
