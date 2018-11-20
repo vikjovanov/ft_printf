@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "ft_printf.h"
+//#include "ft_printf.h"
 #include <limits.h>
 /*
 void		lel(long long a)
@@ -112,7 +112,7 @@ int		main(void)
 		printf("NB %-*s\n", i, "Salut");
 	}
 	*/
-	ft_printf("% 5d\n", -4545);
-	printf("value_printf: % 5d\n", 4545);
+	//ft_printf("% 5d\n", -4545);
+	printf("value_printf: %o\n", -10);
 	return (0);
 }
