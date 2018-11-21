@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert_double.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
+/*   By: vjovanov <vjovanov@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 16:19:46 by vjovanov          #+#    #+#             */
-/*   Updated: 2018/11/19 15:24:29 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/11/21 22:19:20 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,28 +40,29 @@ static char*	ft_pow(char *number, int precision)
 		number[(precision - i) + 1] = '0';
 		i--; 
 	}
-	printf("%s\n", number);
 	return (number);
 
 }
-//ERREUR \0 A LA FIN ?????
 static int	precision(t_data *data)
 {
-	char	*tmp;
-	char	*temp;
-	int		precision;
+	char			*tmp;
+	char			*temp;
+	int				precision;
 
-	if (ft_atoi(data->precision) > MAX_FIELD_WIDTH)
+	if (ft_atoll(data->precision) > MAX_FIELD_WIDTH ||
+		ft_atoll(data->precision) < 0)
 		return (0);
 	precision = ft_atoi(data->precision);
-	ft_pow(&(data->value[ft_strclen(data->value, '.')]), precision);
+	if (precision < ft_strlen(data->value))
+		ft_pow(&(data->value[ft_strclen(data->value, '.')]), precision);
 	if ((tmp = ft_strnew(precision)) == NULL)
 		return (0);
 	ft_memset(tmp, '0', precision);
-	ft_memcpy(tmp, ft_strchr(data->value, '.') + 1, precision);
-	printf("PRECISION %d\n", precision);
-	printf("TMP : %s\n", tmp);
-	printf("strlen(tmp) : %d\n", (int)ft_strlen(tmp));
+	if (precision > ft_strlen(data->value))
+		ft_memcpy(tmp, ft_strchr(data->value, '.') + 1,
+			ft_strlen(ft_strchr(data->value, '.') + 1));
+	else
+		ft_memcpy(tmp, ft_strchr(data->value, '.') + 1, precision);
 	if ((temp = ft_strndup(data->value_format,
 		ft_strclen(data->value_format, '.') + 1)) == NULL)
 		return (0);
@@ -69,33 +70,8 @@ static int	precision(t_data *data)
 	if ((data->value_format = ft_strjoin(temp, tmp)) == NULL)
 		return (0);
 	return (1);
-}	
-/*
-static int	precision(t_data *data)
-{
-	char	*tmp;
-	int		precision;
-	int		length;
-
-	if (ft_atoi(data->precision) > MAX_FIELD_WIDTH)
-		return (0);
-	tmp = ft_strchr(data->value, '.');
-		return (0);
-	precision = ft_atoi(data->precision);
-	if ((length = set_precision_len(precision, tmp)) < 0)
-		return (1);
-	if (!(data->value_format = ft_strnew(length)))
-		return (0);
-	ft_memset(data->value_format, '0', (size_t)length);
-	if (length == precision + i)
-		ft_memcpy(&(data->value_format[(precision + i) - ft_strclen(&(tmp[i]), ' ')]),
-			&(tmp[i]), ft_strclen(&(tmp[i]), ' '));
-	else if (length == ft_strlen(tmp))
-		ft_memcpy(&(data->value_format[(precision + i) - ft_strclen(&(tmp[i]), ' ')]),
-			&(tmp[i]), ((length - precision) - i) + ft_strclen(&(tmp[i]), ' '));
-	return (1);
 }
-*/
+
 static int	flags(t_data *data)
 {
 	int id;
@@ -125,7 +101,6 @@ int		convert_double(t_data *data)
 {
 	if (!(flags(data)))
 		return (0);
-	printf("DATAAAA : %s\n", data->value_format);
 	if (data->precision != NULL)
 		if (!(precision(data)))
 			return (0);

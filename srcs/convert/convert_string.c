@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert_string.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
+/*   By: vjovanov <vjovanov@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 16:18:29 by vjovanov          #+#    #+#             */
-/*   Updated: 2018/11/20 23:19:42 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/11/21 21:07:22 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ static int	precision(t_data *data)
 	int		id;
 	int		length;
 
+	if (ft_atoll(data->precision) > MAX_FIELD_WIDTH ||
+		ft_atoll(data->precision) < 0)
+		return (0);
 	precision = ft_atoi(data->precision);
 	if (precision >= (int)ft_strlen(data->value))
 		return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
+/*   By: vjovanov <vjovanov@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/02 18:11:46 by vjovanov          #+#    #+#             */
-/*   Updated: 2018/11/19 20:27:30 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/11/21 23:24:44 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,14 @@ static int	formatting(const char *format, t_data *data, va_list ap)
 		i++;
 	if ((sub = ft_strsub(format, 1, i)) == NULL ||
 		(data->s_fmt = ft_strjoin("%", sub)) == NULL)
-		return (0);	
+		return (0);
 	if(format[i] != '\0' && check_sub((const char*)sub))
 	{
 		if (!(fill_data(data, ap)))
 			return (0);
 	}
 	else
-	{
-		printf("VALEUR NON FORMATE\n");
 		data->value_format = data->s_fmt;
-	}
 	return (1);
 }
 
@@ -66,8 +63,10 @@ int			ft_printf(const char *format, ...)
 	va_list ap;
 	t_data	data;
 	int		i;
+	int		bytes;
 
 	i = 0;
+	bytes = 0;
 	set_data(&data);
 	va_start(ap, format);
 	while (format[i])
@@ -76,14 +75,22 @@ int			ft_printf(const char *format, ...)
 		{
 			if (!(formatting(&(format[i]), &data, ap)))
 			{
-				printf("FORMATTING NULL\n");
 				free_data(&data);
 				return (-1);
 			}
-			break ;
+			ft_putstr(data.value_format);
+			bytes += (int)ft_strlen(data.value_format);
+			i += (int)ft_strlen(data.s_fmt) - 1;
+			free_data(&data);
+		}
+		else
+		{
+			bytes++;
+			ft_putchar(format[i]);
 		}
 		i++;
 	}
+	/*
 	printf("\n");
 	printf("======\n");
 	printf("sub_format : %s\n", data.s_fmt);
@@ -105,8 +112,9 @@ int			ft_printf(const char *format, ...)
 	printf("min_field_width : %s\n", data.min_field_width);
 	printf("value : %s\n", data.value);
 	printf("=======\n");
-	printf("value_format: %s\n", data.value_format);	
-	va_end(ap);
+	*/
+	//printf("value_format: %s\n", data.value_format);
 
-	return 0;
+	va_end(ap);
+	return (bytes);
 }

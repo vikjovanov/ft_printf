@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert_octal.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
+/*   By: vjovanov <vjovanov@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 16:19:18 by vjovanov          #+#    #+#             */
-/*   Updated: 2018/11/20 23:38:19 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/11/21 21:08:42 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ static int	precision(t_data *data)
 	int precision;
 	int length;
 
-	if (ft_atoi(data->precision) > MAX_FIELD_WIDTH)
+	if (ft_atoll(data->precision) > MAX_FIELD_WIDTH ||
+		ft_atoll(data->precision) < 0)
 		return (0);
-	tmp = data->value_format;
 	precision = ft_atoi(data->precision);
 	if ((length = set_precision_len(precision, tmp)) < 0)
 		return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dispatcher.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
+/*   By: vjovanov <vjovanov@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 23:02:41 by vjovanov          #+#    #+#             */
-/*   Updated: 2018/11/19 18:30:38 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/11/21 22:19:45 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,5 @@ int		dispatcher(t_data *data, va_list ap)
 		set_double(data, ap);
 	if (data->value == NULL)
 		return (0);
-	if (!(get_identifiers()[i].f(data)))
-		return (0);
-	return (1);	
+	return (get_identifiers()[i].f(data));	
 }

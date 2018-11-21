@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+         #
+#    By: vjovanov <vjovanov@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/02 17:27:09 by vjovanov          #+#    #+#              #
-#    Updated: 2018/11/21 00:10:19 by vjovanov         ###   ########.fr        #
+#    Updated: 2018/11/21 21:41:48 by vjovanov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,8 @@ LIBFT_SRCS= ft_intset.c ft_strsub.c ft_strjoin.c ft_isdigit.c \
 			ft_uitoa.c ft_dtoa.c ft_ldtoa.c ft_strcmp.c ft_atoi.c ft_isalpha.c \
 			ft_isdigit.c ft_islower.c ft_isupper.c ft_isspace.c ft_memcpy.c \
 			ft_strncpy.c ft_ulltoa_base.c ft_atoull.c ft_strclen.c \
-			ft_strtoupper.c ft_toupper.c ft_strchr.c ft_strndup.c
+			ft_strtoupper.c ft_toupper.c ft_strchr.c ft_strndup.c ft_atoll.c \
+			ft_putstr.c ft_putchar.c
 LIBFT_SRCS_DIR=$(addprefix libft/srcs/, $(LIBFT_SRCS))
 
 #OBJ

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert_int.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
+/*   By: vjovanov <vjovanov@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 16:19:12 by vjovanov          #+#    #+#             */
-/*   Updated: 2018/11/20 23:41:50 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/11/21 21:07:03 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,12 @@ static int	precision(t_data *data)
 	int		length;
 	int		i;
 
-	if (ft_atoi(data->precision) > MAX_FIELD_WIDTH)
+	if (ft_atoll(data->precision) > MAX_FIELD_WIDTH ||
+		ft_atoll(data->precision) < 0)
 		return (0);
+	precision = ft_atoi(data->precision);
 	tmp = data->value_format;
 	i = (tmp[0] == '-' || tmp[0] == '+' || tmp[0] == ' ') ? 1 : 0;
-	precision = ft_atoi(data->precision);
 	if ((length = set_precision_len(precision, &(tmp[i])) + i) < 0)
 		return (1);
 	if (!(data->value_format = ft_strnew(length)))

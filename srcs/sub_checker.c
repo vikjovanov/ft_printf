@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sub_checker.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
+/*   By: vjovanov <vjovanov@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 21:00:53 by vjovanov          #+#    #+#             */
-/*   Updated: 2018/11/19 15:16:44 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/11/21 21:45:21 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ static int	check_sub_order(const char *sub)
 			return (0);
 		i += ret;
 	}
-	printf("Nb flag: %d\n", flag);
 	return ((flag > 1) ? check_flag_order(sub, flag) : 1);
 }
 
