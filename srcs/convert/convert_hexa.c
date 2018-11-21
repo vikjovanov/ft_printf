@@ -15,7 +15,7 @@
 static int	set_precision_len(int precision, char *tmp)
 {
 	if (precision <= ft_strclen(tmp, ' '))
-		return (-2);
+		return (-3);
 	else
 	{
 		if (precision >= ft_strlen(tmp))

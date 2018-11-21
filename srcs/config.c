@@ -33,8 +33,8 @@ const t_config		g_identifiers[NB_IDENTIFIERS] = {
 	{'i', {" ", "+", "-", "0"}, {"hh", "h", "ll", "l"}, &convert_int, "int"}, //
 	{'o', {"#", "-", "0"}, {"hh", "h", "ll", "l"}, &convert_octal, "unsigned int"}, //
 	{'u', {"-", "0"}, {"hh", "h", "ll", "l"}, &convert_unsigned, "unsigned int"}, //
-	{'x', {"#", "-", "0"}, {"hh", "h", "ll", "l"}, &convert_hexa, "unsigned int"},
-	{'X', {"#", "-", "0"}, {"hh", "h", "ll", "l"}, &convert_hexa_upper, "unsigned int"},
+	{'x', {"#", "-", "0"}, {"hh", "h", "ll", "l"}, &convert_hexa, "unsigned int"}, // 
+	{'X', {"#", "-", "0"}, {"hh", "h", "ll", "l"}, &convert_hexa_upper, "unsigned int"}, // 
 	{'f', {" ", "#", "+", "-", "0"}, {"l", "L"}, &convert_double, "double"},
 };
 

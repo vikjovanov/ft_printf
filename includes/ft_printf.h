@@ -90,5 +90,6 @@ int 			min_field_width(t_data *data);
 int				octal_hashtag_flag(t_data *data, int flag_id);
 int				hexa_hashtag_flag(t_data *data, int flag_id);
 int				hexa_zero_flag(t_data *data, int flag_id);
+int				double_hashtag_flag(t_data *data, int flag_id);
 
 #endif

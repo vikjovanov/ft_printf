@@ -40,7 +40,7 @@ OBJ_CONVERT = $(subst .c,.o, $(SRCS_CONVERT))
 # SOURCES FLAGS FUNCTION
 
 SRCS_FLAGS = flags.c generic_flags.c min_field_width.c octal_flags.c \
-			 hexa_flags.c
+			 hexa_flags.c double_flags.c
 
 SRCS_FLAGS_DIR= $(addprefix srcs/flags/, $(SRCS_FLAGS))
 
@@ -59,7 +59,7 @@ LIBFT_SRCS= ft_intset.c ft_strsub.c ft_strjoin.c ft_isdigit.c \
 			ft_uitoa.c ft_dtoa.c ft_ldtoa.c ft_strcmp.c ft_atoi.c ft_isalpha.c \
 			ft_isdigit.c ft_islower.c ft_isupper.c ft_isspace.c ft_memcpy.c \
 			ft_strncpy.c ft_ulltoa_base.c ft_atoull.c ft_strclen.c \
-			ft_strtoupper.c ft_toupper.c
+			ft_strtoupper.c ft_toupper.c ft_strchr.c ft_strndup.c
 LIBFT_SRCS_DIR=$(addprefix libft/srcs/, $(LIBFT_SRCS))
 
 #OBJ
