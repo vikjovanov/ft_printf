@@ -68,6 +68,13 @@ static int		fill_data_extend(t_data *data, va_list ap, int i)
 	return (ret);
 }
 
+/*
+** i[0] = i
+** i[1] = j
+** i[2] = k
+** i[3] = ret
+*/
+
 static int		fill_data_flags(t_data *data, va_list ap, int *i, char *tmp)
 {
 	if ((i[3] = is_flag((const char*)&(data->s_fmt[i[0]]))) > 0)
@@ -84,7 +91,7 @@ static int		fill_data_flags(t_data *data, va_list ap, int *i, char *tmp)
 		(const char*)&(data->s_fmt[i[0]]))) > 0)
 	{
 		if (is_acceptable_conv_flag(
-			data->s_fmt[(int)ft_strlen(data->s_fmt) - 1], data->s_fmt, i[3]))
+			data->s_fmt[(int)ft_strlen(data->s_fmt) - 1], &(data->s_fmt[i[0]]), i[3]))
 		{
 			if ((tmp = fill_conv_flags(&(data->s_fmt[i[0]]), i[3])) == NULL)
 				return (0);

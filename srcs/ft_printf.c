@@ -73,6 +73,13 @@ int			ft_printf(const char *format, ...)
 	{
 		if (format[i] == '%')
 		{
+			if (ft_strnequ(&(format[i]), "%%", 2))
+			{
+				ft_putstr("%");
+				bytes++;
+				i += 2;
+				continue ;
+			}
 			if (!(formatting(&(format[i]), &data, ap)))
 			{
 				free_data(&data);

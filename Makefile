@@ -56,21 +56,21 @@ LIBFT_SRCS= ft_intset.c ft_strsub.c ft_strjoin.c ft_isdigit.c \
 			ft_strnew.c ft_memset.c ft_strdup.c ft_memalloc.c ft_strdel.c \
 			ft_memdel.c ft_array_length.c ft_strequ.c ft_stoa.c ft_ctoa.c \
 			ft_ltoa.c ft_lltoa.c ft_ustoa.c ft_uctoa.c ft_ultoa.c ft_ulltoa.c \
-			ft_uitoa.c ft_dtoa.c ft_ldtoa.c ft_strcmp.c ft_atoi.c ft_isalpha.c \
-			ft_isdigit.c ft_islower.c ft_isupper.c ft_isspace.c ft_memcpy.c \
-			ft_strncpy.c ft_ulltoa_base.c ft_atoull.c ft_strclen.c \
-			ft_strtoupper.c ft_toupper.c ft_strchr.c ft_strndup.c ft_atoll.c \
-			ft_putstr.c ft_putchar.c
+			ft_uitoa.c ft_dtoa/ft_dtoa.c ft_ldtoa/ft_ldtoa.c ft_strcmp.c \
+			ft_atoi.c ft_isalpha.c ft_isdigit.c ft_islower.c ft_isupper.c \
+			ft_isspace.c ft_memcpy.c ft_strncpy.c ft_ulltoa_base.c ft_atoull.c \
+			ft_strclen.c ft_strtoupper.c ft_toupper.c ft_strchr.c ft_strndup.c \
+			ft_atoll.c ft_putstr.c ft_putchar.c ft_dtoa/ft_dtoa_ext.c
 LIBFT_SRCS_DIR=$(addprefix libft/srcs/, $(LIBFT_SRCS))
 
 #OBJ
-LIBFT_OBJ=$(subst .c,.o, $(LIBFT_SRCS))
+LIBFT_OBJ=$(notdir $(subst .c,.o, $(LIBFT_SRCS)))
 LIBFT_OBJ_DIR=$(addprefix libft/, $(LIBFT_OBJ))
 
 #####
 
 INC_DIR= includes/
-INC_DIR_LIBFT= libft/includes
+INC_DIR_LIBFT= -Ilibft/includes -Ilibft/srcs/ft_dtoa/
 
 GCC= gcc
 WFLAGS= -Wall -Werror -Wextra
@@ -79,7 +79,7 @@ all: $(NAME)
 
 $(NAME):
 	@make --no-print-directory -C libft/ re
-	@$(GCC) -c $(SRCS_DIR) $(SRCS_CONVERT_DIR) $(LIBFT_SRCS_DIR) $(SRCS_FLAGS_DIR) -I $(INC_DIR) -I $(INC_DIR_LIBFT)
+	@$(GCC) -c $(SRCS_DIR) $(SRCS_CONVERT_DIR) $(LIBFT_SRCS_DIR) $(SRCS_FLAGS_DIR) -I $(INC_DIR) $(INC_DIR_LIBFT)
 	@ar rc $(LIB_NAME) $(OBJ) $(LIBFT_OBJ_DIR) $(OBJ_CONVERT) $(OBJ_FLAGS)
 	@ranlib $(LIB_NAME)
 

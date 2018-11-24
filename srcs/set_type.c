@@ -59,7 +59,10 @@ void	set_double(t_data *data, va_list ap)
 		if (ft_strequ(data->conversion_flags[0], "l"))
 			data->value = ft_dtoa(va_arg(ap, double));
 		else if (ft_strequ(data->conversion_flags[0], "L"))
+		{
+			printf("LE GRAND L\n");
 			data->value = ft_ldtoa(va_arg(ap, long double));
+		}
 	}
 	else
 		data->value = ft_dtoa(va_arg(ap, double));
