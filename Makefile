@@ -70,7 +70,7 @@ LIBFT_OBJ_DIR=$(addprefix libft/, $(LIBFT_OBJ))
 #####
 
 INC_DIR= includes/
-INC_DIR_LIBFT= -Ilibft/includes -Ilibft/srcs/ft_dtoa/
+INC_DIR_LIBFT= -Ilibft/includes -Ilibft/srcs/ft_dtoa/ -Ilibft/srcs/ft_ldtoa/
 
 GCC= gcc
 WFLAGS= -Wall -Werror -Wextra
