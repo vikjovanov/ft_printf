@@ -38,61 +38,25 @@ int i = 0;
 */
 #include <math.h>
 
-static int	set_size_array(double n)
-{
-	int		nb;
-
-	nb = 0;
-	if (n == 0)
-		return (1);
-	while (n > 0)
-	{
-		n /= 10;
-		nb++;
-	}
-	return (nb + 1);
-}
-
-static int	set_before_comma(double n)
-{
-	int nb_before_comma;
-	double a;
-
-	nb_before_comma = 0;
-	a = 1.0;
-	if (n < a)
-		return (1);
-	while (n >= a && a <= DBL_MAX)
-	{
-		nb_before_comma++;
-		a *= 10.0;
-	}
-	return (nb_before_comma);
-}
-
-static long double ft_exp(double n, int exp)
-{ 
-	long double	value_exp;
-	int			i;
-
-	value_exp = n;
-	i = 0;
-	if (exp == 0)
-		return (1.0);
-	while (i < exp - 1)
-	{
-		value_exp *= n;
-		i++;
-	}
-	return (value_exp);
-}
-
 int		main(void)
 {
-	double a = DBL_MAX;
-	int size = set_before_comma(a);
-
-	printf("%d\n", (int)(a / ft_exp(10, size - 1)));
+	double x = 5434354324354354354324.562416564354354354354;
+	//double b;
+//	double c;
+	
+	while (x > 1.0)
+	{
+		printf("::: %f\n", x);
+		x /= 10;
+	}
+	if (x == 0.0)
+		printf("0\n");
+	else
+		printf("1\n");
+	//int size = set_before_comma(a);
+//	b = modf(a, &c);
+//	printf("%f = %f + %f\n", a, c, b);
+	//printf("%d\n", (int)(a / ft_exp(10, size - 1)));
 	//double a = -DBL_MAX;
 	//printf("%f\n", a * 1.00001);
 }
