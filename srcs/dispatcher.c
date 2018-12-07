@@ -34,6 +34,5 @@ int		dispatcher(t_data *data, va_list ap)
 		set_double(data, ap);
 	if (data->value == NULL)
 		return (0);
-	printf("data->value : %s\n", data->value);
 	return (get_identifiers()[i].f(data));
 }

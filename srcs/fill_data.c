@@ -35,6 +35,7 @@ char		*fill_precision(char *s_fmt, va_list ap, int ret)
 			return (NULL);
 		return (res);
 	}
+	printf("SFMT : %s\n", s_fmt);
 	if (s_fmt[ret - 1] == '*')
 	{
 		star = (int)va_arg(ap, int);

@@ -35,6 +35,7 @@ static int	precision(t_data *data)
 	if (ft_atoll(data->precision) > MAX_FIELD_WIDTH ||
 		ft_atoll(data->precision) < 0)
 		return (0);
+	tmp = data->value_format;
 	precision = ft_atoi(data->precision);
 	if ((length = set_precision_len(precision, tmp)) < 0)
 		return (1);
@@ -54,7 +55,7 @@ static int	flags(t_data *data)
 {
 	int id;
 
-	if ((id = has_flag("#", data->flags)) >= 0)
+	if ((id = has_flag("#", data->flags)) >= 0 && !ft_strequ(data->value, "0"))
 		if (!(octal_hashtag_flag(data, id)))
 			return (0);
 	if ((id = has_flag("-", data->flags)) >= 0)
