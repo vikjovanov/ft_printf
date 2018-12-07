@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vjovanov <vjovanov@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 22:42:37 by bjovanov          #+#    #+#             */
-/*   Updated: 2018/11/21 21:58:02 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/12/06 21:02:19 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,27 +36,17 @@ int i = 0;
 	return 0;
 }
 */
-#include <math.h>
+
+#include <stdlib.h>
+#include <limits.h>
+
 
 int		main(void)
 {
-	double x = 5434354324354354354324.562416564354354354354;
-	//double b;
-//	double c;
-	
-	while (x > 1.0)
-	{
-		printf("::: %f\n", x);
-		x /= 10;
-	}
-	if (x == 0.0)
-		printf("0\n");
-	else
-		printf("1\n");
-	//int size = set_before_comma(a);
-//	b = modf(a, &c);
-//	printf("%f = %f + %f\n", a, c, b);
-	//printf("%d\n", (int)(a / ft_exp(10, size - 1)));
-	//double a = -DBL_MAX;
-	//printf("%f\n", a * 1.00001);
+	double a = 4537453357537375442385297274306560.000000;
+
+
+	printf("%f\n", a);
+	printf("%f\n", a);
+	return 0;
 }
