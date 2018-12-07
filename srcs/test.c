@@ -40,7 +40,7 @@ int i = 0;
 #include <stdlib.h>
 #include <limits.h>
 
-
+/*
 int		main(void)
 {
 	double a = 4537453357537375442385297274306560.000000;
@@ -50,3 +50,4 @@ int		main(void)
 	printf("%f\n", a);
 	return 0;
 }
+*/

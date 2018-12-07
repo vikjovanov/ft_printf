@@ -79,7 +79,7 @@ WFLAGS= -Wall -Werror -Wextra
 all: $(NAME)
 
 $(NAME):
-	@make --no-print-directory -C libft/ re
+	@make --no-print-directory -C libft/
 	@$(GCC) -c $(SRCS_DIR) $(SRCS_CONVERT_DIR) $(LIBFT_SRCS_DIR) $(SRCS_FLAGS_DIR) -I $(INC_DIR) $(INC_DIR_LIBFT)
 	@ar rc $(LIB_NAME) $(OBJ) $(LIBFT_OBJ_DIR) $(OBJ_CONVERT) $(OBJ_FLAGS)
 	@ranlib $(LIB_NAME)
@@ -93,3 +93,5 @@ fclean: clean
 	@rm -Rf $(LIB_NAME)
 
 re: fclean all
+
+.PHONY : all clean fclean re $(NAME)
