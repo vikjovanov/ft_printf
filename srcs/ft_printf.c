@@ -73,20 +73,16 @@ int			ft_printf(const char *format, ...)
 	{
 		if (format[i] == '%')
 		{
-			if (ft_strnequ(&(format[i]), "%%", 2))
-			{
-				ft_putstr("%");
-				bytes++;
-				i += 2;
-				continue ;
-			}
 			if (!(formatting(&(format[i]), &data, ap)))
 			{
 				free_data(&data);
 				return (-1);
 			}
 			ft_putstr(data.value_format);
-			bytes += (int)ft_strlen(data.value_format);
+			if (data.identifier == 'c' && ft_strlen(data.value) > 1)
+				bytes += (int)(ft_strlen(data.value_format) - 1);
+			else
+				bytes += (int)ft_strlen(data.value_format);
 			i += (int)ft_strlen(data.s_fmt) - 1;
 			free_data(&data);
 		}

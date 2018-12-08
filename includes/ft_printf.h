@@ -18,9 +18,9 @@
 # include "../libft/includes/libft.h"
 
 # define MAX_FIELD_WIDTH 2147483614
-# define NB_CONVERSION_FLAGS 5
+# define NB_CONVERSION_FLAGS 6
 # define NB_FLAGS 5
-# define NB_IDENTIFIERS 10
+# define NB_IDENTIFIERS 11
 
 typedef struct 	s_data
 {
@@ -69,6 +69,7 @@ void			set_int(t_data *data, va_list ap);
 void			set_unsigned_int(t_data *data, va_list ap);
 void			set_char(t_data *data, va_list ap);
 void			set_double(t_data *data, va_list ap);
+void			set_string(t_data *data, va_list ap);
 
 
 int				convert_char(t_data *data);
@@ -80,6 +81,7 @@ int				convert_octal(t_data *data);
 int				convert_pointer(t_data *data);
 int				convert_string(t_data *data);
 int				convert_unsigned(t_data *data);
+int				convert_percent(t_data *data);
 
 int				generic_minus_flag(t_data *data, int flag_id);
 int				generic_plus_flag(t_data *data, int flag_id);

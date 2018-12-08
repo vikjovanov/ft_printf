@@ -72,9 +72,16 @@ static int	flags(t_data *data)
 
 int		convert_unsigned(t_data *data)
 {
+	if (data->precision != NULL && ft_strequ(data->precision, "0")
+		&& ft_strequ(data->value, "0"))
+	{
+		data->value_format = ft_strdupwc(data->value, '0');
+		if (data->value_format == NULL)
+			return (0);
+	}
 	if (!(flags(data)))
 		return (0);
-	if (data->precision != NULL)
+	if (data->precision != NULL && !ft_strequ(data->value, "0"))
 		if (!(precision(data)))
 			return (0);
 	if (data->min_field_width != NULL)

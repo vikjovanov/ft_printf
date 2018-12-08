@@ -1,12 +1,15 @@
 #include <stdio.h>
-//#include "ft_printf.h"
+#include "ft_printf.h"
 #include <limits.h>
 #include <float.h>
 #include <math.h>
 
 int		main(void)
 {
-	printf("%5%\n");
+	int a = 0;
+	//printf("%d\n", printf("printf: %u %u\n", NULL, NULL));
+
+	printf("%]25s", "Bonjour");
 /*
 	printf("%d\n", 54);
 	ft_printf("%d\n", 54);

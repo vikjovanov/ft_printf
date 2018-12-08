@@ -93,7 +93,7 @@ static int	check_sub_order(const char *sub)
 	}
 	return ((flag > 1) ? check_flag_order(sub, flag) : 1);
 }
-
+/*
 int			check_sub(const char *sub)
 {
 	int i;
@@ -111,4 +111,27 @@ int			check_sub(const char *sub)
 		i += ret;
 	}
 	return (check_sub_order(sub));
+}
+*/
+
+int 		check_sub(const char *sub)
+{
+	int i;
+	int j;
+	int ret;
+
+	i = 0;
+	j = 0;
+	while (sub[i] && !is_identifier(sub[i]))
+	{
+		if (sub[i] == get_flags()[j])
+			
+		if (sub[i + 1] == '\0')
+		{
+			i = 0;
+			j = 0;
+		}
+		else
+			i++;		
+	}
 }

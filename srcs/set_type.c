@@ -22,6 +22,8 @@ void	set_int(t_data *data, va_list ap)
 			data->value = ft_ctoa((signed char)va_arg(ap, int));
 		else if (ft_strequ(data->conversion_flags[0], "l"))
 			data->value = ft_ltoa(va_arg(ap, long));
+		else if (ft_strequ(data->conversion_flags[0], "j"))
+			data->value = ft_ltoa(va_arg(ap, long));
 		else if (ft_strequ(data->conversion_flags[0], "ll"))
 			data->value = ft_lltoa(va_arg(ap, long long));
 	}
@@ -39,6 +41,8 @@ void	set_unsigned_int(t_data *data, va_list ap)
 			data->value = ft_uctoa((unsigned char)va_arg(ap, int));
 		else if (ft_strequ(data->conversion_flags[0], "l"))
 			data->value = ft_ultoa(va_arg(ap, unsigned long));
+		else if (ft_strequ(data->conversion_flags[0], "j"))
+			data->value = ft_ultoa(va_arg(ap, unsigned long));
 		else if (ft_strequ(data->conversion_flags[0], "ll"))
 			data->value = ft_ulltoa(va_arg(ap, unsigned long long));
 	}
@@ -48,8 +52,34 @@ void	set_unsigned_int(t_data *data, va_list ap)
 
 void	set_char(t_data *data, va_list ap)
 {
-	data->value = ft_strnew(sizeof(char));
-	data->value[0] = (char)va_arg(ap, int);
+	int c;
+
+	c = va_arg(ap, int);
+	if (c <= 31 || c >= 127)
+	{
+		data->value = ft_strnew(sizeof(char) * 2);
+		data->value[0] = '^';
+		if (c <= 31)
+			data->value[1] = c + 64;
+		else if (c == 127)
+			data->value[1] = c - 64;
+	}
+	else
+	{
+		data->value = ft_strnew(sizeof(char));
+		data->value[0] = c;
+	}
+}
+
+void	set_string(t_data *data, va_list ap)
+{
+	char *str;
+
+	str = (char*)va_arg(ap, char*);
+	if (str == NULL)
+		data->value = ft_strdup("(null)");
+	else
+		data->value = ft_strdup(str);
 }
 
 void	set_double(t_data *data, va_list ap)
@@ -59,10 +89,7 @@ void	set_double(t_data *data, va_list ap)
 		if (ft_strequ(data->conversion_flags[0], "l"))
 			data->value = ft_dtoa(va_arg(ap, double));
 		else if (ft_strequ(data->conversion_flags[0], "L"))
-		{
-			printf("LE GRAND L\n");
 			data->value = ft_ldtoa(va_arg(ap, long double));
-		}
 	}
 	else
 		data->value = ft_dtoa(va_arg(ap, double));

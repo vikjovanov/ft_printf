@@ -22,20 +22,21 @@ const char			*g_flags[NB_FLAGS] = {
 };
 
 const char			*g_conversion_flags[NB_CONVERSION_FLAGS] = {
-	"hh", "h", "ll", "l", "L"
+	"hh", "h", "ll", "l", "j", "L"
 };
 
 const t_config		g_identifiers[NB_IDENTIFIERS] = {
 	{'c', {"-"}, {}, &convert_char, "char"},
 	{'s', {"-"}, {}, &convert_string, "string"},
 	{'p', {"-"}, {}, &convert_pointer, "void*"},
-	{'d', {" ", "+", "-", "0"}, {"hh", "h", "ll", "l"}, &convert_int, "int"},
-	{'i', {" ", "+", "-", "0"}, {"hh", "h", "ll", "l"}, &convert_int, "int"},
-	{'o', {"#", "-", "0"}, {"hh", "h", "ll", "l"}, &convert_octal, "unsigned int"},
-	{'u', {"-", "0"}, {"hh", "h", "ll", "l"}, &convert_unsigned, "unsigned int"},
-	{'x', {"#", "-", "0"}, {"hh", "h", "ll", "l"}, &convert_hexa, "unsigned int"},
-	{'X', {"#", "-", "0"}, {"hh", "h", "ll", "l"}, &convert_hexa_upper, "unsigned int"},
+	{'d', {" ", "+", "-", "0"}, {"hh", "h", "ll", "l", "j"}, &convert_int, "int"},
+	{'i', {" ", "+", "-", "0"}, {"hh", "h", "ll", "l", "j"}, &convert_int, "int"},
+	{'o', {"#", "-", "0"}, {"hh", "h", "ll", "l", "j"}, &convert_octal, "unsigned int"},
+	{'u', {"-", "0"}, {"hh", "h", "ll", "l", "j"}, &convert_unsigned, "unsigned int"},
+	{'x', {"#", "-", "0"}, {"hh", "h", "ll", "l", "j"}, &convert_hexa, "unsigned int"},
+	{'X', {"#", "-", "0"}, {"hh", "h", "ll", "l", "j"}, &convert_hexa_upper, "unsigned int"},
 	{'f', {" ", "#", "+", "-", "0"}, {"l", "L"}, &convert_double, "double"},
+	{'%', {"-", "0"}, {}, &convert_percent, "nothing"}
 };
 
 const char **get_flags()

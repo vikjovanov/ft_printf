@@ -68,7 +68,6 @@ static int	flags(t_data *data)
 	if ((id = has_flag("0", data->flags)) >= 0 && data->precision == NULL)
 		if (!(hexa_zero_flag(data, id)))
 			return (0);
-	// ??? POURQUOI PAS??? SI AUCUN MOYEN DE LE CASSER
 	if ((id = has_flag("0", data->flags)) >= 0 && data->precision != NULL)
 		if (!(data->min_field_width = ft_strdup(&(data->flags[id][1]))))
 			return (0);
@@ -78,12 +77,23 @@ static int	flags(t_data *data)
 int		convert_hexa(t_data *data)
 {
 	char *nb;
+	char *tmp;
 
 	nb = ft_ulltoa_base(ft_atoull(data->value), 16);
 	data->value_format = nb;
+	tmp = NULL;
+	if (data->precision != NULL && ft_strequ(data->precision, "0")
+		&& ft_strequ(data->value, "0"))
+	{
+		tmp = data->value_format;
+		data->value_format = ft_strdupwc(tmp, '0');
+		ft_strdel(&tmp);
+		if (data->value_format == NULL)
+			return (0);
+	}
 	if (!(flags(data)))
 		return (0);
-	if (data->precision != NULL)
+	if (data->precision != NULL && !ft_strequ(data->value, "0"))
 		if (!(precision(data)))
 			return (0);
 	if (data->min_field_width != NULL)

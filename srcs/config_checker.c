@@ -19,12 +19,10 @@ int		is_identifier(const char c)
 	i = 0;
 	while (i < NB_IDENTIFIERS)
 	{
-		//printf("c: %c | id: %c\n", c, get_identifiers()[i].identifier);
 		if (get_identifiers()[i].identifier == c)
 			return (1);
 		i++;
 	}
-	//printf("=================\n");
 	return (0);
 }
 
