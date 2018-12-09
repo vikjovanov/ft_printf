@@ -41,15 +41,21 @@ static int	formatting(const char *format, t_data *data, va_list ap)
 {
 	int i;
 	char *sub;
+	char *tmp;
 
+	tmp = NULL;
 	i = 1;
 	while (!is_identifier(format[i]) && format[i])
 		i++;
 	if ((sub = ft_strsub(format, 1, i)) == NULL ||
 		(data->s_fmt = ft_strjoin("%", sub)) == NULL)
 		return (0);
-	if(format[i] != '\0' && check_sub((const char*)sub))
+	if(format[i] != '\0' && (tmp = check_sub((const char*)sub)) != NULL)
 	{
+		ft_strdel(&(data->s_fmt));
+		if ((data->s_fmt = ft_strjoin("%", tmp)) == NULL)
+			return (0);
+		ft_strdel(&(sub));
 		if (!(fill_data(data, ap)))
 			return (0);
 	}

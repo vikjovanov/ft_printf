@@ -61,7 +61,8 @@ LIBFT_SRCS= ft_intset.c ft_strsub.c ft_strjoin.c ft_isdigit.c \
 			ft_isspace.c ft_memcpy.c ft_strncpy.c ft_ulltoa_base.c ft_atoull.c \
 			ft_strclen.c ft_strtoupper.c ft_toupper.c ft_strchr.c ft_strndup.c \
 			ft_atoll.c ft_putstr.c ft_putchar.c ft_dtoa/ft_dtoa_ext.c \
-			ft_ldtoa/ft_ldtoa_ext.c ft_strreplace.c ft_strdupwc.c
+			ft_ldtoa/ft_ldtoa_ext.c ft_strreplace.c ft_strdupwc.c \
+			ft_strremove.c
 LIBFT_SRCS_DIR=$(addprefix libft/srcs/, $(LIBFT_SRCS))
 
 #OBJ

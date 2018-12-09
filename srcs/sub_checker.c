@@ -93,12 +93,13 @@ static int	check_sub_order(const char *sub)
 	}
 	return ((flag > 1) ? check_flag_order(sub, flag) : 1);
 }
+
 /*
 int			check_sub(const char *sub)
 {
 	int i;
 	int ret;
-
+ 
 	i = 0;
 	ret = 0;
 	while(sub[i] && !is_identifier(sub[i]))
@@ -114,24 +115,100 @@ int			check_sub(const char *sub)
 }
 */
 
-int 		check_sub(const char *sub)
+static int 		find_last_index(char *sub, int j)
 {
-	int i;
-	int j;
 	int ret;
+	int i;
+	int index;
 
+	ret = 0;
 	i = 0;
-	j = 0;
+	index = -1;
 	while (sub[i] && !is_identifier(sub[i]))
 	{
-		if (sub[i] == get_flags()[j])
-			
-		if (sub[i + 1] == '\0')
+		if (sub[i] == get_flags()[j][0])
 		{
-			i = 0;
-			j = 0;
+			index = i;
+			i += is_flag(&(sub[i]));
+		}
+		else if ((ret = is_flag(&(sub[i]))) != 0 ||
+			(ret = is_precision(&(sub[i]))) != -1 ||
+			(ret = is_conversion_flag(&(sub[i]))) != 0 ||
+			(ret = is_min_field_width(&(sub[i]))) != 0)
+			i += ret;
+		else
+			i++;
+	}
+	return (index);
+}
+
+static char 		*remove_flags(char *sub, int j)
+{
+	int ret;
+	int i;
+	char *tmp;
+
+	i = 0;
+	ret = 0;
+	tmp = NULL;
+	while (sub[i] && !is_identifier(sub[i]))
+	{
+		if(sub[i] == get_flags()[j][0])
+		{
+			ret = is_flag(&(sub[i]));
+			tmp = (char*)sub;
+			sub = ft_strremove(tmp, i, ret);
+			ft_strdel(&tmp);
 		}
 		else
-			i++;		
+			i++;
 	}
+	return (sub);
+}
+
+static char 		*join_str(char *new_sub, const char *sub)
+{
+	char *tmp;
+
+	tmp = NULL;
+	if (!(tmp = ft_strjoin(new_sub, sub)))
+		return (NULL);
+	ft_strdel(&new_sub);
+	return (tmp);
+}
+
+/*
+** tab[0] = j
+** tab[1] = index
+*/
+
+
+
+char 		*check_sub(const char *sub)
+{
+	int tab[2];
+	char *new_sub;
+	char *tmp;
+
+	ft_intset(tab, 2, -1);
+	tmp = NULL;
+	if (!(new_sub = ft_strnew(ft_strlen(sub))))
+		return (NULL);
+	while (++tab[0] < NB_FLAGS)
+	{
+		if ((tab[1] = find_last_index((char*)sub, tab[0])) != -1)
+		{
+			tmp = new_sub;
+			new_sub = ft_strjoin(tmp, ft_strndup(&(sub[tab[1]]),
+				is_flag(&(sub[tab[1]]))));
+			ft_strdel(&tmp);
+			if (new_sub == NULL)
+				return (NULL);
+		}
+		else
+			continue;
+		if (!(sub = remove_flags((char*)sub, tab[0])))
+			return (NULL);
+	}
+	return (join_str(new_sub, sub));
 }

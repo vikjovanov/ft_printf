@@ -6,10 +6,13 @@
 
 int		main(void)
 {
-	int a = 0;
+	//int a = 0;
 	//printf("%d\n", printf("printf: %u %u\n", NULL, NULL));
 
-	printf("%]25s", "Bonjour");
+	printf("%*20s\n", 30, "Bonjour");
+	ft_printf("%*20s\n", 30, "Bonjour");
+	//printf("%.3f\n", 348.95);
+	//printf("%0#5o\n", 10);
 /*
 	printf("%d\n", 54);
 	ft_printf("%d\n", 54);

@@ -41,14 +41,16 @@ int		generic_plus_flag(t_data *data, int flag_id)
 
 	tmp = (data->value_format == NULL) ? data->value : data->value_format;
 	if (data->value[0] == '-')
-		data->value_format = tmp;
+	{
+		if (!(data->value_format = ft_strdup(tmp)))
+			return (0);
+	}
 	else if (data->value[0] != '-')
 	{
 		if (data->value_format != NULL)
 			ft_strdel(&(data->value_format));
 		if ((data->value_format = ft_strjoin("+", tmp)) == NULL)
 			return (0);
-		tmp = NULL;
 	}
 	return (1);
 }

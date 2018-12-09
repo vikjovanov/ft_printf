@@ -63,7 +63,7 @@ const char		**get_conversion_flags();
 int				has_flag(char *flag, char **flags);
 void			set_data(t_data *data);
 void			free_data(t_data *data);
-int				check_sub(const char *sub);
+char			*check_sub(const char *sub);
 int				dispatcher(t_data *data, va_list ap);
 void			set_int(t_data *data, va_list ap);
 void			set_unsigned_int(t_data *data, va_list ap);
