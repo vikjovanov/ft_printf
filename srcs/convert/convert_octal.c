@@ -55,7 +55,7 @@ static int	flags(t_data *data)
 {
 	int id;
 
-	if ((id = has_flag("#", data->flags)) >= 0 && !ft_strequ(data->value, "0"))
+	if ((id = has_flag("#", data->flags)) >= 0)
 		if (!(octal_hashtag_flag(data, id)))
 			return (0);
 	if ((id = has_flag("-", data->flags)) >= 0)
@@ -90,7 +90,7 @@ int		convert_octal(t_data *data)
 	}
 	if (!(flags(data)))
 		return (0);
-	if (data->precision != NULL && !ft_strequ(data->value, "0"))
+	if (data->precision != NULL)
 		if (!(precision(data)))
 			return (0);
 	if (data->min_field_width != NULL)

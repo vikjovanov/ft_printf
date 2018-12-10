@@ -18,7 +18,7 @@
 # include "../libft/includes/libft.h"
 
 # define MAX_FIELD_WIDTH 2147483614
-# define NB_CONVERSION_FLAGS 6
+# define NB_CONVERSION_FLAGS 7
 # define NB_FLAGS 5
 # define NB_IDENTIFIERS 11
 
@@ -31,7 +31,8 @@ typedef struct 	s_data
 	char		*min_field_width;
 	char		*value_format;	
 	char		*value;
-	char		*s_fmt;
+	char		*s_fmt_orig;
+	char		*s_fmt_new;
 }				t_data;
 
 typedef struct 	s_config
@@ -64,6 +65,7 @@ int				has_flag(char *flag, char **flags);
 void			set_data(t_data *data);
 void			free_data(t_data *data);
 char			*check_sub(const char *sub);
+int				check_new_sub(const char *sub);
 int				dispatcher(t_data *data, va_list ap);
 void			set_int(t_data *data, va_list ap);
 void			set_unsigned_int(t_data *data, va_list ap);

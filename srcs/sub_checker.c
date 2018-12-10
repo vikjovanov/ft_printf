@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
+/*
 static int	flag_o_cmp(int *comp, const t_config *id)
 {
 	while (get_flags()[comp[2]][0] != id->accepted_flags[comp[0]][0])
@@ -93,9 +93,9 @@ static int	check_sub_order(const char *sub)
 	}
 	return ((flag > 1) ? check_flag_order(sub, flag) : 1);
 }
+*/
 
-/*
-int			check_sub(const char *sub)
+int			check_new_sub(const char *sub)
 {
 	int i;
 	int ret;
@@ -111,9 +111,9 @@ int			check_sub(const char *sub)
 			return (0);
 		i += ret;
 	}
-	return (check_sub_order(sub));
+	return (1);
 }
-*/
+
 
 static int 		find_last_index(char *sub, int j)
 {
@@ -173,6 +173,7 @@ static char 		*join_str(char *new_sub, const char *sub)
 	tmp = NULL;
 	if (!(tmp = ft_strjoin(new_sub, sub)))
 		return (NULL);
+	ft_strdel((char**)&sub);
 	ft_strdel(&new_sub);
 	return (tmp);
 }

@@ -25,7 +25,7 @@ void		set_data(t_data *data)
 		data->conversion_flags[i] = NULL;
 	data->precision = NULL;
 	data->min_field_width = NULL;
-	data->s_fmt = NULL;
+	data->s_fmt_new = NULL;
 	data->value_format = NULL;
 	data->value = NULL;
 }
@@ -43,7 +43,7 @@ void			free_data(t_data *data)
 		ft_strdel(&(data->conversion_flags[i]));
 	ft_strdel(&(data->precision));
 	ft_strdel(&(data->min_field_width));
-	ft_strdel(&(data->s_fmt));
+	ft_strdel(&(data->s_fmt_new));
 	ft_strdel(&(data->value_format));
 	ft_strdel(&(data->value));
 }
@@ -53,18 +53,18 @@ static int		fill_data_extend(t_data *data, va_list ap, int i)
 	int ret;
 
 	ret = 0;
-	if ((ret = is_precision((const char*)&(data->s_fmt[i]))) > 0)
+	if ((ret = is_precision((const char*)&(data->s_fmt_new[i]))) > 0)
 	{
-		data->precision = fill_precision(&(data->s_fmt[i]), ap ,ret);
+		data->precision = fill_precision(&(data->s_fmt_new[i]), ap ,ret);
 		if (ft_atoll(data->precision) > MAX_FIELD_WIDTH ||
 			ft_atoll(data->precision) < 0)
 			return (0);
 	}
-	else if ((ret = is_min_field_width((const char*)&(data->s_fmt[i]))) > 0)
+	else if ((ret = is_min_field_width((const char*)&(data->s_fmt_new[i]))) > 0)
 		data->min_field_width = fill_field_width(
-			&(data->s_fmt[i]), ap ,ret);
-	else if ((ret = is_identifier(data->s_fmt[i])) > 0)
-		data->identifier = fill_id(&(data->s_fmt[i]));
+			&(data->s_fmt_new[i]), ap ,ret);
+	else if ((ret = is_identifier(data->s_fmt_new[i])) > 0)
+		data->identifier = fill_id(&(data->s_fmt_new[i]));
 	return (ret);
 }
 
@@ -77,23 +77,23 @@ static int		fill_data_extend(t_data *data, va_list ap, int i)
 
 static int		fill_data_flags(t_data *data, va_list ap, int *i, char *tmp)
 {
-	if ((i[3] = is_flag((const char*)&(data->s_fmt[i[0]]))) > 0)
+	if ((i[3] = is_flag((const char*)&(data->s_fmt_new[i[0]]))) > 0)
 	{
-		if (is_acceptable_flag(data->s_fmt[(int)ft_strlen(data->s_fmt) - 1],
-			data->s_fmt[i[0]]))
+		if (is_acceptable_flag(data->s_fmt_new[(int)ft_strlen(data->s_fmt_new) - 1],
+			data->s_fmt_new[i[0]]))
 		{
-			if ((tmp = fill_flags(&(data->s_fmt[i[0]]), ap, i[3])) == NULL)
+			if ((tmp = fill_flags(&(data->s_fmt_new[i[0]]), ap, i[3])) == NULL)
 				return (0);
 			data->flags[i[1]++] = tmp;
 		}
 	}
 	else if ((i[3] = is_conversion_flag(
-		(const char*)&(data->s_fmt[i[0]]))) > 0)
+		(const char*)&(data->s_fmt_new[i[0]]))) > 0)
 	{
 		if (is_acceptable_conv_flag(
-			data->s_fmt[(int)ft_strlen(data->s_fmt) - 1], &(data->s_fmt[i[0]]), i[3]))
+			data->s_fmt_new[(int)ft_strlen(data->s_fmt_new) - 1], &(data->s_fmt_new[i[0]]), i[3]))
 		{
-			if ((tmp = fill_conv_flags(&(data->s_fmt[i[0]]), i[3])) == NULL)
+			if ((tmp = fill_conv_flags(&(data->s_fmt_new[i[0]]), i[3])) == NULL)
 				return (0);
 			data->conversion_flags[i[2]++] = tmp;
 		}
@@ -118,7 +118,7 @@ int				fill_data(t_data *data, va_list ap)
 	ft_intset(i, 4, 0);
 	i[0] = 1;
 	tmp = NULL;
-	while (data->s_fmt[i[0]])
+	while (data->s_fmt_new[i[0]])
 	{
 		if (fill_data_flags(data, ap, i, tmp) == 0)
 			return (0);	

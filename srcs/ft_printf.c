@@ -47,20 +47,21 @@ static int	formatting(const char *format, t_data *data, va_list ap)
 	i = 1;
 	while (!is_identifier(format[i]) && format[i])
 		i++;
+
 	if ((sub = ft_strsub(format, 1, i)) == NULL ||
-		(data->s_fmt = ft_strjoin("%", sub)) == NULL)
+		(data->s_fmt_orig = ft_strjoin("%", sub)) == NULL)
 		return (0);
 	if(format[i] != '\0' && (tmp = check_sub((const char*)sub)) != NULL)
 	{
-		ft_strdel(&(data->s_fmt));
-		if ((data->s_fmt = ft_strjoin("%", tmp)) == NULL)
+		if ((data->s_fmt_new = ft_strjoin("%", tmp)) == NULL)
 			return (0);
-		ft_strdel(&(sub));
+		if (!(check_new_sub(data->s_fmt_new)))
+			return (0);
 		if (!(fill_data(data, ap)))
 			return (0);
 	}
 	else
-		data->value_format = data->s_fmt;
+		data->value_format = data->s_fmt_orig;
 	return (1);
 }
 
@@ -89,7 +90,7 @@ int			ft_printf(const char *format, ...)
 				bytes += (int)(ft_strlen(data.value_format) - 1);
 			else
 				bytes += (int)ft_strlen(data.value_format);
-			i += (int)ft_strlen(data.s_fmt) - 1;
+			i += (int)ft_strlen(data.s_fmt_orig) - 1;
 			free_data(&data);
 		}
 		else

@@ -91,7 +91,7 @@ int		convert_int(t_data *data)
 	}
 	if (!(flags(data)))
 		return (0);
-	if (data->precision != NULL && !ft_strequ(data->value, "0"))
+	if (data->precision != NULL)
 		if (!(precision(data)))
 			return (0);
 	if (data->min_field_width != NULL)
