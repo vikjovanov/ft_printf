@@ -41,6 +41,8 @@ static int	char_minus_flag(t_data *data, int flag_id)
 
 	value = ft_atoi(&(data->flags[flag_id][1]))
 	+ ((int)ft_strlen(data->value) - 1);
+	if (value == -1)
+		value = 0;
 	tmp = (data->value_format == NULL) ? data->value : data->value_format;
 	if (value < 0 || value > MAX_FIELD_WIDTH)
 		return (0);

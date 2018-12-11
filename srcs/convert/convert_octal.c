@@ -55,7 +55,7 @@ static int	flags(t_data *data)
 {
 	int id;
 
-	if ((id = has_flag("#", data->flags)) >= 0)
+	if ((id = has_flag("#", data->flags)) >= 0 && !ft_strequ(data->value, "0"))
 		if (!(octal_hashtag_flag(data, id)))
 			return (0);
 	if ((id = has_flag("-", data->flags)) >= 0)
@@ -80,7 +80,7 @@ int		convert_octal(t_data *data)
 	data->value_format = nb;
 	tmp = NULL;
 	if (data->precision != NULL && ft_strequ(data->precision, "0")
-		&& ft_strequ(data->value, "0"))
+		&& ft_strequ(data->value, "0") && has_flag("#", data->flags) < 0) 
 	{
 		tmp = data->value_format;
 		data->value_format = ft_strdupwc(tmp, '0');
@@ -88,6 +88,7 @@ int		convert_octal(t_data *data)
 		if (data->value_format == NULL)
 			return (0);
 	}
+	
 	if (!(flags(data)))
 		return (0);
 	if (data->precision != NULL)

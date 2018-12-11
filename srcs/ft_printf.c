@@ -65,6 +65,35 @@ static int	formatting(const char *format, t_data *data, va_list ap)
 	return (1);
 }
 
+static int	print_result(t_data *data)
+{
+	int length;
+	int id;
+	int i;
+
+	length = 1;
+	i = -1;
+	if (data->min_field_width != NULL)
+		length = ft_atoi(data->min_field_width);
+	else if ((id = has_flag("-", data->flags)) >= 0)
+		length = ft_atoi(&(data->flags[id][1]));
+	length = (length == 0) ? 1 : length;
+	if (data->identifier == 'c' && data->value[0] == 0)
+	{
+		if (data->min_field_width == NULL)
+			while (++i < length)
+				ft_putchar(data->value_format[length - i - 1]);
+		else
+			while (++i < length)
+				ft_putchar(data->value_format[i]);
+	}
+	else
+		ft_putstr(data->value_format);
+	return (data->identifier == 'c' && data->value[0] == 0 ? i :
+		ft_strlen(data->value_format));
+}
+
+
 int			ft_printf(const char *format, ...)
 {
 	va_list ap;
@@ -82,14 +111,12 @@ int			ft_printf(const char *format, ...)
 		{
 			if (!(formatting(&(format[i]), &data, ap)))
 			{
+				printf("%s\n", data.flags[0]);
 				free_data(&data);
 				return (-1);
 			}
-			ft_putstr(data.value_format);
-			if (data.identifier == 'c' && ft_strlen(data.value) > 1)
-				bytes += (int)(ft_strlen(data.value_format) - 1);
-			else
-				bytes += (int)ft_strlen(data.value_format);
+			// ft_putstr(data.value_format);
+			bytes += print_result(&data);
 			i += (int)ft_strlen(data.s_fmt_orig) - 1;
 			free_data(&data);
 		}

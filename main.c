@@ -6,12 +6,25 @@
 
 int		main(void)
 {
+
 	//size_t a = 9223372036854775808;
 	//printf("%d\n", printf("printf: %u %u\n", NULL, NULL));
 	//ft_printf("f: %.f\n", 3.565435456);
 	//ft_printf("f: %.8f\n", 99.85);
-	printf("p: %.2f\n", 99.858);
-	ft_printf("f: %.2f\n", 99.858);
+	//a = ft_printf("f_%#o\n", 0);
+	//printf("f_%d\n", a);
+
+	//ft_printf("{%0-3d}\n", 0);
+	//printf("{%}");
+	//printf("%%\n");
+	//printf("p : \\!/%-c\\!/\n", 0);
+	int a = -10000;
+	   printf("p : !%52.2lf!", a);
+	ft_printf("f : !%52.2lf!\n", a);
+	//ft_printf("f : !%52.2lf!\n", -9223372036854775808.000000);
+	//ft_printf("f_ %#o\n", 0);
+	//ft_printf("Fmoulitest: %#.o %#.0o\n", 0, 0);
+	//printf("p_%d\n", a);
 	//ft_printf("F: %.d %#.d\n", 0, 0);
 	//ft_printf("d %\n", 0);
 /*

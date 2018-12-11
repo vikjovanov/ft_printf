@@ -160,9 +160,16 @@ static char 		*remove_flags(char *sub, int j)
 			sub = ft_strremove(tmp, i, ret);
 			ft_strdel(&tmp);
 		}
+		else if ((ret = is_flag(&(sub[i]))) != 0 ||
+			(ret = is_precision(&(sub[i]))) != -1 ||
+			(ret = is_conversion_flag(&(sub[i]))) != 0 ||
+			(ret = is_min_field_width(&(sub[i]))) != 0)
+			i += ret;
 		else
 			i++;
 	}
+	if (get_flags()[j][0] == '-')
+		return (remove_flags(sub, j + 1));
 	return (sub);
 }
 
@@ -211,5 +218,7 @@ char 		*check_sub(const char *sub)
 		if (!(sub = remove_flags((char*)sub, tab[0])))
 			return (NULL);
 	}
+	//printf("sub : %s\n", sub);
+	//printf("new_sub: %s\n", new_sub);
 	return (join_str(new_sub, sub));
 }

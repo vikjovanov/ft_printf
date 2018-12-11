@@ -56,23 +56,8 @@ void	set_unsigned_int(t_data *data, va_list ap)
 
 void	set_char(t_data *data, va_list ap)
 {
-	int c;
-
-	c = va_arg(ap, int);
-	if (c <= 31 || c >= 127)
-	{
-		data->value = ft_strnew(sizeof(char) * 2);
-		data->value[0] = '^';
-		if (c <= 31)
-			data->value[1] = c + 64;
-		else if (c == 127)
-			data->value[1] = c - 64;
-	}
-	else
-	{
-		data->value = ft_strnew(sizeof(char));
-		data->value[0] = c;
-	}
+	data->value = ft_strnew(sizeof(char));
+	data->value[0] = (char)va_arg(ap, int);
 }
 
 void	set_string(t_data *data, va_list ap)
@@ -91,7 +76,7 @@ void	set_double(t_data *data, va_list ap)
 	if (data->conversion_flags[0] != NULL)
 	{
 		if (ft_strequ(data->conversion_flags[0], "l"))
-			data->value = ft_dtoa(va_arg(ap, double));
+			data->value = ft_dtoa((double)va_arg(ap, double));
 		else if (ft_strequ(data->conversion_flags[0], "L"))
 			data->value = ft_ldtoa(va_arg(ap, long double));
 	}

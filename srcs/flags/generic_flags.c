@@ -39,11 +39,15 @@ int		generic_plus_flag(t_data *data, int flag_id)
 {
 	char *tmp;
 
-	tmp = (data->value_format == NULL) ? data->value : data->value_format;
+	tmp = (data->value_format == NULL) ?
+		ft_strdup(data->value) : ft_strdup(data->value_format);
+	if (tmp == NULL)
+		return (0);
 	if (data->value[0] == '-')
 	{
-		if (!(data->value_format = ft_strdup(tmp)))
-			return (0);
+		if (data->value_format != NULL)
+			ft_strdel(&(data->value_format));
+		data->value_format = tmp;
 	}
 	else if (data->value[0] != '-')
 	{
@@ -88,11 +92,15 @@ int		generic_space_flag(t_data *data, int flag_id)
 
 	if (has_flag("+", data->flags) >= 0)
 		return (1);
-	tmp = (data->value_format == NULL) ? data->value : data->value_format;
+	tmp = (data->value_format == NULL) ?
+		ft_strdup(data->value) : ft_strdup(data->value_format);
+	if (tmp == NULL)
+		return (0);
 	if (tmp[0] == '-')
 	{
-		if (!(data->value_format = ft_strdup(tmp)))
-			return (0);
+		if (data->value_format != NULL)
+			ft_strdel(&(data->value_format));
+		data->value_format = tmp;
 	}
 	else if (data->value[0] != '-')
 	{
