@@ -25,4 +25,3 @@ int		has_flag(char *flag, char **flags)
 	}
 	return (-1);
 }
-

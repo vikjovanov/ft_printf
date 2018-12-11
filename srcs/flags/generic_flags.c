@@ -14,14 +14,14 @@
 
 int		generic_minus_flag(t_data *data, int flag_id)
 {
-	int 	value;
-	int 	length;
-	char 	*tmp;
+	long	value;
+	long	length;
+	char	*tmp;
 
-	value = ft_atoi(&(data->flags[flag_id][1]));
-	tmp = (data->value_format == NULL) ? data->value : data->value_format;
+	value = (long)ft_atoll(&(data->flags[flag_id][1]));
 	if (value < 0 || value > MAX_FIELD_WIDTH)
-		return (0);
+		return (1);
+	tmp = (data->value_format == NULL) ? data->value : data->value_format;
 	if (value <= (int)ft_strlen(tmp))
 		length = (int)ft_strlen(tmp);
 	else
@@ -61,17 +61,18 @@ int		generic_plus_flag(t_data *data, int flag_id)
 
 int		generic_zero_flag(t_data *data, int flag_id)
 {
-	int 	value;
-	int		length;
-	char 	*tmp;
-	int		i;
+	long	value;
+	long	length;
+	char	*tmp;
+	long	i;
 
 	tmp = (data->value_format == NULL) ? data->value : data->value_format;
 	i = (tmp[0] == '-' || tmp[0] == '+' || tmp[0] == ' ') ? 1 : 0;
-	value = ft_atoi(data->flags[flag_id]);
-	length = (value <= (int)ft_strlen(tmp)) ? 
+	value = (long)ft_atoll(data->flags[flag_id]);
+	length = (value <= (int)ft_strlen(tmp)) ?
 		(int)ft_strlen(tmp) + i : value + i;
-	if ((data->value_format = (char*)malloc(sizeof(char) * (length + 1))) == NULL)
+	if ((data->value_format =
+		(char*)malloc(sizeof(char) * (length + 1))) == NULL)
 		return (0);
 	data->value_format[length] = '\0';
 	ft_memset(data->value_format, '0', (size_t)length);

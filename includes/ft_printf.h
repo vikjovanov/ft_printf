@@ -6,7 +6,7 @@
 /*   By: vjovanov <vjovanov@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/10 15:21:51 by vjovanov          #+#    #+#             */
-/*   Updated: 2018/11/21 22:00:21 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/12/11 16:27:15 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,27 @@
 # define FT_PRINTF_H
 
 # include <stdarg.h>
-# include <stdio.h> // A SUPPRIMER
 # include "../libft/includes/libft.h"
 
-# define MAX_FIELD_WIDTH 2147483614
+# define MAX_FIELD_WIDTH 2147483647
 # define NB_CONVERSION_FLAGS 7
 # define NB_FLAGS 5
 # define NB_IDENTIFIERS 11
 
-typedef struct 	s_data
+typedef struct	s_data
 {
 	char		identifier;
 	char		*flags[NB_FLAGS + 1];
 	char		*conversion_flags[NB_CONVERSION_FLAGS + 1];
 	char 		*precision;
 	char		*min_field_width;
-	char		*value_format;	
+	char		*value_format;
 	char		*value;
 	char		*s_fmt_orig;
 	char		*s_fmt_new;
 }				t_data;
 
-typedef struct 	s_config
+typedef struct	s_config
 {
 	char		identifier;
 	char		*accepted_flags[NB_FLAGS];
@@ -45,6 +44,9 @@ typedef struct 	s_config
 }				t_config;
 
 int				ft_printf(const char *format, ...);
+
+int				formatting(const char *format, t_data *data, va_list ap);
+
 char			*fill_conv_flags(char *s_fmt, int ret);
 char			*fill_precision(char *s_fmt, va_list ap, int ret);
 char			*fill_field_width(char *s_fmt, va_list ap, int ret);
@@ -72,7 +74,6 @@ void			set_unsigned_int(t_data *data, va_list ap);
 void			set_char(t_data *data, va_list ap);
 void			set_double(t_data *data, va_list ap);
 void			set_string(t_data *data, va_list ap);
-
 
 int				convert_char(t_data *data);
 int				convert_double(t_data *data);

@@ -43,7 +43,7 @@ char		*fill_precision(char *s_fmt, va_list ap, int ret)
 		return (res);
 	}
 	if ((res = ft_strsub(s_fmt, 1, ret - 1)) == NULL)
-			return (NULL);
+		return (NULL);
 	return (res);
 }
 
@@ -62,7 +62,7 @@ char		*fill_field_width(char *s_fmt, va_list ap, int ret)
 		return (res);
 	}
 	if ((res = ft_strsub(s_fmt, 0, ret)) == NULL)
-			return (NULL);
+		return (NULL);
 	return (res);
 }
 
@@ -81,7 +81,7 @@ char		*fill_flags(char *s_fmt, va_list ap, int ret)
 		return (res);
 	}
 	if ((res = ft_strsub(s_fmt, 0, ret)) == NULL)
-			return (NULL);
+		return (NULL);
 	return (res);
 }
 

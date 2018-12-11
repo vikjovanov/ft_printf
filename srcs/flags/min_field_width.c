@@ -12,15 +12,15 @@
 
 #include "ft_printf.h"
 
-int 	min_field_width(t_data *data)
+int		min_field_width(t_data *data)
 {
-	char *tmp;
-	int  length;
-	int  min_width;
+	char	*tmp;
+	long	length;
+	long	min_width;
 
-	min_width = ft_atoi(data->min_field_width);
+	min_width = (long)ft_atoll(data->min_field_width);
 	if (min_width > MAX_FIELD_WIDTH)
-		return (0);
+		return (1);
 	length = (min_width < (int)ft_strlen(data->value_format)) ?
 		(int)ft_strlen(data->value_format) : min_width;
 	tmp = data->value_format;

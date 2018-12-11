@@ -6,7 +6,7 @@
 /*   By: vjovanov <vjovanov@student.19.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 14:12:28 by vjovanov          #+#    #+#             */
-/*   Updated: 2018/11/17 18:32:37 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/12/11 16:28:46 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		is_flag(const char *c)
 	{
 		if (c[j + 1] == '*')
 			return (2);
-		while((ft_isdigit(c[j + 1]) && *c != '\0'))
+		while ((ft_isdigit(c[j + 1]) && *c != '\0'))
 			j++;
 		return (j + 1);
 	}
@@ -52,8 +52,8 @@ int		is_flag(const char *c)
 
 int		is_conversion_flag(const char *c)
 {
-	int i;
-	size_t length;
+	int		i;
+	size_t	length;
 
 	i = 0;
 	while (i < NB_CONVERSION_FLAGS)

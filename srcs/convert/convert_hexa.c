@@ -14,11 +14,11 @@
 
 static int	set_precision_len(int precision, char *tmp)
 {
-	if (precision <= ft_strclen(tmp, ' '))
+	if (precision <= (int)ft_strclen(tmp, ' '))
 		return (-3);
 	else
 	{
-		if (precision >= ft_strlen(tmp))
+		if (precision >= (int)ft_strlen(tmp))
 			return (precision);
 		else
 			return ((int)ft_strlen(tmp));
@@ -29,29 +29,29 @@ static int	set_precision_len(int precision, char *tmp)
 static int	precision(t_data *data)
 {
 	char	*tmp;
-	int		precision;
-	int		length;
-	int		i;
+	long	prec;
+	long	length;
+	long	i;
 
 	if (ft_atoll(data->precision) > MAX_FIELD_WIDTH ||
 		ft_atoll(data->precision) < 0)
-		return (0);
-	precision = ft_atoi(data->precision);
+		return (1);
+	prec = (long)ft_atoll(data->precision);
 	tmp = data->value_format;
 	i = (ft_strnequ(tmp, "0x", 2)) ? 2 : 0;
-	if ((length = set_precision_len(precision, &(tmp[i])) + i) < 0)
+	if ((length = set_precision_len(prec, &(tmp[i])) + i) < 0)
 		return (1);
 	if (!(data->value_format = ft_strnew(length)))
 		return (0);
 	ft_memset(data->value_format, '0', (size_t)length);
 	if (i == 2)
 		ft_strncpy(data->value_format, "0x", 2);
-	if (length == precision + i)
-		ft_memcpy(&(data->value_format[(precision + i) - ft_strclen(&(tmp[i]), ' ')]),
+	if (length == prec + i)
+		ft_memcpy(&(data->value_format[prec + i - ft_strclen(&(tmp[i]), ' ')]),
 			&(tmp[i]), ft_strclen(&(tmp[i]), ' '));
 	else if (length == ft_strlen(tmp))
-		ft_memcpy(&(data->value_format[(precision + i) - ft_strclen(&(tmp[i]), ' ')]),
-			&(tmp[i]), ((length - precision) - i) + ft_strclen(&(tmp[i]), ' '));
+		ft_memcpy(&(data->value_format[prec + i - ft_strclen(&(tmp[i]), ' ')]),
+			&(tmp[i]), ((length - prec) - i) + ft_strclen(&(tmp[i]), ' '));
 	return (1);
 }
 
@@ -74,7 +74,7 @@ static int	flags(t_data *data)
 	return (1);
 }
 
-int		convert_hexa(t_data *data)
+int			convert_hexa(t_data *data)
 {
 	char *nb;
 	char *tmp;

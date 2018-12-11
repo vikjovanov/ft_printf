@@ -14,7 +14,7 @@
 
 static int	flags(t_data *data)
 {
-	int id;
+	int	id;
 
 	if ((id = has_flag("-", data->flags)) >= 0)
 		if (!(generic_minus_flag(data, id)))
@@ -22,7 +22,7 @@ static int	flags(t_data *data)
 	return (1);
 }
 
-int		convert_pointer(t_data *data)
+int			convert_pointer(t_data *data)
 {
 	char *nb;
 

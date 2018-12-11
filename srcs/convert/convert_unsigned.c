@@ -28,14 +28,14 @@ static int	set_precision_len(int precision, char *tmp)
 
 static int	precision(t_data *data)
 {
-	char *tmp;
-	int precision;
-	int length;
+	char	*tmp;
+	long	precision;
+	long	length;
 
 	if (ft_atoll(data->precision) > MAX_FIELD_WIDTH ||
 		ft_atoll(data->precision) < 0)
-		return (0);
-	precision = ft_atoi(data->precision);
+		return (1);
+	precision = (long)ft_atoll(data->precision);
 	tmp = data->value_format;
 	if ((length = set_precision_len(precision, tmp)) < 0)
 		return (1);
@@ -70,7 +70,7 @@ static int	flags(t_data *data)
 	return (1);
 }
 
-int		convert_unsigned(t_data *data)
+int			convert_unsigned(t_data *data)
 {
 	if (data->precision != NULL && ft_strequ(data->precision, "0")
 		&& ft_strequ(data->value, "0"))

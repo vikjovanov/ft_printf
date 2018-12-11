@@ -28,15 +28,15 @@ static int	set_precision_len(int precision, char *tmp)
 
 static int	precision(t_data *data)
 {
-	char *tmp;
-	int precision;
-	int length;
+	char	*tmp;
+	long	precision;
+	long	length;
 
 	if (ft_atoll(data->precision) > MAX_FIELD_WIDTH ||
 		ft_atoll(data->precision) < 0)
-		return (0);
+		return (1);
 	tmp = data->value_format;
-	precision = ft_atoi(data->precision);
+	precision = (long)ft_atoll(data->precision);
 	if ((length = set_precision_len(precision, tmp)) < 0)
 		return (1);
 	if (!(data->value_format = ft_strnew(length)))
@@ -53,7 +53,7 @@ static int	precision(t_data *data)
 
 static int	flags(t_data *data)
 {
-	int id;
+	int	id;
 
 	if ((id = has_flag("#", data->flags)) >= 0 && !ft_strequ(data->value, "0"))
 		if (!(octal_hashtag_flag(data, id)))
@@ -70,17 +70,16 @@ static int	flags(t_data *data)
 	return (1);
 }
 
-
-int		convert_octal(t_data *data)
+int			convert_octal(t_data *data)
 {
-	char *nb;
-	char *tmp;
+	char	*nb;
+	char	*tmp;
 
 	nb = ft_ulltoa_base(ft_atoull(data->value), 8);
 	data->value_format = nb;
 	tmp = NULL;
 	if (data->precision != NULL && ft_strequ(data->precision, "0")
-		&& ft_strequ(data->value, "0") && has_flag("#", data->flags) < 0) 
+		&& ft_strequ(data->value, "0") && has_flag("#", data->flags) < 0)
 	{
 		tmp = data->value_format;
 		data->value_format = ft_strdupwc(tmp, '0');
@@ -88,7 +87,6 @@ int		convert_octal(t_data *data)
 		if (data->value_format == NULL)
 			return (0);
 	}
-	
 	if (!(flags(data)))
 		return (0);
 	if (data->precision != NULL)

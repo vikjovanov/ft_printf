@@ -17,7 +17,7 @@ LIB_NAME= libftprintf.a
 # SOURCE FILES
 
 SRCS= ft_printf.c fill_data.c data.c config_checker.c config.c sub_checker.c \
-		dispatcher.c set_type.c 
+		dispatcher.c set_type.c formatting.c
 SRCS_DIR= $(addprefix srcs/, $(SRCS))
 
 #OBJ

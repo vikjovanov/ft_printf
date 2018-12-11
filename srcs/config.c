@@ -17,18 +17,17 @@
 **  pointer to the conversion function, value_type}
 */
 
-const char			*g_flags[NB_FLAGS] = {
-	" ", "#", "+", "-", "0"
-};
-
 const char			*g_conversion_flags[NB_CONVERSION_FLAGS] = {
 	"hh", "h", "ll", "l", "j", "z", "L"
 };
 
+const char			*g_flags[NB_FLAGS] = {
+	" ", "#", "+", "-", "0"
+};
+
 const t_config		g_identifiers[NB_IDENTIFIERS] = {
-	{'c', {"-"}, {}, &convert_char, "char"},
-	{'s', {"-"}, {}, &convert_string, "string"},
-	{'p', {"-"}, {}, &convert_pointer, "void*"},
+	{'s', {"-"}, {""}, &convert_string, "string"},
+	{'p', {"-"}, {""}, &convert_pointer, "void*"},
 	{'d', {" ", "+", "-", "0"}, {"hh", "h", "ll", "l", "j", "z"}, &convert_int, "int"},
 	{'i', {" ", "+", "-", "0"}, {"hh", "h", "ll", "l", "j", "z"}, &convert_int, "int"},
 	{'o', {"#", "-", "0"}, {"hh", "h", "ll", "l", "j", "z"}, &convert_octal, "unsigned int"},
@@ -36,55 +35,55 @@ const t_config		g_identifiers[NB_IDENTIFIERS] = {
 	{'x', {"#", "-", "0"}, {"hh", "h", "ll", "l", "j", "z"}, &convert_hexa, "unsigned int"},
 	{'X', {"#", "-", "0"}, {"hh", "h", "ll", "l", "j", "z"}, &convert_hexa_upper, "unsigned int"},
 	{'f', {" ", "#", "+", "-", "0"}, {"l", "L"}, &convert_double, "double"},
-	{'%', {"-", "0"}, {}, &convert_percent, "nothing"}
+	{'%', {"-", "0"}, {""}, &convert_percent, "nothing"}
 };
 
-const char **get_flags()
+const char		**get_flags(void)
 {
 	return (g_flags);
 }
 
-const char **get_conversion_flags()
+const char		**get_conversion_flags(void)
 {
 	return (g_conversion_flags);
 }
 
-const t_config *get_identifiers()
+const t_config	*get_identifiers(void)
 {
 	return (g_identifiers);
 }
 
-int		is_acceptable_flag(char identifier, char flag)
+int				is_acceptable_flag(char identifier, char flag)
 {
 	int i;
 	int j;
 
 	i = 0;
-	while (g_identifiers[i].identifier != identifier)
+	while (get_identifiers()[i].identifier != identifier)
 		i++;
 	j = 0;
-	while (j < ft_array_length((void**)g_identifiers[i].accepted_flags))
+	while (j < ft_array_length((void**)get_identifiers()[i].accepted_flags))
 	{
-		if (g_identifiers[i].accepted_flags[j][0] == flag)
+		if (get_identifiers()[i].accepted_flags[j][0] == flag)
 			return (1);
 		j++;
 	}
 	return (0);
 }
 
-int		is_acceptable_conv_flag(char identifier, char *flag, int len)
+int				is_acceptable_conv_flag(char identifier, char *flag, int len)
 {
 	int i;
 	int j;
 
 	i = 0;
 	j = 0;
-	while (g_identifiers[i].identifier != identifier)
+	while (get_identifiers()[i].identifier != identifier)
 		i++;
 	while (j < ft_array_length(
-		(void**)g_identifiers[i].accepted_conversion_flag))
+		(void**)get_identifiers()[i].accepted_conversion_flag))
 	{
-		if (ft_strnequ(g_identifiers[i].accepted_conversion_flag[j],
+		if (ft_strnequ(get_identifiers()[i].accepted_conversion_flag[j],
 			flag, len))
 			return (1);
 		j++;

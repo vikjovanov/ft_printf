@@ -17,7 +17,7 @@
 ** 	ft_printf
 **
 ** DESCRIPTION:
-**	ft_print() affiche a l'ecran la chaine de caractere 'format' avec les 
+**	ft_print() affiche a l'ecran la chaine de caractere 'format' avec les
 **	differents parametres recus.
 **
 ** SYNOPSIS:
@@ -28,42 +28,14 @@
 **	... - parametres permettant le formatage de la chaine de caractere
 **
 ** RETURN VALUE:
-**	(int) le nombre de caractere ecrits. Si une erreur est survenue, 
+**	(int) le nombre de caractere ecrits. Si une erreur est survenue,
 **	retourne une valeur negative.
-** 
+**
 ** steps[0] = flags
 ** steps[1] = min_field_width
 ** steps[2] = precision
 ** steps[3] = conversion_flags
 */
-
-static int	formatting(const char *format, t_data *data, va_list ap)
-{
-	int i;
-	char *sub;
-	char *tmp;
-
-	tmp = NULL;
-	i = 1;
-	while (!is_identifier(format[i]) && format[i])
-		i++;
-
-	if ((sub = ft_strsub(format, 1, i)) == NULL ||
-		(data->s_fmt_orig = ft_strjoin("%", sub)) == NULL)
-		return (0);
-	if(format[i] != '\0' && (tmp = check_sub((const char*)sub)) != NULL)
-	{
-		if ((data->s_fmt_new = ft_strjoin("%", tmp)) == NULL)
-			return (0);
-		if (!(check_new_sub(data->s_fmt_new)))
-			return (0);
-		if (!(fill_data(data, ap)))
-			return (0);
-	}
-	else
-		data->value_format = data->s_fmt_orig;
-	return (1);
-}
 
 static int	print_result(t_data *data)
 {
@@ -93,6 +65,43 @@ static int	print_result(t_data *data)
 		ft_strlen(data->value_format));
 }
 
+int			read_percent(const char *format, va_list ap, t_data *data, int *i)
+{
+	int	bytes;
+
+	bytes = 0;
+	if (!(formatting(format, data, ap)))
+	{
+		free_data(data);
+		return (-1);
+	}
+	bytes = print_result(data);
+	*i += (int)ft_strlen(data->s_fmt_orig) - 1;
+	free_data(data);
+	return (bytes);
+} 
+
+int			read_color(const char *format, va_list ap, int *i)
+{
+	return (0);
+}
+
+int			read_format(const char *format, t_data *data, va_list ap, int *i)
+{
+	int bytes;
+
+	bytes = 0;
+	if (format[0] == '%')
+		bytes = read_percent(format, ap, data, i);
+	else if (format[0] == '{')
+		bytes += read_color(format, ap, i);
+	else
+	{
+		bytes++;
+		ft_putchar(format[0]);
+	}
+	return (bytes);
+}
 
 int			ft_printf(const char *format, ...)
 {
@@ -100,58 +109,19 @@ int			ft_printf(const char *format, ...)
 	t_data	data;
 	int		i;
 	int		bytes;
+	int		ret;
 
-	i = 0;
+	i = -1;
 	bytes = 0;
+	ret = 0;
 	set_data(&data);
 	va_start(ap, format);
-	while (format[i])
+	while (format[++i])
 	{
-		if (format[i] == '%')
-		{
-			if (!(formatting(&(format[i]), &data, ap)))
-			{
-				printf("%s\n", data.flags[0]);
-				free_data(&data);
-				return (-1);
-			}
-			// ft_putstr(data.value_format);
-			bytes += print_result(&data);
-			i += (int)ft_strlen(data.s_fmt_orig) - 1;
-			free_data(&data);
-		}
-		else
-		{
-			bytes++;
-			ft_putchar(format[i]);
-		}
-		i++;
+		if ((ret = read_format(&(format[i]), &data, ap, &i)) == -1)
+			return (0);
+		bytes += ret;
 	}
-	/*
-	printf("\n");
-	printf("======\n");
-	printf("sub_format : %s\n", data.s_fmt);
-	printf("identifier : %c\n", data.identifier);
-	
-	int u = -1;
-	printf("flags : ");
-	while (data.flags[++u])
-		printf("%s ", data.flags[u]);
-	printf("\n");
-	
-	u = -1;
-	printf("conversion flags : ");
-	while (data.conversion_flags[++u])
-		printf("%s ", data.conversion_flags[u]);
-	printf("\n");
-	
-	printf("precision : %s\n", data.precision);
-	printf("min_field_width : %s\n", data.min_field_width);
-	printf("value : %s\n", data.value);
-	printf("=======\n");
-	*/
-	//printf("value_format: %s\n", data.value_format);
-
 	va_end(ap);
 	return (bytes);
 }

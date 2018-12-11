@@ -29,29 +29,29 @@ static int	set_precision_len(int precision, char *tmp)
 static int	precision(t_data *data)
 {
 	char	*tmp;
-	int		precision;
-	int		length;
-	int		i;
+	long	prec;
+	long	length;
+	long	i;
 
 	if (ft_atoll(data->precision) > MAX_FIELD_WIDTH ||
 		ft_atoll(data->precision) < 0)
-		return (0);
-	precision = ft_atoi(data->precision);
+		return (1);
+	prec = (long)ft_atoll(data->precision);
 	tmp = data->value_format;
 	i = (tmp[0] == '-' || tmp[0] == '+' || tmp[0] == ' ') ? 1 : 0;
-	if ((length = set_precision_len(precision, &(tmp[i])) + i) < 0)
+	if ((length = set_precision_len(prec, &(tmp[i])) + i) < 0)
 		return (1);
 	if (!(data->value_format = ft_strnew(length)))
 		return (0);
 	ft_memset(data->value_format, '0', (size_t)length);
 	if (tmp[0] == '-' || tmp[0] == '+' || tmp[0] == ' ')
 		data->value_format[0] = tmp[0];
-	if (length == precision + i)
-		ft_memcpy(&(data->value_format[(precision + i) - ft_strclen(&(tmp[i]), ' ')]),
+	if (length == prec + i)
+		ft_memcpy(&(data->value_format[prec + i - ft_strclen(&(tmp[i]), ' ')]),
 			&(tmp[i]), ft_strclen(&(tmp[i]), ' '));
 	else if (length == ft_strlen(tmp))
-		ft_memcpy(&(data->value_format[(precision + i) - ft_strclen(&(tmp[i]), ' ')]),
-			&(tmp[i]), ((length - precision) - i) + ft_strclen(&(tmp[i]), ' '));
+		ft_memcpy(&(data->value_format[prec + i - ft_strclen(&(tmp[i]), ' ')]),
+			&(tmp[i]), ((length - prec) - i) + ft_strclen(&(tmp[i]), ' '));
 	return (1);
 }
 
@@ -80,14 +80,14 @@ static int	flags(t_data *data)
 	return (1);
 }
 
-int		convert_int(t_data *data)
+int			convert_int(t_data *data)
 {
 	if (data->precision != NULL && ft_strequ(data->precision, "0")
 		&& ft_strequ(data->value, "0"))
 	{
-			data->value_format = ft_strdupwc(data->value, '0');
-			if (data->value_format == NULL)
-				return (0);
+		data->value_format = ft_strdupwc(data->value, '0');
+		if (data->value_format == NULL)
+			return (0);
 	}
 	if (!(flags(data)))
 		return (0);

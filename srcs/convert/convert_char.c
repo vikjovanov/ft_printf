@@ -12,16 +12,16 @@
 
 #include "ft_printf.h"
 
-static int char_min_field_width(t_data *data)
+static int		char_min_field_width(t_data *data)
 {
-	char *tmp;
-	int  length;
-	int  min_width;
+	char	*tmp;
+	long	length;
+	long	min_width;
 
-	min_width = ft_atoi(data->min_field_width)
+	min_width = (long)ft_atoll(data->min_field_width)
 		+ ((int)ft_strlen(data->value) - 1);
 	if (min_width > MAX_FIELD_WIDTH)
-		return (0);
+		return (1);
 	length = (min_width < (int)ft_strlen(data->value_format)) ?
 		(int)ft_strlen(data->value_format) : min_width;
 	tmp = data->value_format;
@@ -33,19 +33,19 @@ static int char_min_field_width(t_data *data)
 	return (1);
 }
 
-static int	char_minus_flag(t_data *data, int flag_id)
+static int		char_minus_flag(t_data *data, int flag_id)
 {
-	int 	value;
-	int 	length;
-	char 	*tmp;
+	long	value;
+	long	length;
+	char	*tmp;
 
-	value = ft_atoi(&(data->flags[flag_id][1]))
+	value = (long)ft_atoll(&(data->flags[flag_id][1]))
 	+ ((int)ft_strlen(data->value) - 1);
 	if (value == -1)
 		value = 0;
 	tmp = (data->value_format == NULL) ? data->value : data->value_format;
 	if (value < 0 || value > MAX_FIELD_WIDTH)
-		return (0);
+		return (1);
 	if (value <= (int)ft_strlen(tmp))
 		length = (int)ft_strlen(tmp);
 	else
@@ -59,7 +59,6 @@ static int	char_minus_flag(t_data *data, int flag_id)
 	return (1);
 }
 
-
 static int		flags(t_data *data)
 {
 	int id;
@@ -70,7 +69,7 @@ static int		flags(t_data *data)
 	if (data->value_format == NULL)
 		if ((data->value_format = ft_strdup(data->value)) == NULL)
 			return (0);
-	return (1);	
+	return (1);
 }
 
 int				convert_char(t_data *data)

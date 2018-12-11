@@ -26,17 +26,18 @@ int		hexa_hashtag_flag(t_data *data, int flag_id)
 
 int		hexa_zero_flag(t_data *data, int flag_id)
 {
-	int 	value;
-	int		length;
-	char 	*tmp;
-	int		i;
+	long	value;
+	long	length;
+	char	*tmp;
+	long	i;
 
 	tmp = data->value_format;
 	i = (ft_strnequ(tmp, "0x", 2)) ? 2 : 0;
-	value = ft_atoi(data->flags[flag_id]);
-	length = (value <= (int)ft_strlen(tmp)) ? 
+	value = (long)ft_atoll(data->flags[flag_id]);
+	length = (value <= (int)ft_strlen(tmp)) ?
 		(int)ft_strlen(tmp) + i : value + i;
-	if ((data->value_format = (char*)malloc(sizeof(char) * (length + 1))) == NULL)
+	if ((data->value_format =
+		(char*)malloc(sizeof(char) * (length + 1))) == NULL)
 		return (0);
 	data->value_format[length] = '\0';
 	ft_memset(data->value_format, '0', (size_t)length);
