@@ -30,7 +30,7 @@ OBJ= $(subst .c,.o,$(SRCS))
 SRCS_CONVERT = convert_char.c convert_double.c convert_hexa.c convert_int.c \
 				convert_hexa_upper.c convert_octal.c convert_pointer.c \
 				convert_string.c convert_unsigned.c convert_percent.c \
-				convert_binary.c 
+				convert_binary.c convert_double_scs.c
 SRCS_CONVERT_DIR= $(addprefix srcs/convert/, $(SRCS_CONVERT))
 
 #OBJ

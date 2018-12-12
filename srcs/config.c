@@ -85,7 +85,8 @@ const t_config		g_identifiers[NB_IDENTIFIERS] = {
 	{'X', {"#", "-", "0"}, {"hh", "h", "ll", "l", "j", "z"}, &convert_hexa_upper, "unsigned int"},
 	{'f', {" ", "#", "+", "-", "0"}, {"l", "L"}, &convert_double, "double"},
 	{'%', {"-", "0"}, {""}, &convert_percent, "nothing"},
-	{'b', {" ", "#", "+", "-", "0"}, {"hh", "h", "ll", "l", "j", "z"}, &convert_binary, "int"}
+	{'b', {" ", "#", "+", "-", "0"}, {"hh", "h", "ll", "l", "j", "z"}, &convert_binary, "int"},
+	{'e', {" ", "#", "+", "-", "0"}, {"l", "L"}, &convert_double_scs, "double"}
 };
 
 const char		**get_flags(void)

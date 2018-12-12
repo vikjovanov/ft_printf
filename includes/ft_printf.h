@@ -19,7 +19,7 @@
 # define MAX_FIELD_WIDTH 2147483647
 # define NB_CONVERSION_FLAGS 7
 # define NB_FLAGS 5
-# define NB_IDENTIFIERS 12
+# define NB_IDENTIFIERS 13
 # define NB_COLORS 43
 
 typedef struct	s_data
@@ -86,6 +86,7 @@ void			set_string(t_data *data, va_list ap);
 
 int				convert_char(t_data *data);
 int				convert_double(t_data *data);
+int				convert_double_scs(t_data *data);
 int				convert_hexa(t_data *data);
 int				convert_binary(t_data *data);
 int				convert_hexa_upper(t_data *data);

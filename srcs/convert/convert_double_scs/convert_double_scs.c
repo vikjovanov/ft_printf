@@ -1,36 +1,63 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   convert_double.c                                   :+:      :+:    :+:   */
+/*   convert_double_scs.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vjovanov <vjovanov@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/17 16:19:46 by vjovanov          #+#    #+#             */
-/*   Updated: 2018/11/21 22:19:20 by vjovanov         ###   ########.fr       */
+/*   Created: 2018/12/12 17:25:01 by vjovanov          #+#    #+#             */
+/*   Updated: 2018/12/12 17:25:03 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static char	*ft_pow_ext(char *number, char *new_n, int report)
+char	*ft_pow_add_e(char *new_n, int diff)
+{
+	char *tmp;
+	char *tmp2;
+
+	if (!(tmp = ft_strjoin(new_n, "e+")))
+		return (NULL);
+	ft_strdel(&new_n);
+	if (diff < 10)
+	{
+		if(!(new_n = ft_strjoin(tmp, "0")))
+			return (NULL);
+		ft_strdel(&tmp);
+		if (!(tmp = ft_strjoin(new_n, ft_itoa(diff))))
+			return (NULL);
+		ft_strdel(&new_n);
+	}
+	else
+	{
+		if (!(new_n = ft_strjoin(tmp, ft_itoa(diff))))
+			return (NULL);
+		ft_strdel(&tmp);
+	}
+	return ((tmp == NULL) ? new_n : tmp);
+}
+
+
+static char	*ft_pow_ext(char *number, char *new_n, int report, long precision)
 {
 	char	*tmp;
 	char	*tmp2;
+	int		diff;
 
+	diff = (ft_strclen(number, '.') - 1) + report;
 	tmp = (report == 1) ? ft_strjoin("1", new_n) : ft_strdup(new_n);
 	if (tmp == NULL)
 		return (NULL);
-	if (!(tmp2 = ft_strjoin(
-		ft_strndup(tmp, ft_strclen(number, '.') + report), ".")))
+	if (!(tmp2 = ft_strjoin(ft_strndup(tmp, 1), ".")))
 		return (NULL);
 	ft_strdel(&tmp);
-	if (!(tmp = ft_strjoin(tmp2, ft_strndup(&(new_n[ft_strclen(number, '.')]),
-		ft_strlen(&(new_n[ft_strclen(number, '.')]))))))
+	if (!(tmp = ft_strjoin(tmp2, ft_strndup(&(new_n[1]), precision))))
 		return (NULL);
 	ft_strdel(&new_n);
 	ft_strdel(&number);
 	ft_strdel(&tmp2);
-	return (tmp);
+	return (ft_pow_add_e(tmp, diff));
 }
 
 static char	*ft_pow(char *number, long precision)
@@ -42,7 +69,7 @@ static char	*ft_pow(char *number, long precision)
 	report = 0;
 	if (!(new_n = ft_strremove(number, (int)ft_strclen(number, '.'), 1)))
 		return (NULL);
-	n = (((long)ft_strclen(number, '.') + precision) - 1) + 1;
+	n = ((1 + precision) - 1) + 1;
 	while (--n >= 0)
 		if (new_n[n + 1] >= '5' || report == 1)
 		{
@@ -60,7 +87,7 @@ static char	*ft_pow(char *number, long precision)
 			report = 0;
 			break ;
 		}
-	return (ft_pow_ext(number, new_n, report));
+	return (ft_pow_ext(number, new_n, report, precision));
 }
 
 /*
@@ -93,6 +120,7 @@ static int	precision(t_data *data)
 		return (0);
 	if ((data->value_format = ft_strjoin(temp, tmp)) == NULL)
 		return (0);
+	data->value_format = ft_pow_add_e(data->value_format, 0);
 	return (1);
 }
 
@@ -118,7 +146,7 @@ static int	flags(t_data *data)
 	return (1);
 }
 
-int			convert_double(t_data *data)
+int			convert_double_scs(t_data *data)
 {
 	char *tmp;
 
