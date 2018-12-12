@@ -38,3 +38,23 @@ int	formatting(const char *format, t_data *data, va_list ap)
 		data->value_format = data->s_fmt_orig;
 	return (1);
 }
+
+char *coloring(const char *format)
+{
+	int i;
+	int j;
+
+	j = 0;
+	i = 1;
+	while (format[i] != '}' && format[i])
+		i++;
+	if (format[i] == '\0')
+		return (NULL);
+	while (j < NB_COLORS)
+	{
+		if (ft_strnequ(&(format[1]), get_colors()[j].name, i - 1))
+			return (get_colors()[j].code);
+		j++;
+	}
+	return (NULL);
+}

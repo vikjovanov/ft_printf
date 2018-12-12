@@ -79,11 +79,24 @@ int			read_percent(const char *format, va_list ap, t_data *data, int *i)
 	*i += (int)ft_strlen(data->s_fmt_orig) - 1;
 	free_data(data);
 	return (bytes);
-} 
+}
 
-int			read_color(const char *format, va_list ap, int *i)
+int			read_color(const char *format, int *i)
 {
-	return (0);
+	char	*color;
+	int		bytes;
+
+	bytes = 0;
+	if (!(color = coloring(format)))
+	{
+		ft_putchar(format[0]);
+		bytes++;
+		return (bytes);
+	}
+	ft_putstr(color);
+	bytes = (int)ft_strlen(color);
+	*i += (int)ft_strclen(format, '}');
+	return (bytes);
 }
 
 int			read_format(const char *format, t_data *data, va_list ap, int *i)
@@ -94,7 +107,7 @@ int			read_format(const char *format, t_data *data, va_list ap, int *i)
 	if (format[0] == '%')
 		bytes = read_percent(format, ap, data, i);
 	else if (format[0] == '{')
-		bytes += read_color(format, ap, i);
+		bytes += read_color(format, i);
 	else
 	{
 		bytes++;

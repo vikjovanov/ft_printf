@@ -25,8 +25,6 @@ static int	flags(t_data *data)
 	return (1);
 }
 
-
-// NE FONCTIONNE PLUS A RECHECK
 static int	precision(t_data *data)
 {
 	long	precision;
@@ -36,21 +34,21 @@ static int	precision(t_data *data)
 
 	precision = (long)ft_atoll(data->precision);
 	length = 0;
-	if (precision >= (int)ft_strlen(data->value))
+	if (precision >= (long)ft_strlen(data->value))
 		return (1);
 	if ((id = has_flag("-", data->flags)) >= 0
 		&& precision < (long)ft_atoll(&(data->flags[id][1])))
 	{
-		tmp = ft_strnew((long)ft_atoll(&(data->flags[id][1])));
+		tmp = ft_strnew((size_t)ft_atoll(&(data->flags[id][1])));
 		length = (long)ft_atoll(&(data->flags[id][1]));
 	}
 	else
 	{
-		tmp = ft_strnew(precision);
+		tmp = ft_strnew((size_t)precision);
 		length = precision;
 	}
-	ft_memset(tmp, ' ', length);
-	ft_strncpy(tmp, data->value, precision);
+	ft_memset(tmp, ' ', (size_t)length);
+	ft_strncpy(tmp, data->value, (size_t)precision);
 	free(data->value_format);
 	data->value_format = tmp;
 	return (1);
@@ -61,9 +59,9 @@ int			convert_string(t_data *data)
 	if (!(flags(data)))
 		return (0);
 	if (data->precision != NULL && (ft_atoll(data->precision) < MAX_FIELD_WIDTH
-		&& ft_atoll(data->precision) > 0))
-			if (!(precision(data)))
-				return (0);
+		&& ft_atoll(data->precision) >= 0))
+		if (!(precision(data)))
+			return (0);
 	if (data->min_field_width != NULL)
 		if (!(min_field_width(data)))
 			return (0);

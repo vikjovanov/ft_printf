@@ -29,7 +29,8 @@ OBJ= $(subst .c,.o,$(SRCS))
 
 SRCS_CONVERT = convert_char.c convert_double.c convert_hexa.c convert_int.c \
 				convert_hexa_upper.c convert_octal.c convert_pointer.c \
-				convert_string.c convert_unsigned.c convert_percent.c
+				convert_string.c convert_unsigned.c convert_percent.c \
+				convert_binary.c 
 SRCS_CONVERT_DIR= $(addprefix srcs/convert/, $(SRCS_CONVERT))
 
 #OBJ
@@ -40,7 +41,7 @@ OBJ_CONVERT = $(subst .c,.o, $(SRCS_CONVERT))
 # SOURCES FLAGS FUNCTION
 
 SRCS_FLAGS = flags.c generic_flags.c min_field_width.c octal_flags.c \
-			 hexa_flags.c double_flags.c
+			 hexa_flags.c double_flags.c binary_flags.c binary_flags_ext.c
 
 SRCS_FLAGS_DIR= $(addprefix srcs/flags/, $(SRCS_FLAGS))
 
@@ -62,7 +63,7 @@ LIBFT_SRCS= ft_intset.c ft_strsub.c ft_strjoin.c ft_isdigit.c \
 			ft_strclen.c ft_strtoupper.c ft_toupper.c ft_strchr.c ft_strndup.c \
 			ft_atoll.c ft_putstr.c ft_putchar.c ft_dtoa/ft_dtoa_ext.c \
 			ft_ldtoa/ft_ldtoa_ext.c ft_strreplace.c ft_strdupwc.c \
-			ft_strremove.c
+			ft_strremove.c ft_lltoa_base.c ft_strcpy.c
 LIBFT_SRCS_DIR=$(addprefix libft/srcs/, $(LIBFT_SRCS))
 
 #OBJ

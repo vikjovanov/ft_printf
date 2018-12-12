@@ -19,7 +19,8 @@
 # define MAX_FIELD_WIDTH 2147483647
 # define NB_CONVERSION_FLAGS 7
 # define NB_FLAGS 5
-# define NB_IDENTIFIERS 11
+# define NB_IDENTIFIERS 12
+# define NB_COLORS 43
 
 typedef struct	s_data
 {
@@ -43,9 +44,16 @@ typedef struct	s_config
 	char		*value_type;
 }				t_config;
 
+typedef struct	s_color
+{
+	char		*name;
+	char		*code;
+}				t_color;
+
 int				ft_printf(const char *format, ...);
 
 int				formatting(const char *format, t_data *data, va_list ap);
+char 			*coloring(const char *format);
 
 char			*fill_conv_flags(char *s_fmt, int ret);
 char			*fill_precision(char *s_fmt, va_list ap, int ret);
@@ -63,6 +71,7 @@ int				is_min_field_width(const char *c);
 const t_config	*get_identifiers();
 const char		**get_flags();
 const char		**get_conversion_flags();
+const t_color	*get_colors(void);
 int				has_flag(char *flag, char **flags);
 void			set_data(t_data *data);
 void			free_data(t_data *data);
@@ -78,6 +87,7 @@ void			set_string(t_data *data, va_list ap);
 int				convert_char(t_data *data);
 int				convert_double(t_data *data);
 int				convert_hexa(t_data *data);
+int				convert_binary(t_data *data);
 int				convert_hexa_upper(t_data *data);
 int				convert_int(t_data *data);
 int				convert_octal(t_data *data);
@@ -96,5 +106,9 @@ int				octal_hashtag_flag(t_data *data, int flag_id);
 int				hexa_hashtag_flag(t_data *data, int flag_id);
 int				hexa_zero_flag(t_data *data, int flag_id);
 int				double_hashtag_flag(t_data *data, int flag_id);
+
+int				binary_hashtag_flag(t_data *data, int flag_id);
+void			convert_two_complement(t_data *data);
+long			set_size_binary(t_data *data);
 
 #endif

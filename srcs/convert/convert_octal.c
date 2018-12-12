@@ -12,16 +12,16 @@
 
 #include "ft_printf.h"
 
-static int	set_precision_len(int precision, char *tmp)
+static long	set_precision_len(long precision, char *tmp)
 {
-	if (precision <= ft_strclen(tmp, ' '))
+	if (precision <= (long)ft_strclen(tmp, ' '))
 		return (-1);
 	else
 	{
-		if (precision >= ft_strlen(tmp))
+		if (precision >= (long)ft_strlen(tmp))
 			return (precision);
 		else
-			return ((int)ft_strlen(tmp));
+			return ((long)ft_strlen(tmp));
 	}
 	return (0);
 }
@@ -39,13 +39,13 @@ static int	precision(t_data *data)
 	precision = (long)ft_atoll(data->precision);
 	if ((length = set_precision_len(precision, tmp)) < 0)
 		return (1);
-	if (!(data->value_format = ft_strnew(length)))
+	if (!(data->value_format = ft_strnew((size_t)length)))
 		return (0);
 	ft_memset(data->value_format, '0', (size_t)length);
 	if (length == precision)
 		ft_memcpy(&(data->value_format[precision - ft_strclen(tmp, ' ')]),
 			tmp, ft_strclen(tmp, ' '));
-	else if (length == ft_strlen(tmp))
+	else if (length == (long)ft_strlen(tmp))
 		ft_memcpy(&(data->value_format[precision - ft_strclen(tmp, ' ')]),
 			tmp, (length - precision) + ft_strclen(tmp, ' '));
 	return (1);

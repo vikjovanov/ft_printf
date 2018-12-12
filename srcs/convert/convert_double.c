@@ -28,15 +28,15 @@ static char	*ft_pow_ext(char *number, char *new_n, int report)
 	return (tmp);
 }
 
-static char	*ft_pow(char *number, int precision)
+static char	*ft_pow(char *number, long precision)
 {
 	char	*new_n;
 	long	n;
 	int		report;
 
 	report = 0;
-	new_n = ft_strremove(number, ft_strclen(number, '.'), 1);
-	n = ((ft_strclen(number, '.') + precision) - 1) + 1;
+	new_n = ft_strremove(number, (int)ft_strclen(number, '.'), 1);
+	n = (((long)ft_strclen(number, '.') + precision) - 1) + 1;
 	while (--n >= 0)
 		if (new_n[n + 1] >= '5' || report == 1)
 		{
@@ -71,17 +71,17 @@ static int	precision(t_data *data)
 		ft_atoll(data->precision) < 0)
 		return (1);
 	p = (long)ft_atoll(data->precision);
-	if (p < (int)ft_strlen(&(data->value[ft_strclen(data->value, '.') + 1])))
+	if (p < (long)ft_strlen(&(data->value[ft_strclen(data->value, '.') + 1])))
 		data->value = ft_pow(data->value, p);
-	if ((tmp = ft_strnew(p)) == NULL)
+	if ((tmp = ft_strnew((size_t)p)) == NULL)
 		return (0);
 	ft_memset(tmp, '0', p);
-	if (p > (int)ft_strlen(
+	if (p > (long)ft_strlen(
 		&(data->value[ft_strclen(data->value, '.') + 1])))
 		ft_memcpy(tmp, ft_strchr(data->value, '.') + 1,
 			ft_strlen(ft_strchr(data->value, '.') + 1));
 	else
-		ft_memcpy(tmp, ft_strchr(data->value, '.') + 1, p);
+		ft_memcpy(tmp, ft_strchr(data->value, '.') + 1, (size_t)p);
 	if ((temp = ft_strndup(data->value,
 		ft_strclen(data->value, '.') + 1)) == NULL)
 		return (0);

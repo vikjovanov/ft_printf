@@ -12,16 +12,16 @@
 
 #include "ft_printf.h"
 
-static int	set_precision_len(int precision, char *tmp)
+static long	set_precision_len(long precision, char *tmp)
 {
-	if (precision <= (int)ft_strclen(tmp, ' '))
+	if (precision <= (long)ft_strclen(tmp, ' '))
 		return (-3);
 	else
 	{
-		if (precision >= (int)ft_strlen(tmp))
+		if (precision >= (long)ft_strlen(tmp))
 			return (precision);
 		else
-			return ((int)ft_strlen(tmp));
+			return ((long)ft_strlen(tmp));
 	}
 	return (0);
 }
@@ -31,7 +31,7 @@ static int	precision(t_data *data)
 	char	*tmp;
 	long	prec;
 	long	length;
-	long	i;
+	int		i;
 
 	if (ft_atoll(data->precision) > MAX_FIELD_WIDTH ||
 		ft_atoll(data->precision) < 0)
@@ -41,7 +41,7 @@ static int	precision(t_data *data)
 	i = (ft_strnequ(tmp, "0x", 2)) ? 2 : 0;
 	if ((length = set_precision_len(prec, &(tmp[i])) + i) < 0)
 		return (1);
-	if (!(data->value_format = ft_strnew(length)))
+	if (!(data->value_format = ft_strnew((size_t)length)))
 		return (0);
 	ft_memset(data->value_format, '0', (size_t)length);
 	if (i == 2)
@@ -49,7 +49,7 @@ static int	precision(t_data *data)
 	if (length == prec + i)
 		ft_memcpy(&(data->value_format[prec + i - ft_strclen(&(tmp[i]), ' ')]),
 			&(tmp[i]), ft_strclen(&(tmp[i]), ' '));
-	else if (length == ft_strlen(tmp))
+	else if (length == (long)ft_strlen(tmp))
 		ft_memcpy(&(data->value_format[prec + i - ft_strclen(&(tmp[i]), ' ')]),
 			&(tmp[i]), ((length - prec) - i) + ft_strclen(&(tmp[i]), ' '));
 	return (1);

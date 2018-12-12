@@ -19,16 +19,16 @@ static int		char_min_field_width(t_data *data)
 	long	min_width;
 
 	min_width = (long)ft_atoll(data->min_field_width)
-		+ ((int)ft_strlen(data->value) - 1);
+		+ ((long)ft_strlen(data->value) - 1);
 	if (min_width > MAX_FIELD_WIDTH)
 		return (1);
-	length = (min_width < (int)ft_strlen(data->value_format)) ?
-		(int)ft_strlen(data->value_format) : min_width;
+	length = (min_width < (long)ft_strlen(data->value_format)) ?
+		(long)ft_strlen(data->value_format) : min_width;
 	tmp = data->value_format;
-	if (!(data->value_format = ft_strnew(length)))
+	if (!(data->value_format = ft_strnew((size_t)length)))
 		return (0);
-	ft_memset(data->value_format, ' ', length);
-	ft_memcpy(&(data->value_format[length - (int)ft_strlen(tmp)]),
+	ft_memset(data->value_format, ' ', (size_t)length);
+	ft_memcpy(&(data->value_format[length - (long)ft_strlen(tmp)]),
 		tmp, ft_strlen(tmp));
 	return (1);
 }
@@ -40,14 +40,14 @@ static int		char_minus_flag(t_data *data, int flag_id)
 	char	*tmp;
 
 	value = (long)ft_atoll(&(data->flags[flag_id][1]))
-	+ ((int)ft_strlen(data->value) - 1);
+	+ ((long)ft_strlen(data->value) - 1);
 	if (value == -1)
 		value = 0;
 	tmp = (data->value_format == NULL) ? data->value : data->value_format;
 	if (value < 0 || value > MAX_FIELD_WIDTH)
 		return (1);
-	if (value <= (int)ft_strlen(tmp))
-		length = (int)ft_strlen(tmp);
+	if (value <= (long)ft_strlen(tmp))
+		length = (long)ft_strlen(tmp);
 	else
 		length = value;
 	if ((data->value_format = (char*)malloc(sizeof(char)
