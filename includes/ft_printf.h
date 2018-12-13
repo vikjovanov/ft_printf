@@ -86,7 +86,6 @@ void			set_string(t_data *data, va_list ap);
 
 int				convert_char(t_data *data);
 int				convert_double(t_data *data);
-int				convert_double_scs(t_data *data);
 int				convert_hexa(t_data *data);
 int				convert_binary(t_data *data);
 int				convert_hexa_upper(t_data *data);

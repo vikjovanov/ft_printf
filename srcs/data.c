@@ -33,13 +33,16 @@ void			set_data(t_data *data)
 void			free_data(t_data *data)
 {
 	int i;
+	int size;
 
 	i = -1;
 	data->identifier = 0;
-	while (++i < ft_array_length((void**)data->flags))
+	size = ft_array_length((void**)data->flags);
+	while (++i < size)
 		ft_strdel(&(data->flags[i]));
 	i = -1;
-	while (++i < ft_array_length((void**)data->conversion_flags))
+	size = ft_array_length((void**)data->conversion_flags);
+	while (++i < size)
 		ft_strdel(&(data->conversion_flags[i]));
 	ft_strdel(&(data->precision));
 	ft_strdel(&(data->min_field_width));

@@ -88,8 +88,7 @@ static int	precision(t_data *data)
 			ft_strlen(ft_strchr(data->value, '.') + 1));
 	else
 		ft_memcpy(tmp, ft_strchr(data->value, '.') + 1, (size_t)p);
-	if ((temp = ft_strndup(data->value,
-		ft_strclen(data->value, '.') + 1)) == NULL)
+	if (!(temp = ft_strndup(data->value, ft_strclen(data->value, '.') + 1)))
 		return (0);
 	if ((data->value_format = ft_strjoin(temp, tmp)) == NULL)
 		return (0);
