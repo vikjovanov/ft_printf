@@ -78,21 +78,29 @@ INC_DIR_LIBFT= -Ilibft/includes -Ilibft/srcs/ft_dtoa/ -Ilibft/srcs/ft_ldtoa/
 GCC= gcc
 WFLAGS= -Wall -Werror -Wextra
 
+GCCBBLUE=\033[1;91m
+GCCPRESET=\033[0m
+
 all: $(NAME)
 
 $(NAME):
 	@make --no-print-directory -C libft/
 	@$(GCC) -c $(SRCS_DIR) $(SRCS_CONVERT_DIR) $(LIBFT_SRCS_DIR) $(SRCS_FLAGS_DIR) -I $(INC_DIR) $(INC_DIR_LIBFT)
+	@echo "Compilation des sources $(GCCBBLUE)<ft_printf>$(GCCPRESET)..."
 	@ar rc $(LIB_NAME) $(OBJ) $(LIBFT_OBJ_DIR) $(OBJ_CONVERT) $(OBJ_FLAGS)
+	@echo "Creation de la librairie $(GCCBBLUE)<ft_printf>$(GCCPRESET)..."
 	@ranlib $(LIB_NAME)
+	@echo "Indexation de la librairie $(GCCBBLUE)<ft_printf>$(GCCPRESET)..."
 
 clean:
 	@make --no-print-directory -C libft/ clean
 	@rm -Rf $(OBJ) $(LIBFT_OBJ) $(OBJ_CONVERT) $(OBJ_FLAGS)
+	@echo "Suppression des fichiers objet $(GCCBBLUE)<ft_printf>$(GCCPRESET)..."
 
 fclean: clean
 	@make --no-print-directory -C libft/ fclean	
 	@rm -Rf $(LIB_NAME)
+	@echo "Suppression de la librairie $(GCCBBLUE)<ft_printf>$(GCCPRESET)..."
 
 re: fclean all
 
