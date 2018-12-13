@@ -41,7 +41,7 @@ OBJ_CONVERT = $(subst .c,.o, $(SRCS_CONVERT))
 # SOURCES FLAGS FUNCTION
 
 SRCS_FLAGS = flags.c generic_flags.c min_field_width.c octal_flags.c \
-			 hexa_flags.c double_flags.c binary_flags.c binary_flags_ext.c
+			 hexa_flags.c binary_flags.c binary_flags_ext.c
 
 SRCS_FLAGS_DIR= $(addprefix srcs/flags/, $(SRCS_FLAGS))
 
@@ -85,7 +85,7 @@ all: $(NAME)
 
 $(NAME):
 	@make --no-print-directory -C libft/
-	@$(GCC) -c $(SRCS_DIR) $(SRCS_CONVERT_DIR) $(LIBFT_SRCS_DIR) $(SRCS_FLAGS_DIR) -I $(INC_DIR) $(INC_DIR_LIBFT)
+	@$(GCC) $(WFLAGS) -c $(SRCS_DIR) $(SRCS_CONVERT_DIR) $(LIBFT_SRCS_DIR) $(SRCS_FLAGS_DIR) -I $(INC_DIR) $(INC_DIR_LIBFT)
 	@echo "Compilation des sources $(GCCBBLUE)<ft_printf>$(GCCPRESET)..."
 	@ar rc $(LIB_NAME) $(OBJ) $(LIBFT_OBJ_DIR) $(OBJ_CONVERT) $(OBJ_FLAGS)
 	@echo "Creation de la librairie $(GCCBBLUE)<ft_printf>$(GCCPRESET)..."

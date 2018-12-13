@@ -35,7 +35,7 @@ static long	set_precision_size(t_data *data)
 
 	i = 3;
 	while (ft_exp(2, i) < ft_atoll(data->precision) ||
-		ft_exp(2, i) < ft_strlen(data->value_format))
+		ft_exp(2, i) < (long)ft_strlen(data->value_format))
 		i++;
 	ft_strdel(&(data->precision));
 	if ((data->precision = ft_strdup(ft_ltoa(ft_exp(2, i)))) == NULL)
@@ -49,7 +49,7 @@ static long	set_zero_size(t_data *data, int id)
 
 	i = 3;
 	while (ft_exp(2, i) < ft_atoll(&(data->flags[id][1])) ||
-		ft_exp(2, i) < ft_strlen(data->value_format))
+		ft_exp(2, i) < (long)ft_strlen(data->value_format))
 		i++;
 	ft_strdel(&(data->flags[id]));
 	if ((data->flags[id] = ft_strjoin("0", ft_ltoa(ft_exp(2, i)))) == NULL)
@@ -60,12 +60,11 @@ static long	set_zero_size(t_data *data, int id)
 long		set_size_binary(t_data *data)
 {
 	int		id;
-	long	size;
 	int		i;
 
 	i = 3;
 	if ((id = has_flag("0", data->flags)) < 0 && data->precision == NULL)
-		while (ft_exp(2, i) < ft_strlen(
+		while (ft_exp(2, i) < (long)ft_strlen(
 			&(data->value_format[(data->value_format[0] == '-') ? 1 : 0])))
 			i++;
 	else

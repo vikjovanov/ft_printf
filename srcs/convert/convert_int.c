@@ -60,10 +60,10 @@ static int	flags(t_data *data)
 	int id;
 
 	if ((id = has_flag(" ", data->flags)) >= 0)
-		if (!(generic_space_flag(data, id)))
+		if (!(generic_space_flag(data)))
 			return (0);
 	if ((id = has_flag("+", data->flags)) >= 0)
-		if (!(generic_plus_flag(data, id)))
+		if (!(generic_plus_flag(data)))
 			return (0);
 	if ((id = has_flag("-", data->flags)) >= 0)
 		if (!(generic_minus_flag(data, id)))

@@ -56,7 +56,7 @@ static int	flags(t_data *data)
 	int	id;
 
 	if ((id = has_flag("#", data->flags)) >= 0 && !ft_strequ(data->value, "0"))
-		if (!(octal_hashtag_flag(data, id)))
+		if (!(octal_hashtag_flag(data)))
 			return (0);
 	if ((id = has_flag("-", data->flags)) >= 0)
 		if (!(generic_minus_flag(data, id)))

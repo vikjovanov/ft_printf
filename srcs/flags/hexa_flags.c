@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int		hexa_hashtag_flag(t_data *data, int flag_id)
+int		hexa_hashtag_flag(t_data *data)
 {
 	char *tmp;
 

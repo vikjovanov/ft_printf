@@ -97,17 +97,17 @@ int				convert_unsigned(t_data *data);
 int				convert_percent(t_data *data);
 
 int				generic_minus_flag(t_data *data, int flag_id);
-int				generic_plus_flag(t_data *data, int flag_id);
+int				generic_plus_flag(t_data *data);
 int				generic_zero_flag(t_data *data, int flag_id);
-int				generic_space_flag(t_data *data, int flag_id);
+int				generic_space_flag(t_data *data);
 int				min_field_width(t_data *data);
 
-int				octal_hashtag_flag(t_data *data, int flag_id);
-int				hexa_hashtag_flag(t_data *data, int flag_id);
+int				octal_hashtag_flag(t_data *data);
+int				hexa_hashtag_flag(t_data *data);
 int				hexa_zero_flag(t_data *data, int flag_id);
 int				double_hashtag_flag(t_data *data, int flag_id);
 
-int				binary_hashtag_flag(t_data *data, int flag_id);
+int				binary_hashtag_flag(t_data *data);
 void			convert_two_complement(t_data *data);
 long			set_size_binary(t_data *data);
 

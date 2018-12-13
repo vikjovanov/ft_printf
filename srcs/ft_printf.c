@@ -124,6 +124,8 @@ int			ft_printf(const char *format, ...)
 	int		bytes;
 	int		ret;
 
+	if (format == NULL)
+		return (0);
 	i = -1;
 	bytes = 0;
 	ret = 0;

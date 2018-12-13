@@ -35,7 +35,7 @@ int		generic_minus_flag(t_data *data, int flag_id)
 	return (1);
 }
 
-int		generic_plus_flag(t_data *data, int flag_id)
+int		generic_plus_flag(t_data *data)
 {
 	char *tmp;
 
@@ -87,7 +87,7 @@ int		generic_zero_flag(t_data *data, int flag_id)
 	return (1);
 }
 
-int		generic_space_flag(t_data *data, int flag_id)
+int		generic_space_flag(t_data *data)
 {
 	char *tmp;
 

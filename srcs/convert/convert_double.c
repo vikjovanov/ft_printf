@@ -37,7 +37,7 @@ static char	*ft_pow_ext(char *number, char *new_n, int report)
 ** tab[0] = n
 ** tab[1] = report
 */
-
+#include <stdio.h>
 static char	*ft_pow(char *number, long precision)
 {
 	char	*new_n;
@@ -47,6 +47,8 @@ static char	*ft_pow(char *number, long precision)
 	if (!(new_n = ft_strremove(number, (int)ft_strclen(number, '.'), 1)))
 		return (NULL);
 	tab[0] = (((long)ft_strclen(number, '.') + precision) - 1) + 1;
+	//printf("tab[0] : %ld\n", tab[0]);
+	//printf("%s\n", number);
 	while (--tab[0] >= 0)
 		if (new_n[tab[0] + 1] >= '5' || tab[1] == 1)
 		{
@@ -81,6 +83,7 @@ static int	precision(t_data *data)
 		ft_atoll(data->precision) < 0)
 		return (1);
 	p = (long)ft_atoll(data->precision);
+	printf("data->value: %s\n", data->value);
 	if (p < (long)ft_strlen(&(data->value[ft_strclen(data->value, '.') + 1])))
 		if (!(data->value = ft_pow(data->value, p)))
 			return (0);
@@ -104,10 +107,10 @@ static int	flags(t_data *data)
 	int id;
 
 	if ((id = has_flag(" ", data->flags)) >= 0)
-		if (!(generic_space_flag(data, id)))
+		if (!(generic_space_flag(data)))
 			return (0);
 	if ((id = has_flag("+", data->flags)) >= 0)
-		if (!(generic_plus_flag(data, id)))
+		if (!(generic_plus_flag(data)))
 			return (0);
 	if ((id = has_flag("-", data->flags)) >= 0)
 		if (!(generic_minus_flag(data, id)))

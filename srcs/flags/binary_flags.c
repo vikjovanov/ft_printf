@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int			binary_hashtag_flag(t_data *data, int flag_id)
+int			binary_hashtag_flag(t_data *data)
 {
 	int		i;
 	char	*tmp;
