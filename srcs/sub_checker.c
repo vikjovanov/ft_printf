@@ -186,6 +186,7 @@ static char		*remove_flags(char *sub, int j)
 static char		*join_str(char *new_sub, const char *sub)
 {
 	char *tmp;
+
 	tmp = NULL;
 	if (!(tmp = ft_strjoin(new_sub, sub)))
 		return (NULL);
@@ -204,6 +205,7 @@ char			*check_sub(const char *sub)
 	int		tab[2];
 	char	*new_sub;
 	char	*tmp;
+
 	ft_intset(tab, 2, -1);
 	tmp = NULL;
 	if (!(new_sub = ft_strnew(ft_strlen(sub))))

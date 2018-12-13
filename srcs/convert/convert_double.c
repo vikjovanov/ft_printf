@@ -33,34 +33,38 @@ static char	*ft_pow_ext(char *number, char *new_n, int report)
 	return (tmp);
 }
 
+/*
+** tab[0] = n
+** tab[1] = report
+*/
+
 static char	*ft_pow(char *number, long precision)
 {
 	char	*new_n;
-	long	n;
-	int		report;
+	long	tab[2];
 
-	report = 0;
+	tab[1] = 0;
 	if (!(new_n = ft_strremove(number, (int)ft_strclen(number, '.'), 1)))
 		return (NULL);
-	n = (((long)ft_strclen(number, '.') + precision) - 1) + 1;
-	while (--n >= 0)
-		if (new_n[n + 1] >= '5' || report == 1)
+	tab[0] = (((long)ft_strclen(number, '.') + precision) - 1) + 1;
+	while (--tab[0] >= 0)
+		if (new_n[tab[0] + 1] >= '5' || tab[1] == 1)
 		{
-			if ((new_n[n] + 1) > '9' && (new_n[n] = '0') == '0')
-				report = 1;
+			if ((new_n[tab[0]] + 1) > '9' && (new_n[tab[0]] = '0') == '0')
+				tab[1] = 1;
 			else
 			{
-				new_n[n]++;
-				report = 0;
+				new_n[tab[0]]++;
+				tab[1] = 0;
 				break ;
 			}
 		}
 		else
 		{
-			report = 0;
+			tab[1] = 0;
 			break ;
 		}
-	return (ft_pow_ext(number, new_n, report));
+	return (ft_pow_ext(number, new_n, tab[1]));
 }
 
 /*

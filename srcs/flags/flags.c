@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int		has_flag(char *flag, char **flags)
+int				has_flag(char *flag, char **flags)
 {
 	int i;
 

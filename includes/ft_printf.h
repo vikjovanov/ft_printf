@@ -27,7 +27,7 @@ typedef struct	s_data
 	char		identifier;
 	char		*flags[NB_FLAGS + 1];
 	char		*conversion_flags[NB_CONVERSION_FLAGS + 1];
-	char 		*precision;
+	char		*precision;
 	char		*min_field_width;
 	char		*value_format;
 	char		*value;
@@ -53,7 +53,7 @@ typedef struct	s_color
 int				ft_printf(const char *format, ...);
 
 int				formatting(const char *format, t_data *data, va_list ap);
-char 			*coloring(const char *format);
+char			*coloring(const char *format);
 
 char			*fill_conv_flags(char *s_fmt, int ret);
 char			*fill_precision(char *s_fmt, va_list ap, int ret);
@@ -100,7 +100,7 @@ int				generic_minus_flag(t_data *data, int flag_id);
 int				generic_plus_flag(t_data *data, int flag_id);
 int				generic_zero_flag(t_data *data, int flag_id);
 int				generic_space_flag(t_data *data, int flag_id);
-int 			min_field_width(t_data *data);
+int				min_field_width(t_data *data);
 
 int				octal_hashtag_flag(t_data *data, int flag_id);
 int				hexa_hashtag_flag(t_data *data, int flag_id);

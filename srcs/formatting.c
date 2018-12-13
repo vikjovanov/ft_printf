@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int	formatting(const char *format, t_data *data, va_list ap)
+int		formatting(const char *format, t_data *data, va_list ap)
 {
 	int		i;
 	char	*sub;
@@ -39,7 +39,7 @@ int	formatting(const char *format, t_data *data, va_list ap)
 	return (1);
 }
 
-char *coloring(const char *format)
+char	*coloring(const char *format)
 {
 	int i;
 	int j;

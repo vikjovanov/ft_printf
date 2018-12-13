@@ -14,9 +14,9 @@
 
 int			binary_hashtag_flag(t_data *data, int flag_id)
 {
-	int i;
-	char *tmp;
-	long size;
+	int		i;
+	char	*tmp;
+	long	size;
 
 	if ((size = set_size_binary(data)) == 0)
 		return (0);
