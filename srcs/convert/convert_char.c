@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../../includes/ft_printf.h"
 
 static int		char_min_field_width(t_data *data)
 {
@@ -30,7 +30,7 @@ static int		char_min_field_width(t_data *data)
 	ft_memset(data->value_format, ' ', (size_t)length);
 	ft_memcpy(&(data->value_format[length - (long)ft_strlen(tmp)]),
 		tmp, ft_strlen(tmp));
-	return (1);
+	return (del_tab(tmp));
 }
 
 static int		char_minus_flag(t_data *data, int flag_id)
@@ -43,20 +43,21 @@ static int		char_minus_flag(t_data *data, int flag_id)
 	+ ((long)ft_strlen(data->value) - 1);
 	if (value == -1)
 		value = 0;
-	tmp = (data->value_format == NULL) ? data->value : data->value_format;
+	if (!(tmp = (data->value_format == NULL) ?
+		ft_strdup(data->value) : ft_strdup(data->value_format)))
+		return (0);
 	if (value < 0 || value > MAX_FIELD_WIDTH)
 		return (1);
 	if (value <= (long)ft_strlen(tmp))
 		length = (long)ft_strlen(tmp);
 	else
 		length = value;
-	if ((data->value_format = (char*)malloc(sizeof(char)
-		* (length + 1))) == NULL)
-		return (0);
-	data->value_format[length] = '\0';
+	ft_strdel(&(data->value_format));
+	if (!(data->value_format = ft_strnew(length)))
+		return (!del_tab(tmp));
 	ft_memset(data->value_format, 32, (size_t)length);
 	ft_memcpy(data->value_format, tmp, ft_strlen(tmp));
-	return (1);
+	return (del_tab(tmp));
 }
 
 static int		flags(t_data *data)

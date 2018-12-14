@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../../includes/ft_printf.h"
 
 int		octal_hashtag_flag(t_data *data)
 {
@@ -20,6 +20,8 @@ int		octal_hashtag_flag(t_data *data)
 	if ((tmp = ft_strjoin("0", data->value_format)) == NULL)
 		return (0);
 	ft_strdel(&(data->value_format));
-	data->value_format = tmp;
+	if (!(data->value_format = ft_strdup(tmp)))
+		return (!del_tab(tmp));
+	ft_strdel(&tmp);
 	return (1);
 }

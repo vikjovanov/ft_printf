@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../../includes/ft_printf.h"
 
 static long	set_precision_len(long precision, char *tmp)
 {
@@ -48,6 +48,7 @@ static int	precision(t_data *data)
 	else if (length == (long)ft_strlen(tmp))
 		ft_memcpy(&(data->value_format[precision - ft_strclen(tmp, ' ')]),
 			tmp, (length - precision) + ft_strclen(tmp, ' '));
+	ft_strdel(&tmp);
 	return (1);
 }
 
@@ -75,7 +76,8 @@ int			convert_octal(t_data *data)
 	char	*nb;
 	char	*tmp;
 
-	nb = ft_ulltoa_base(ft_atoull(data->value), 8);
+	if (!(nb = ft_ulltoa_base(ft_atoull(data->value), 8)))
+		return (0);
 	data->value_format = nb;
 	tmp = NULL;
 	if (data->precision != NULL && ft_strequ(data->precision, "0")

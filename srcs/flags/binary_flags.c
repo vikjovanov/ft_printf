@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../../includes/ft_printf.h"
 
 int			binary_hashtag_flag(t_data *data)
 {
@@ -27,9 +27,13 @@ int			binary_hashtag_flag(t_data *data)
 	ft_strcpy(&(tmp[size - ft_strlen(&(data->value_format[i]))]),
 		&(data->value_format[i]));
 	ft_strdel(&data->value_format);
-	data->value_format = tmp;
+	if (!(data->value_format = ft_strdup(tmp)))
+	{
+		ft_strdel(&tmp);
+		return (0);
+	}
 	if (ft_atoll(data->value) >= 0)
 		return (1);
 	convert_two_complement(data);
-	return (1);
+	return (del_tab(tmp));
 }

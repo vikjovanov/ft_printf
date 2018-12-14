@@ -10,34 +10,42 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../../includes/ft_printf.h"
 
 static char	*ft_pow_ext(char *number, char *new_n, int report)
 {
 	char	*tmp;
 	char	*tmp2;
+	char	*tmp3;
 
 	tmp = (report == 1) ? ft_strjoin("1", new_n) : ft_strdup(new_n);
 	if (tmp == NULL)
 		return (NULL);
-	if (!(tmp2 = ft_strjoin(
-		ft_strndup(tmp, ft_strclen(number, '.') + report), ".")))
-		return (NULL);
+	tmp3 = ft_strndup(tmp, ft_strclen(number, '.') + report);
+	tmp2 = ft_strjoin(tmp3, ".");
 	ft_strdel(&tmp);
-	if (!(tmp = ft_strjoin(tmp2, ft_strndup(&(new_n[ft_strclen(number, '.')]),
-		ft_strlen(&(new_n[ft_strclen(number, '.')]))))))
+	ft_strdel(&tmp3);
+	if (tmp2 == NULL)
+	{
+		ft_strdel(&number);
+		ft_strdel(&new_n);
 		return (NULL);
+	}
+	tmp3 = ft_strndup(&(new_n[ft_strclen(number, '.')]),
+		ft_strlen(&(new_n[ft_strclen(number, '.')])));
+	tmp = ft_strjoin(tmp2, tmp3);
+	ft_strdel(&tmp3);
 	ft_strdel(&new_n);
 	ft_strdel(&number);
 	ft_strdel(&tmp2);
-	return (tmp);
+	return (tmp == NULL ? NULL : tmp);
 }
 
 /*
 ** tab[0] = n
 ** tab[1] = report
 */
-#include <stdio.h>
+
 static char	*ft_pow(char *number, long precision)
 {
 	char	*new_n;
@@ -47,8 +55,6 @@ static char	*ft_pow(char *number, long precision)
 	if (!(new_n = ft_strremove(number, (int)ft_strclen(number, '.'), 1)))
 		return (NULL);
 	tab[0] = (((long)ft_strclen(number, '.') + precision) - 1) + 1;
-	//printf("tab[0] : %ld\n", tab[0]);
-	//printf("%s\n", number);
 	while (--tab[0] >= 0)
 		if (new_n[tab[0] + 1] >= '5' || tab[1] == 1)
 		{
@@ -83,7 +89,6 @@ static int	precision(t_data *data)
 		ft_atoll(data->precision) < 0)
 		return (1);
 	p = (long)ft_atoll(data->precision);
-	printf("data->value: %s\n", data->value);
 	if (p < (long)ft_strlen(&(data->value[ft_strclen(data->value, '.') + 1])))
 		if (!(data->value = ft_pow(data->value, p)))
 			return (0);
@@ -99,7 +104,8 @@ static int	precision(t_data *data)
 		return (0);
 	if ((data->value_format = ft_strjoin(temp, tmp)) == NULL)
 		return (0);
-	return (1);
+	ft_strdel(&tmp);
+	return (del_tab(temp));
 }
 
 static int	flags(t_data *data)

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../../includes/ft_printf.h"
 
 static int	flags(t_data *data)
 {
@@ -26,8 +26,14 @@ int			convert_pointer(t_data *data)
 {
 	char *nb;
 
-	nb = ft_ulltoa_base(ft_atoull(data->value), 16);
-	data->value_format = ft_strjoin("0x", nb);
+	if (!(nb = ft_ulltoa_base(ft_atoull(data->value), 16)))
+		return (0);
+	if (!(data->value_format = ft_strjoin("0x", nb)))
+	{
+		ft_strdel(&nb);
+		return (0);
+	}
+	ft_strdel(&nb);
 	if (!(flags(data)))
 		return (0);
 	if (data->min_field_width != NULL)

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../../includes/ft_printf.h"
 
 static long	set_precision_len(long precision, char *tmp)
 {
@@ -52,7 +52,7 @@ static int	precision(t_data *data)
 	else if (length == (long)ft_strlen(tmp))
 		ft_memcpy(&(data->value_format[prec + i - ft_strclen(&(tmp[i]), ' ')]),
 			&(tmp[i]), ((length - prec) - i) + ft_strclen(&(tmp[i]), ' '));
-	return (1);
+	return (del_tab(tmp));
 }
 
 static int	flags(t_data *data)
@@ -86,8 +86,11 @@ int			convert_binary(t_data *data)
 {
 	char *nb;
 
-	nb = ft_lltoa_base(ft_atoll(data->value), 2);
-	data->value_format = nb;
+	if (!(nb = ft_lltoa_base(ft_atoll(data->value), 2)))
+		return (0);
+	if (!(data->value_format = ft_strdup(nb)))
+		return (!del_tab(nb));
+	ft_strdel(&nb);
 	if (!(flags(data)))
 		return (0);
 	if (data->precision != NULL && has_flag("#", data->flags) < 0)

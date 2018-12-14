@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 /*
 ** ====================
@@ -154,33 +154,37 @@ static int		find_last_index(char *sub, int j)
 	return (index);
 }
 
+/*
+** tab[0] = i
+** tab[1] = ret
+*/
+
 static char		*remove_flags(char *sub, int j)
 {
-	int		ret;
-	int		i;
+	int		tab[2];
 	char	*tmp;
 
-	i = 0;
-	ret = 0;
+	ft_intset(tab, 2, 0);
 	tmp = NULL;
-	while (sub[i] && !is_identifier(sub[i]))
-		if (sub[i] == get_flags()[j][0])
+	while (sub[tab[0]] && !is_identifier(sub[tab[0]]))
+		if (sub[tab[0]] == get_flags()[j][0])
 		{
-			ret = is_flag(&(sub[i]));
+			tab[1] = is_flag(&(sub[tab[0]]));
 			tmp = (char*)sub;
-			sub = ft_strremove(tmp, i, ret);
+			if (!(sub = ft_strremove(tmp, tab[0], tab[1])))
+				return (NULL);
 			ft_strdel(&tmp);
+			if (sub == NULL)
+				return (NULL);
 		}
-		else if ((ret = is_flag(&(sub[i]))) != 0 ||
-			(ret = is_precision(&(sub[i]))) != -1 ||
-			(ret = is_conversion_flag(&(sub[i]))) != 0 ||
-			(ret = is_min_field_width(&(sub[i]))) != 0)
-			i += ret;
+		else if ((tab[1] = is_flag(&(sub[tab[0]]))) != 0 ||
+			(tab[1] = is_precision(&(sub[tab[0]]))) != -1 ||
+			(tab[1] = is_conversion_flag(&(sub[tab[0]]))) != 0 ||
+			(tab[1] = is_min_field_width(&(sub[tab[0]]))) != 0)
+			tab[0] += tab[1];
 		else
-			i++;
-	if (get_flags()[j][0] == '-')
-		return (remove_flags(sub, j + 1));
-	return (sub);
+			tab[0]++;
+	return ((get_flags()[j][0] == '-') ? remove_flags(sub, j + 1) : sub);
 }
 
 static char		*join_str(char *new_sub, const char *sub)
@@ -188,37 +192,42 @@ static char		*join_str(char *new_sub, const char *sub)
 	char *tmp;
 
 	tmp = NULL;
-	if (!(tmp = ft_strjoin(new_sub, sub)))
-		return (NULL);
+	tmp = ft_strjoin(new_sub, sub);
 	ft_strdel((char**)&sub);
 	ft_strdel(&new_sub);
+	if (tmp == NULL)
+		return (NULL);
 	return (tmp);
 }
 
 /*
 ** tab[0] = j
 ** tab[1] = index
+**
+** tmp[0] = tmp
+** tmp[1] = tmp2
+** tmp[2] = new_sub
 */
 
 char			*check_sub(const char *sub)
 {
 	int		tab[2];
-	char	*new_sub;
-	char	*tmp;
+	char	*tmp[3];
 
 	ft_intset(tab, 2, -1);
-	tmp = NULL;
-	if (!(new_sub = ft_strnew(ft_strlen(sub))))
+	ft_initarray(tmp, 3);
+	if (!(tmp[2] = ft_strnew(ft_strlen(sub))))
 		return (NULL);
 	while (++tab[0] < NB_FLAGS)
 	{
 		if ((tab[1] = find_last_index((char*)sub, tab[0])) != -1)
 		{
-			tmp = new_sub;
-			new_sub = ft_strjoin(tmp, ft_strndup(&(sub[tab[1]]),
-				is_flag(&(sub[tab[1]]))));
-			ft_strdel(&tmp);
-			if (new_sub == NULL)
+			tmp[0] = tmp[2];
+			tmp[1] = ft_strndup(&(sub[tab[1]]), is_flag(&(sub[tab[1]])));
+			tmp[2] = ft_strjoin(tmp[0], tmp[1]);
+			ft_strdel(&(tmp[0]));
+			ft_strdel(&(tmp[1]));
+			if (tmp[2] == NULL)
 				return (NULL);
 		}
 		else
@@ -226,5 +235,5 @@ char			*check_sub(const char *sub)
 		if (!(sub = remove_flags((char*)sub, tab[0])))
 			return (NULL);
 	}
-	return (join_str(new_sub, sub));
+	return (join_str(tmp[2], sub));
 }

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../../includes/ft_printf.h"
 
 static int	flags(t_data *data)
 {
@@ -23,6 +23,19 @@ static int	flags(t_data *data)
 		if ((data->value_format = ft_strdup(data->value)) == NULL)
 			return (0);
 	return (1);
+}
+
+static int	ft_stringjoin(char *tmp, t_data *data, long length, long precision)
+{
+	ft_memset(tmp, ' ', (size_t)length);
+	ft_strncpy(tmp, data->value, (size_t)precision);
+	free(data->value_format);
+	if (!(data->value_format = ft_strdup(tmp)))
+	{
+		ft_strdel(&tmp);
+		return (0);
+	}
+	return (del_tab(tmp));
 }
 
 static int	precision(t_data *data)
@@ -47,11 +60,9 @@ static int	precision(t_data *data)
 		tmp = ft_strnew((size_t)precision);
 		length = precision;
 	}
-	ft_memset(tmp, ' ', (size_t)length);
-	ft_strncpy(tmp, data->value, (size_t)precision);
-	free(data->value_format);
-	data->value_format = tmp;
-	return (1);
+	if (tmp == NULL)
+		return (0);
+	return (ft_stringjoin(tmp, data, length, precision));
 }
 
 int			convert_string(t_data *data)

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../../includes/ft_printf.h"
 
 static long	set_precision_len(long precision, char *tmp)
 {
@@ -48,7 +48,7 @@ static int	precision(t_data *data)
 	else if (length == (long)ft_strlen(tmp))
 		ft_memcpy(&(data->value_format[precision - ft_strclen(tmp, ' ')]),
 			tmp, (length - precision) + ft_strclen(tmp, ' '));
-	return (1);
+	return (del_tab(tmp));
 }
 
 static int	flags(t_data *data)

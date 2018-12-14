@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../../includes/ft_printf.h"
 
 int		hexa_hashtag_flag(t_data *data)
 {
@@ -20,7 +20,9 @@ int		hexa_hashtag_flag(t_data *data)
 	if ((tmp = ft_strjoin("0x", data->value_format)) == NULL)
 		return (0);
 	ft_strdel(&(data->value_format));
-	data->value_format = tmp;
+	if (!(data->value_format = ft_strdup(tmp)))
+		return (!del_tab(tmp));
+	ft_strdel(&tmp);
 	return (1);
 }
 
@@ -36,14 +38,12 @@ int		hexa_zero_flag(t_data *data, int flag_id)
 	value = (long)ft_atoll(data->flags[flag_id]);
 	length = (value <= (int)ft_strlen(tmp)) ?
 		(int)ft_strlen(tmp) + i : value + i;
-	if ((data->value_format =
-		(char*)malloc(sizeof(char) * (length + 1))) == NULL)
-		return (0);
-	data->value_format[length] = '\0';
+	if (!(data->value_format = ft_strnew(length)))
+		return (!del_tab(tmp));
 	ft_memset(data->value_format, '0', (size_t)length);
 	if (i == 2)
 		ft_strncpy(data->value_format, "0x", 2);
 	ft_memcpy(&(data->value_format[length - (int)ft_strlen(tmp)]),
 		&(tmp[i]), ft_strlen(tmp));
-	return (1);
+	return (del_tab(tmp));
 }

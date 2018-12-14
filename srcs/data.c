@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 void			set_data(t_data *data)
 {
@@ -26,6 +26,7 @@ void			set_data(t_data *data)
 	data->precision = NULL;
 	data->min_field_width = NULL;
 	data->s_fmt_new = NULL;
+	data->s_fmt_orig = NULL;
 	data->value_format = NULL;
 	data->value = NULL;
 }
@@ -47,6 +48,7 @@ void			free_data(t_data *data)
 	ft_strdel(&(data->precision));
 	ft_strdel(&(data->min_field_width));
 	ft_strdel(&(data->s_fmt_new));
+	ft_strdel(&(data->s_fmt_orig));
 	ft_strdel(&(data->value_format));
 	ft_strdel(&(data->value));
 }

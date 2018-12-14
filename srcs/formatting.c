@@ -10,7 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
+
+int		del_tab(char *tmp)
+{
+	ft_strdel(&tmp);
+	return (1);
+}
 
 int		formatting(const char *format, t_data *data, va_list ap)
 {
@@ -24,11 +30,12 @@ int		formatting(const char *format, t_data *data, va_list ap)
 		i++;
 	if ((sub = ft_strsub(format, 1, i)) == NULL ||
 		(data->s_fmt_orig = ft_strjoin("%", sub)) == NULL)
-		return (0);
+		return (!del_tab(sub));
 	if (format[i] != '\0' && (tmp = check_sub((const char*)sub)) != NULL)
 	{
 		if ((data->s_fmt_new = ft_strjoin("%", tmp)) == NULL)
 			return (0);
+		ft_strdel(&tmp);
 		if (!(check_new_sub(data->s_fmt_new)))
 			return (0);
 		if (!(fill_data(data, ap)))

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../../includes/ft_printf.h"
 
 int		min_field_width(t_data *data)
 {
@@ -29,5 +29,5 @@ int		min_field_width(t_data *data)
 	ft_memset(data->value_format, ' ', length);
 	ft_memcpy(&(data->value_format[length - (int)ft_strlen(tmp)]),
 		tmp, ft_strlen(tmp));
-	return (1);
+	return (del_tab(tmp));
 }

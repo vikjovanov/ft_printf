@@ -59,6 +59,7 @@ char			*fill_conv_flags(char *s_fmt, int ret);
 char			*fill_precision(char *s_fmt, va_list ap, int ret);
 char			*fill_field_width(char *s_fmt, va_list ap, int ret);
 char			*fill_flags(char *s_fmt, va_list ap, int ret);
+int				del_tab(char *tmp);
 int				fill_data(t_data *data, va_list ap);
 char			fill_id(char *s_fmt);
 int				is_acceptable_flag(char identifier, char flag);
