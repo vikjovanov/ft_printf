@@ -6,7 +6,7 @@
 /*   By: vjovanov <vjovanov@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 22:05:40 by bjovanov          #+#    #+#             */
-/*   Updated: 2018/11/21 22:56:01 by vjovanov         ###   ########.fr       */
+/*   Updated: 2018/12/17 19:45:10 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void			set_data(t_data *data)
 		data->conversion_flags[i] = NULL;
 	data->precision = NULL;
 	data->min_field_width = NULL;
-	data->s_fmt_new = NULL;
-	data->s_fmt_orig = NULL;
+//	data->s_fmt_new = NULL;
+//	data->s_fmt_orig = NULL;
 	data->value_format = NULL;
 	data->value = NULL;
 }
