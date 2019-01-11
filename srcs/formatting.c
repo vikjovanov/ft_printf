@@ -6,7 +6,7 @@
 /*   By: vjovanov <vjovanov@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 20:15:49 by vjovanov          #+#    #+#             */
-/*   Updated: 2018/12/11 20:15:50 by vjovanov         ###   ########.fr       */
+/*   Updated: 2019/01/11 10:58:01 by vjovanov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,9 @@ int		formatting(const char *format, t_data *data, va_list ap)
 		if (!(fill_data(data, ap)))
 			return (0);
 	}
-	else
-		data->value_format = data->s_fmt_orig;
+	else if (del_tab(sub) &&
+		!(data->value_format = ft_strdup(data->s_fmt_orig)))
+		return (0);
 	return (1);
 }
 
