@@ -23,7 +23,7 @@ void	set_int(t_data *data, va_list ap)
 		else if (ft_strequ(data->conversion_flags[0], "l"))
 			data->value = ft_ltoa(va_arg(ap, long));
 		else if (ft_strequ(data->conversion_flags[0], "j"))
-			data->value = ft_ltoa(va_arg(ap, long));
+			data->value = ft_lltoa(va_arg(ap, long long));
 		else if (ft_strequ(data->conversion_flags[0], "z"))
 			data->value = ft_ltoa(va_arg(ap, long));
 		else if (ft_strequ(data->conversion_flags[0], "ll"))
@@ -46,7 +46,7 @@ void	set_unsigned_int(t_data *data, va_list ap)
 		else if (ft_strequ(data->conversion_flags[0], "z"))
 			data->value = ft_ultoa((long long)va_arg(ap, unsigned long));
 		else if (ft_strequ(data->conversion_flags[0], "j"))
-			data->value = ft_ultoa(va_arg(ap, unsigned long));
+			data->value = ft_ulltoa(va_arg(ap, unsigned long long));
 		else if (ft_strequ(data->conversion_flags[0], "ll"))
 			data->value = ft_ulltoa(va_arg(ap, unsigned long long));
 	}

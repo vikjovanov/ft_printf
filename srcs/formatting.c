@@ -18,6 +18,12 @@ int		del_tab(char *tmp)
 	return (1);
 }
 
+char	*del_tab_null(char *tmp)
+{
+	ft_strdel(&tmp);
+	return (NULL);
+}
+
 int		formatting(const char *format, t_data *data, va_list ap)
 {
 	int		i;
@@ -29,7 +35,7 @@ int		formatting(const char *format, t_data *data, va_list ap)
 	while (!is_identifier(format[i]) && format[i])
 		i++;
 	if ((sub = ft_strsub(format, 1, i)) == NULL ||
-		(data->s_fmt_orig = ft_strjoin("%", sub)) == NULL)
+		(data->s_fmt_orig = ft_strdup(sub)) == NULL)
 		return (!del_tab(sub));
 	if (format[i] != '\0' && (tmp = check_sub((const char*)sub)) != NULL)
 	{

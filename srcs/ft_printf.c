@@ -62,7 +62,7 @@ static int	print_result(t_data *data)
 	else
 		ft_putstr(data->value_format);
 	return (data->identifier == 'c' && data->value[0] == 0 ? i :
-		(int) ft_strlen(data->value_format));
+		(int)ft_strlen(data->value_format));
 }
 
 int			read_percent(const char *format, va_list ap, t_data *data, int *i)
@@ -76,7 +76,7 @@ int			read_percent(const char *format, va_list ap, t_data *data, int *i)
 		return (-1);
 	}
 	bytes = print_result(data);
-	*i += (int)ft_strlen(data->s_fmt_orig) - 1;
+	*i += (int)ft_strlen(data->s_fmt_orig);
 	free_data(data);
 	return (bytes);
 }
